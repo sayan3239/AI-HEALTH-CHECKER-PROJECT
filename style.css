@@ -4210,10 +4210,20 @@ body.light-theme .p-input {
 .biosensor-modal-card {
   max-width: 480px !important;
   width: 92% !important;
+  max-height: 90vh !important;
+  display: flex !important;
+  flex-direction: column !important;
   background: var(--bg-card) !important;
   border: 1px solid rgba(6, 182, 212, 0.4) !important;
   box-shadow: 0 0 35px rgba(6, 182, 212, 0.25) !important;
   border-radius: var(--radius-lg) !important;
+  overflow: hidden !important;
+}
+
+.biosensor-modal-card .modal-body {
+  overflow-y: auto !important;
+  max-height: calc(90vh - 70px) !important;
+  -webkit-overflow-scrolling: touch !important;
 }
 
 .biosensor-icon-wrapper {
