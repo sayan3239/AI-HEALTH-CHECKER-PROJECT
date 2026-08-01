@@ -2766,6 +2766,9 @@ function toggleAIChatModal() {
   }
 }
 
+window.toggleAIChatModal = toggleAIChatModal;
+window.openFloatingChatModal = toggleAIChatModal;
+
 function handleChatKeyPress(event) {
   if (event.key === 'Enter' && !event.shiftKey) {
     event.preventDefault();
