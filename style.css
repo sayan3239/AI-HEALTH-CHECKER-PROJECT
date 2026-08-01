@@ -478,10 +478,9 @@ body.light-theme .brand-img-logo {
   position: absolute;
   top: calc(100% + 0.6rem);
   right: 0;
-  width: 280px;
-  max-height: 85vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  width: 290px;
+  max-height: none;
+  overflow: visible;
   background: rgba(15, 23, 42, 0.98);
   border: 1px solid rgba(6, 182, 212, 0.4);
   border-radius: var(--radius-md);
@@ -5175,7 +5174,9 @@ body.light-theme .report-dropzone {
   position: absolute;
   top: calc(100% + 0.6rem);
   right: 0;
-  width: 220px;
+  width: 240px;
+  max-height: none;
+  overflow: visible;
   background: rgba(15, 23, 42, 0.96);
   border: 1px solid rgba(6, 182, 212, 0.35);
   border-radius: var(--radius-md);
@@ -5183,7 +5184,7 @@ body.light-theme .report-dropzone {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(6, 182, 212, 0.2);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  z-index: 1000;
+  z-index: 99999;
   animation: fadeInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
