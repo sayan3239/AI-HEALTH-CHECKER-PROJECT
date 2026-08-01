@@ -12,7 +12,7 @@ from flask import Flask, send_from_directory, request, jsonify
 
 # Optional CORS Support
 try:
-    from flask_cors import CORS
+    from flask_cors import CORS  # type: ignore
     HAS_CORS = True
 except ImportError:
     CORS = None
@@ -20,8 +20,8 @@ except ImportError:
 
 # Optional Firebase Admin SDK Support
 try:
-    import firebase_admin
-    from firebase_admin import credentials, auth as firebase_auth
+    import firebase_admin  # type: ignore
+    from firebase_admin import credentials, auth as firebase_auth  # type: ignore
     
     service_account_path = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY')
     if service_account_path and os.path.exists(service_account_path):
