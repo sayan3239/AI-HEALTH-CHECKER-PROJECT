@@ -4083,11 +4083,10 @@ body.light-theme .p-input {
   }
 
   .nav-actions {
-    width: 100%;
-    justify-content: space-between;
-    overflow-x: auto;
-    padding-bottom: 0.2rem;
-    -webkit-overflow-scrolling: touch;
+    width: auto;
+    justify-content: flex-end;
+    overflow: visible !important;
+    padding-bottom: 0;
   }
 
   .nav-actions .btn {
