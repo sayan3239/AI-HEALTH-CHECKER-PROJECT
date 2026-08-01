@@ -5222,6 +5222,150 @@ body.light-theme .report-dropzone {
   color: #ef4444;
 }
 
+/* ==========================================================================
+   Comprehensive Mobile Phone Responsiveness & Touch Viewport Protection
+   ========================================================================== */
+
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Container & Section Responsive Fixes */
+.container,
+.main-layout,
+.hero-section,
+.tools-grid,
+.hospital-finder-section,
+.glass-card,
+.modal-body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden;
+  word-break: break-word;
+}
+
+/* Mobile Screen Breakpoint Adjustments (Smartphones & Small Displays) */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Grid Layout Fallbacks for Small Displays */
+  .main-layout,
+  .tools-grid,
+  .hospital-cards-grid,
+  .calc-input-group,
+  .hero-stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* All Modals Centered & Scrollable on Mobile */
+  .modal-container,
+  .prescription-modal-container,
+  .auth-modal-container,
+  .voice-modal-container,
+  .chat-modal-container {
+    width: 95% !important;
+    max-width: 95% !important;
+    margin: 1rem auto !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    padding: 1rem !important;
+  }
+
+  /* Prescription Document Responsive Scaling */
+  .prescription-paper {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.8rem !important;
+    overflow-x: auto;
+  }
+
+  /* Header & Navigation Bar Mobile Adjustments */
+  .navbar .nav-container {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .brand-logo {
+    font-size: 1.1rem !important;
+  }
+
+  .brand-img-logo {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  /* Filter Tabs & Horizontal Buttons Scrollable */
+  .facility-filter-tabs,
+  .chat-quick-prompts,
+  div[style*="display: flex"][style*="gap"] {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Buttons & Input Controls Full Width */
+  .btn,
+  .form-input,
+  .search-input,
+  .search-mic-btn {
+    max-width: 100%;
+  }
+
+  /* Chat Modal Mobile Positioning */
+  #ai-chat-modal {
+    width: 95vw !important;
+    max-width: 450px !important;
+    right: 2.5vw !important;
+    bottom: 2.5vh !important;
+    height: 85vh !important;
+  }
+
+  /* Body Region Selection Pills Mobile Wrapping */
+  .body-region-selector {
+    flex-wrap: wrap !important;
+    gap: 0.4rem !important;
+  }
+
+  .region-chip {
+    flex: 1 1 calc(50% - 0.4rem) !important;
+    text-align: center;
+    font-size: 0.82rem !important;
+    padding: 0.5rem 0.4rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .region-chip {
+    flex: 1 1 100% !important;
+  }
+
+  .hero-title {
+    font-size: 1.6rem !important;
+  }
+
+  .section-title, .section-title-center {
+    font-size: 1.3rem !important;
+  }
+}
+
 
 
 
