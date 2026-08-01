@@ -63,55 +63,57 @@
                 <button class="toggle-option" id="lang-hi" onclick="setLanguage('hi')" style="flex: 1; text-align: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 16px;">हिंदी</button>
               </div>
             </div>
-            <button class="nav-dropdown-item" onclick="openVoiceAnalyzerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-lungs" style="color: #ec4899; width: 20px;"></i>
-              <span data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openHealthHistoryModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-chart-line" style="color: #3b82f6; width: 20px;"></i>
-              <span data-i18n="navHealthHistory">Health History Journal</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openMedicineReminderModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-bell" style="color: #f59e0b; width: 20px;"></i>
-              <span data-i18n="navMedReminder">Smart Medicine Reminder</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openFoodScannerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-utensils" style="color: #10b981; width: 20px;"></i>
-              <span data-i18n="navFoodScanner">AI Food & Nutrition Scanner</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openSkinDetectorModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-camera" style="color: #ec4899; width: 20px;"></i>
-              <span data-i18n="navSkinDetector">Skin Disease Detection</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openReportAnalyzerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-file-medical" style="color: #f59e0b; width: 20px;"></i>
-              <span data-i18n="navReportAnalyzer">AI Medical Report Analyzer</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openBioSensorModal(event); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-heart-pulse" style="color: #f43f5e; width: 20px;"></i>
-              <span data-i18n="navBioSensor">Pulse Rate & Heart Beat Scanner</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openFeatureModal('fever'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-temperature-full" style="color: #ef4444; width: 20px;"></i>
-              <span data-i18n="navFeverDB">35+ Clinical Fever DB</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openFeatureModal('hospitals'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-hospital-user" style="color: #10b981; width: 20px;"></i>
-              <span data-i18n="navHospitals">Nearby Hospitals & GPS</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openFeatureModal('calculators'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-calculator" style="color: #06b6d4; width: 20px;"></i>
-              <span data-i18n="navCalculators">Health Calculators</span>
-            </button>
-            <div class="dropdown-divider"></div>
-            <button class="nav-dropdown-item" onclick="openFeatureModal('triage'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-stethoscope" style="color: #3b82f6; width: 20px;"></i>
-              <span>AI Symptom Triage</span>
-            </button>
-            <button class="nav-dropdown-item" onclick="openFloatingChatModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-              <i class="fa-solid fa-user-doctor" style="color: #8b5cf6; width: 20px;"></i>
-              <span data-i18n="navConsultAI">AI Medical Consult</span>
-            </button>
+            <div class="nav-menu-scroll-container" id="nav-menu-scroll-container">
+              <button class="nav-dropdown-item" onclick="openVoiceAnalyzerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-lungs" style="color: #ec4899; width: 20px;"></i>
+                <span data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openHealthHistoryModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-chart-line" style="color: #3b82f6; width: 20px;"></i>
+                <span data-i18n="navHealthHistory">Health History Journal</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openMedicineReminderModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-bell" style="color: #f59e0b; width: 20px;"></i>
+                <span data-i18n="navMedReminder">Smart Medicine Reminder</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openFoodScannerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-utensils" style="color: #10b981; width: 20px;"></i>
+                <span data-i18n="navFoodScanner">AI Food & Nutrition Scanner</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openSkinDetectorModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-camera" style="color: #ec4899; width: 20px;"></i>
+                <span data-i18n="navSkinDetector">Skin Disease Detection</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openReportAnalyzerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-file-medical" style="color: #f59e0b; width: 20px;"></i>
+                <span data-i18n="navReportAnalyzer">AI Medical Report Analyzer</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openBioSensorModal(event); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-heart-pulse" style="color: #f43f5e; width: 20px;"></i>
+                <span data-i18n="navBioSensor">Pulse Rate & Heart Beat Scanner</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openFeatureModal('fever'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-temperature-full" style="color: #ef4444; width: 20px;"></i>
+                <span data-i18n="navFeverDB">35+ Clinical Fever DB</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openFeatureModal('hospitals'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-hospital-user" style="color: #10b981; width: 20px;"></i>
+                <span data-i18n="navHospitals">Nearby Hospitals & GPS</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openFeatureModal('calculators'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-calculator" style="color: #06b6d4; width: 20px;"></i>
+                <span data-i18n="navCalculators">Health Calculators</span>
+              </button>
+              <div class="dropdown-divider"></div>
+              <button class="nav-dropdown-item" onclick="openFeatureModal('triage'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-stethoscope" style="color: #3b82f6; width: 20px;"></i>
+                <span>AI Symptom Triage</span>
+              </button>
+              <button class="nav-dropdown-item" onclick="openFloatingChatModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+                <i class="fa-solid fa-user-doctor" style="color: #8b5cf6; width: 20px;"></i>
+                <span data-i18n="navConsultAI">AI Medical Consult</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
