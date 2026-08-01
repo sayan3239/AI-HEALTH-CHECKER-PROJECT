@@ -1636,6 +1636,7 @@ async function generatePrescription() {
 
   // Display Modal immediately
   document.getElementById('prescription-modal').style.display = 'flex';
+  setTimeout(autoFitPrescriptionMobile, 50);
 
   // Fetch dynamic disease-specific prescription from backend API
   try {
@@ -1745,6 +1746,55 @@ function getClientDiseaseFallbackPrescription(condition, symptoms, lang) {
     ]
   };
 }
+
+let rxZoomScale = 1.0;
+
+function autoFitPrescriptionMobile() {
+  const paper = document.getElementById('prescription-paper');
+  if (!paper) return;
+
+  if (window.innerWidth <= 768) {
+    // Calculate scale factor so full A4 document fits on mobile screen without scrolling
+    const availableWidth = window.innerWidth - 16;
+    const targetPaperWidth = 794;
+    const autoScale = Math.min(1.0, Math.max(0.35, availableWidth / targetPaperWidth));
+    
+    rxZoomScale = parseFloat(autoScale.toFixed(2));
+    applyPrescriptionZoom();
+  } else {
+    rxZoomScale = 1.0;
+    applyPrescriptionZoom();
+  }
+}
+
+function zoomPrescription(delta) {
+  rxZoomScale = Math.min(2.5, Math.max(0.3, parseFloat((rxZoomScale + delta).toFixed(2))));
+  applyPrescriptionZoom();
+}
+
+function resetPrescriptionZoom() {
+  autoFitPrescriptionMobile();
+}
+
+function applyPrescriptionZoom() {
+  const paper = document.getElementById('prescription-paper');
+  const zoomText = document.getElementById('rx-zoom-level');
+  if (paper) {
+    paper.style.transform = `scale(${rxZoomScale})`;
+    paper.style.transformOrigin = 'top center';
+    paper.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+  }
+  if (zoomText) {
+    zoomText.textContent = `${Math.round(rxZoomScale * 100)}%`;
+  }
+}
+
+window.addEventListener('resize', () => {
+  const modal = document.getElementById('prescription-modal');
+  if (modal && modal.style.display !== 'none') {
+    autoFitPrescriptionMobile();
+  }
+});
 
 function printPrescription() {
   window.print();
