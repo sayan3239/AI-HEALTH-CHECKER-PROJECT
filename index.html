@@ -490,8 +490,8 @@
           </div>
         </div>
 
-        <!-- Fever Dataset Grid Cards -->
-        <div id="fever-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;">
+        <!-- Fever Dataset Grid Cards (Scrollable Container: 2 Rows visible initially) -->
+        <div id="fever-cards-grid" class="fever-cards-scroll-container" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem; max-height: 980px; overflow-y: auto; padding-right: 0.5rem; scroll-behavior: smooth;">
           <!-- Dynamically populated via app.js -->
         </div>
       </div>

@@ -215,6 +215,20 @@ div[style*="overflow-y: auto"]::-webkit-scrollbar-thumb:hover {
   box-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
 }
 
+/* Scrollable Fever Encyclopedia Cards Container (Shows ~2 Rows Initially) */
+.fever-cards-scroll-container {
+  max-height: 980px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  scroll-behavior: smooth;
+}
+
+@media (max-width: 768px) {
+  .fever-cards-scroll-container {
+    max-height: 920px;
+  }
+}
+
 /* Light Theme Scrollbars */
 body.light-theme ::-webkit-scrollbar-track,
 body.light-theme div[style*="overflow-x: auto"]::-webkit-scrollbar-track,
