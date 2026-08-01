@@ -42,6 +42,7 @@ except ImportError:
 
 # Google Generative AI (Gemini) API Integration with Multi-Model Fallback
 DEFAULT_GEMINI_KEY = os.environ.get('GEMINI_API_KEY') or ''
+HAS_GEMINI = True
 
 GEMINI_MODEL_ENDPOINTS = [
     'gemini-3.5-flash',
@@ -589,22 +590,12 @@ def analyze_symptoms():
             triage_text = "স্বাভাবিক / নিয়মিত স্বাস্থ্য সেবা" if language == "bn" else "Routine Care: Schedule Appointment"
 
         ai_note = None
-        # Enhance using Google Gemini AI if configured
-        if HAS_GEMINI and gemini_model:
-            try:
-                prompt = f"""
-                You are a clinical triage AI assistant for MediPulse AI.
-                Patient Symptoms: {', '.join(symptoms)}
-                Pain Severity (1-10): {severity}
-                Duration: {duration}
-                Language requested: {language}
-                Provide a concise 2-sentence clinical triage summary and recommended specialist care.
-                """
-                response = gemini_model.generate_content(prompt)
-                if response and hasattr(response, 'text') and response.text:
-                    ai_note = response.text.strip()
-            except Exception as e:
-                print(f"Gemini AI Notice: {e}")
+        # Enhance using Google Gemini AI
+        try:
+            prompt = f"Patient Symptoms: {', '.join(symptoms)}. Pain Severity (1-10): {severity}. Duration: {duration}. Language requested: {language}. Provide a concise 2-sentence clinical triage summary and recommended specialist care."
+            ai_note = query_gemini_api(prompt, language=language)
+        except Exception as e:
+            print(f"Gemini AI Notice: {e}")
 
         return jsonify({
             "status": "success",
