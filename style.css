@@ -3856,21 +3856,23 @@ body.light-theme .p-input {
    ========================================================================== */
 
 #floating-chat-trigger {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
-  color: #ffffff;
-  border: none;
-  border-radius: var(--radius-full);
-  padding: 0.8rem 1.4rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
-  transition: all var(--transition-fast);
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  z-index: 99999 !important;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: var(--radius-full) !important;
+  padding: 0.8rem 1.4rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  cursor: pointer !important;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.45) !important;
+  transition: all var(--transition-fast) !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 #floating-chat-trigger:hover {
@@ -4158,10 +4160,16 @@ body.light-theme .p-input {
 
   /* Floating Chat Trigger Button Position */
   #floating-chat-trigger {
-    bottom: 1.2rem;
-    right: 1rem;
-    padding: 0.65rem 1.1rem;
-    font-size: 0.85rem;
+    position: fixed !important;
+    bottom: 1.2rem !important;
+    right: 1rem !important;
+    z-index: 99999 !important;
+    padding: 0.65rem 1.1rem !important;
+    font-size: 0.85rem !important;
+    display: flex !important;
+    align-items: center !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   /* AI Chatbot Full Screen Sheet on Mobile */
