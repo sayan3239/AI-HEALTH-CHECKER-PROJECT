@@ -1,0 +1,618 @@
+[
+  {
+    "id": "dengue_fever",
+    "category": "vector_borne",
+    "nameEn": "Dengue Hemorrhagic Fever (Breakbone Fever)",
+    "nameBn": "ডেঙ্গু হেমোরেজিক জ্বর ও প্লাটিলেট সতর্কতা",
+    "icdCode": "A97.9",
+    "riskLevel": "URGENT",
+    "urgencyScore": 82,
+    "transmission": "Aedes aegypti mosquito bite",
+    "transmissionBn": "এডিস ইজিপ্টি মশার কামড়",
+    "symptoms": ["dengue_leg_fever", "high_fever", "headache", "retro_orbital_pain", "joint_pain", "platelet_drop"],
+    "diagnosticTests": ["Dengue NS1 Antigen (Day 1-3)", "Dengue IgM/IgG", "CBC (Platelet & Hematocrit)"],
+    "diagnosticTestsBn": ["ডেঙ্গু এনএস১ অ্যান্টিজেন (১-৩ দিন)", "আইজিএম/আইজিজি", "সিবিসি (প্লাটিলেট ও হিমোটোক্রিট)"],
+    "specialistEn": "Hematologist / Internal Medicine",
+    "specialistBn": "মেডিসিন ও প্লাটিলেট বিশেষজ্ঞ",
+    "descEn": "High fever characterized by retro-orbital pain, severe bone aches, and sudden drop in blood platelets.",
+    "descBn": "হাড় ভাঙা তীব্র ব্যথাসহ প্রচণ্ড জ্বর, চোখের পেছনে ব্যথা এবং রক্তে প্লাটিলেট দ্রুত কমে যাওয়ার আশঙ্কা।",
+    "adviceEn": [
+      "Check CBC & Dengue NS1 Antigen test within 24 hours of fever onset.",
+      "Maintain aggressive hydration with ORS saline, coconut water, and fresh fruit juices.",
+      "Strictly avoid Aspirin, Ibuprofen, or Naproxen (NSAIDs) as they increase bleeding risk.",
+      "Monitor for warning signs: severe abdominal pain, persistent vomiting, or mucosal bleeding."
+    ],
+    "adviceBn": [
+      "জ্বর শুরুর ২৪ ঘণ্টার মধ্যে সিবিসি ও ডেঙ্গু এনএস১ টেস্ট করান।",
+      "প্রচুর পানি, ওরাল স্যালাইন ও ডাবের পানি পান করে হাইড্রেটেড থাকুন।",
+      "আইবুপ্রোফেন, এসপিরিন বা নেপ্রোক্সেন জাতীয় পেইনকিলার খাবেন না (রক্তপাতের ঝুঁকি বাড়ায়)।",
+      "পেটে প্রচণ্ড ব্যথা, বারবার বমি বা মাড়ি দিয়ে রক্ত পড়লে অবিলম্বে হাসপাতালে ভর্তি হন।"
+    ]
+  },
+  {
+    "id": "chikungunya_fever",
+    "category": "vector_borne",
+    "nameEn": "Chikungunya Joint Fever",
+    "nameBn": "চিকনগুনিয়া জ্বর ও মারাত্মক গিরা ব্যথা",
+    "icdCode": "A92.0",
+    "riskLevel": "URGENT",
+    "urgencyScore": 75,
+    "transmission": "Aedes mosquito bite",
+    "transmissionBn": "এডিস মশার মাধ্যমে সংক্রমণ",
+    "symptoms": ["chikungunya_arm_fever", "high_fever", "joint_swelling", "wrist_pain", "skin_rash"],
+    "diagnosticTests": ["Chikungunya RT-PCR", "Chikungunya IgM Antibody"],
+    "diagnosticTestsBn": ["চিকনগুনিয়া আরটি-পিসিআর", "আইজিএম অ্যান্টিবডি"],
+    "specialistEn": "Rheumatologist / Medicine Specialist",
+    "specialistBn": "রিউমাটোলজিস্ট / মেডিসিন বিশেষজ্ঞ",
+    "descEn": "Sudden onset high fever accompanied by severe debilitating joint inflammation and maculopapular rash.",
+    "descBn": "হঠাৎ প্রচণ্ড জ্বর ও হাতের কবজি, হাঁটু ও পায়ের গিরায় অসহ্য ব্যথাসহ চামড়ায় লালচে র‍্যাশ।",
+    "adviceEn": [
+      "Ensure bed rest and keep affected joint limbs supported.",
+      "Use Paracetamol for fever management; avoid aggressive joint movement during acute phase.",
+      "Physiotherapy and mild stretching after acute fever subsides."
+    ],
+    "adviceBn": [
+      "সম্পূর্ণ বিশ্রামে থাকুন এবং ব্যথাতুর জয়েন্টে চাপ দেওয়া থেকে বিরত থাকুন।",
+      "ব্যাথা ও জ্বরের জন্য শুধুমাত্র প্যারাসিটামল সেবন করুন।",
+      "জ্বর কমলে হালকা ফিজিওথেরাপি বা স্ট্রেচিং করুন।"
+    ]
+  },
+  {
+    "id": "malaria_falciparum",
+    "category": "vector_borne",
+    "nameEn": "Falciparum / Vivax Malaria Fever",
+    "nameBn": "ম্যালেরিয়া জ্বর (ফ্যালসিপেরাম / ভাইভ্যাক্স)",
+    "icdCode": "B50.9",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 88,
+    "transmission": "Anopheles female mosquito bite",
+    "transmissionBn": "স্ত্রী অ্যানোফিলিস মশার কামড়",
+    "symptoms": ["malaria_fever_chills", "high_fever", "sweating", "splenomegaly", "anemia"],
+    "diagnosticTests": ["Malaria Rapid Diagnostic Test (RDT/ICT)", "Blood Thick & Thin Smear (MP Test)"],
+    "diagnosticTestsBn": ["ম্যালেরিয়া র‍্যাপিড আইসিটি টেস্ট", "রক্তের স্লাইড পরীক্ষা (MP Test)"],
+    "specialistEn": "Infectious Disease Specialist",
+    "specialistBn": "সংক্রামক ব্যাধি ও মেডিসিন বিশেষজ্ঞ",
+    "descEn": "Cyclical cold shivering chills followed by burning high fever spikes (40°C) and profuse sweating.",
+    "descBn": "তীব্র কাঁপুনি দিয়ে শীত লাগা, কিছুক্ষণ পর প্রচণ্ড কড়া জ্বর আসা এবং শেষে শরীর ভিজে ঘাম দিয়ে জ্বর ছাড়া।",
+    "adviceEn": [
+      "Perform immediate blood Malaria Parasite (MP) slide & ICT test.",
+      "Start targeted Artemisinin-based Combination Therapy (ACT) under physician guidance.",
+      "Watch for cerebral malaria symptoms: confusion, seizures, or dark urine."
+    ],
+    "adviceBn": [
+      "অবিলম্বে রক্ত পরীক্ষা (MP Slide / ICT) করিয়ে চিকিৎসা শুরু করুন।",
+      "ডাক্তারের পরামর্শে আর্টেমিসিনিন অ্যান্টিম্যালেরিয়াল ওষুধ নির্দিষ্ট নিয়মে খান।",
+      "মানসিক অসংলগ্নতা বা কালো প্রস্রাব দেখা দিলে অতি দ্রুত হাসপাতালে যান।"
+    ]
+  },
+  {
+    "id": "typhoid_fever",
+    "category": "bacterial_enteric",
+    "nameEn": "Typhoid / Enteric Fever (Salmonella Typhi)",
+    "nameBn": "টাইফয়েড বা এন্টারিক জ্বর (সালমোনেলা)",
+    "icdCode": "A01.0",
+    "riskLevel": "URGENT",
+    "urgencyScore": 76,
+    "transmission": "Contaminated water & unhygienic food",
+    "transmissionBn": "দূষিত পানি ও খোলা অস্বাস্থ্যকর খাবার",
+    "symptoms": ["typhoid_head", "high_fever", "stepladder_fever", "stomach_pain", "coated_tongue", "rose_spots"],
+    "diagnosticTests": ["Typhidot IgM Test", "Blood Culture & Sensitivity", "Widal Test (after 7 days)"],
+    "diagnosticTestsBn": ["টাইফিডট আইজিএম", "ব্ল্যাক কালচার ও সেনসিটিভিটি", "ওয়াইডাল টেস্ট"],
+    "specialistEn": "Internal Medicine / Gastroenterologist",
+    "specialistBn": "মেডিসিন ও পরিপাকতন্ত্র বিশেষজ্ঞ",
+    "descEn": "Step-ladder rising fever lasting > 7 days with frontal headache, abdominal discomfort, and coated tongue.",
+    "descBn": "ধাপে ধাপে বাড়তে থাকা ক্রমাগত জ্বর, সাথে মাথা ব্যথা, পেটে মোচড় ও জিভে সাদা আস্তরণ।",
+    "adviceEn": [
+      "Drink strictly boiled or mineral purified water.",
+      "Eat light, soft, low-fiber sterile diet (porridge, clear soups).",
+      "Complete 10-14 days full antibiotic course prescribed by doctor."
+    ],
+    "adviceBn": [
+      "সবসময় পানি ফুটিয়ে পান করুন ও বাইরের খোলা খাবার পুরোপুরি বাদ দিন।",
+      "সহজপ্রাচ্য হালকা সুজি, জাউ ভাত বা পাতলা স্যুপ গ্রহণ করুন।",
+      "ডাক্তার নির্ধারিত অ্যান্টিবায়োটিকের পুরো কোর্স শেষ করুন।"
+    ]
+  },
+  {
+    "id": "tuberculosis_fever",
+    "category": "respiratory_viral",
+    "nameEn": "Pulmonary Tuberculosis & Night Fever",
+    "nameBn": "ফুসফুসের যক্ষ্মা বা টিবি জ্বর",
+    "icdCode": "A15.0",
+    "riskLevel": "URGENT",
+    "urgencyScore": 78,
+    "transmission": "Airborne droplet infection",
+    "transmissionBn": "হাওয়ার মাধ্যমে কাশির জীবাণু ছড়ানো",
+    "symptoms": ["tuberculosis_fever", "night_sweats", "cough_blood", "persistent_cough", "weight_loss"],
+    "diagnosticTests": ["Sputum GeneXpert MTB/RIF", "Chest X-Ray PA View", "Mantoux Test (MT)"],
+    "diagnosticTestsBn": ["কফ জীনএক্সপার্ট (GeneXpert)", "বুকের এক্স-রে", "মানটু টেস্ট (MT)"],
+    "specialistEn": "Pulmonologist / Chest Specialist",
+    "specialistBn": "বক্ষব্যাধি ও যক্ষ্মা বিশেষজ্ঞ",
+    "descEn": "Chronic mycobacterial lung infection presenting with low-grade evening fever, drenching night sweats, and bloody sputum cough.",
+    "descBn": "বিকেলে হালকা জ্বর জ্বর ভাব, রাতে ঘুমানোর সময় গায়ে ঘাম, ২ সপ্তাহের বেশি কাশি ও কাশির সাথে রক্ত পড়া।",
+    "adviceEn": [
+      "Perform sputum GeneXpert test and Chest X-ray without delay.",
+      "Enrol in government free DOTS Anti-TB therapeutic regimen (6 months).",
+      "Wear N95 mask to prevent family cross-infection during first 2 weeks."
+    ],
+    "adviceBn": [
+      "অবিলম্বে কফ পরীক্ষা (GeneXpert) ও বুকের এক্স-রে করান।",
+      "সরকারি ডটস (DOTS) সেন্টার থেকে সম্পূর্ণ বিনামূল্যে ৬ মাসের টিবি কোর্স শুরু করুন।",
+      "পরিবারের সুরক্ষায় মাস্ক ব্যবহার করুন।"
+    ]
+  },
+  {
+    "id": "meningitis_fever",
+    "category": "neurological_critical",
+    "nameEn": "Bacterial / Viral Meningitis (Stiff Neck Fever)",
+    "nameBn": "মেনিনজাইটিস বা ব্রেইনের পর্দা ইনফেকশন জ্বর",
+    "icdCode": "G00.9",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 96,
+    "transmission": "Respiratory secretions or bloodborne bacterial spread",
+    "transmissionBn": "শ্বাসযন্ত্র ও রক্তের জীবাণু সংক্রমণ",
+    "symptoms": ["stiff_neck", "high_fever", "severe_headache", "photophobia", "vomiting", "confusion"],
+    "diagnosticTests": ["Lumbar Puncture CSF Analysis", "Brain CT / MRI Scan", "Blood Culture"],
+    "diagnosticTestsBn": ["সিএসএফ (CSF) রস পরীক্ষা", "মস্তিষ্কের সিটি স্ক্যান/এমআরআই", "রক্ত কালচার"],
+    "specialistEn": "Neurologist / Emergency Critical Care",
+    "specialistBn": "স্নায়ুরোগ ও নিউরো-ক্রিটিক্যাল কেয়ার বিশেষজ্ঞ",
+    "descEn": "Life-threatening acute infection of brain meningeal membranes presenting with triadic fever, severe stiff neck, and light sensitivity.",
+    "descBn": "মস্তিষ্কের ও সুষুম্নাকাণ্ডের ঝিল্লির ঘাতক ইনফেকশন যাতে প্রচণ্ড জ্বর, থুতনি বুকে ছোঁয়ানো অসম্ভব ঘাড় শক্ত ভাব ও আলোর দিকে তাকাতে কষ্ট হয়।",
+    "adviceEn": [
+      "IMMEDIATE EMERGENCY ER ADMISSION REQUIRED.",
+      "High-dose intravenous IV antibiotics & steroids must be initiated within 1 hour.",
+      "Do not attempt home remedies or delay emergency transport."
+    ],
+    "adviceBn": [
+      "অবিলম্বে নিকটস্থ হাসপাতালের ইমার্জেন্সিতে ভর্তি করুন।",
+      "দ্রুততম সময়ে আইভি (IV) অ্যান্টিবায়োটিক চিকিৎসা শুরু করা জীবনরক্ষায় অপরিহার্য।"
+    ]
+  },
+  {
+    "id": "pyelonephritis_kidney",
+    "category": "renal_urinary",
+    "nameEn": "Acute Pyelonephritis (Kidney Infection Fever)",
+    "nameBn": "একিউট পাইলোনেফ্রাইটিস (কিডনি ইনফেকশন জ্বর)",
+    "icdCode": "N10",
+    "riskLevel": "URGENT",
+    "urgencyScore": 81,
+    "transmission": "Ascending bacterial urinary tract infection",
+    "transmissionBn": "মূত্রনালী থেকে ছড়িয়ে পড়া ইনফেকশন",
+    "symptoms": ["kidney_infection_fever", "high_fever_chills", "flank_pain", "urinary_burning", "cloudy_urine"],
+    "diagnosticTests": ["Urine Routine & Microscopic Exam (R/E)", "Urine Culture & Sensitivity (C/S)", "USG of KUB Region"],
+    "diagnosticTestsBn": ["ইউরিন রুটিন পরীক্ষা", "ইউরিন কালচার ও সেনসিটিভিটি", "কেইউবি আল্ট্রাসনোগ্রাম"],
+    "specialistEn": "Urologist / Nephrologist",
+    "specialistBn": "ইউরোলজিস্ট / নেফ্রোলজিস্ট (কিডনি বিশেষজ্ঞ)",
+    "descEn": "Upper urinary tract bacterial infection causing high spiking fever, shaking chills, and intense flank pain localized under ribs.",
+    "descBn": "মূত্রনালী থেকে কিডনিতে ব্যাকটেরিয়া ছড়িয়ে কাঁপুনি দিয়ে উচ্চ জ্বর, তলপেটে ও পিঠের একপাশে তীব্র পাঁজরের ব্যথা।",
+    "adviceEn": [
+      "Get Urine Routine & Culture tests before starting antibiotics.",
+      "Maintain high fluid intake (3-4 Liters/day) to flush urinary pathogen load.",
+      "Complete antibiotic therapy under urologist guidance."
+    ],
+    "adviceBn": [
+      "অ্যান্টিবায়োটিক শুরু করার আগে ইউরিন কালচার টেস্ট করিয়ে নিন।",
+      "প্রস্রাবের জীবাণু ধুয়ে বের করতে প্রতিদিন অন্তত ৩-৪ লিটার পানি পান করুন।"
+    ]
+  },
+  {
+    "id": "covid19_respiratory",
+    "category": "respiratory_viral",
+    "nameEn": "COVID-19 Viral Respiratory Syndrome",
+    "nameBn": "কোভিড-১৯ সংক্রামক ভাইরাস জ্বর",
+    "icdCode": "U07.1",
+    "riskLevel": "URGENT",
+    "urgencyScore": 77,
+    "transmission": "Airborne respiratory droplets",
+    "transmissionBn": "হাওয়ায় কাশির বিন্দু ও ড্রপলেট",
+    "symptoms": ["covid_fever", "high_fever", "anosmia_loss_smell", "shortness_breath", "dry_cough", "fatigue"],
+    "diagnosticTests": ["COVID-19 RT-PCR Test", "Rapid Antigen Test (RAT)", "HRCT Chest Scan (if oxygen drops)"],
+    "diagnosticTestsBn": ["আরটি-পিসিআর টেস্ট", "র‍্যাপিড অ্যান্টিজেন টেস্ট", "বুকের এইচআরসিটি স্ক্যান"],
+    "specialistEn": "Pulmonologist / Infectious Disease",
+    "specialistBn": "বক্ষব্যাধি ও মেডিসিন কনসালটেন্ট",
+    "descEn": "SARS-CoV-2 viral illness presenting with fever, cough, loss of taste/smell, and progressive lung oxygen desaturation.",
+    "descBn": "করোনাভাইরাস সংক্রামক রোগ যার লক্ষণ উচ্চ জ্বর, স্বাদ ও ঘ্রাণশক্তি হারানো, কাশি ও রক্তে অক্সিজেনের মাত্রা কমে যাওয়া।",
+    "adviceEn": [
+      "Perform RT-PCR or Rapid Antigen Test.",
+      "Monitor arterial blood oxygen (SpO2) using a pulse oximeter every 4 hours.",
+      "Seek emergency hospital care if SpO2 drops below 93% on room air."
+    ],
+    "adviceBn": [
+      "কোভিড টেস্ট করান এবং আইসোলেশনে থাকুন।",
+      "পালস অক্সিমিটার দিয়ে প্রতি ৪ ঘণ্টা পর পর রক্তে অক্সিজেনের মাত্রা (SpO2) মেপে রাখুন।",
+      "অক্সিজেন ৯৩% এর নিচে নামলে ইমার্জেন্সি হাসপাতালে ভর্তি হন।"
+    ]
+  },
+  {
+    "id": "influenza_flu",
+    "category": "respiratory_viral",
+    "nameEn": "Seasonal Influenza A/B (Viral Flu)",
+    "nameBn": "মৌসুমি ভাইরাল ইনফ্লুয়েঞ্জা ফ্লু",
+    "icdCode": "J11.1",
+    "riskLevel": "ROUTINE",
+    "urgencyScore": 45,
+    "transmission": "Airborne viral droplets & contact surfaces",
+    "transmissionBn": "হাওয়ার ড্রপলেট ও মেলামেশা",
+    "symptoms": ["viral_flu", "high_fever", "body_ache", "runny_nose", "sore_throat", "chills"],
+    "diagnosticTests": ["Influenza A/B Rapid Antigen Panel", "Clinical Assessment"],
+    "diagnosticTestsBn": ["ইনফ্লুয়েঞ্জা টাইপ এ/বি অ্যান্টিজেন", "ক্লিনিক্যাল চেকআপ"],
+    "specialistEn": "General Physician / Family Doctor",
+    "specialistBn": "সাধারণ মেডিসিন বিশেষজ্ঞ",
+    "descEn": "Acute self-limiting viral upper respiratory tract infection causing abrupt onset fever, body aching, and rhinorrhea.",
+    "descBn": "মৌসুমি ভাইরাল সংক্রামক জ্বর যা হঠাৎ শুরু হয় এবং সারা শরীরে কামড়ানো ব্যথা, সর্দি ও গলা ব্যথার সৃষ্টি করে।",
+    "adviceEn": [
+      "Ensure bed rest for 3 to 5 days and consume warm liquids.",
+      "Use OTC Paracetamol for symptomatic fever & myalgia relief.",
+      "Annual influenza vaccination recommended for high-risk individuals."
+    ],
+    "adviceBn": [
+      "৩-৫ দিন বাড়িতে পূর্ণ বিশ্রামে থাকুন ও কুসুম গরম পানি পান করুন।",
+      "শরীরের জ্বর ও ব্যথার জন্য প্যারাসিটামল সেবন করুন।"
+    ]
+  },
+  {
+    "id": "leptospirosis_mud",
+    "category": "vector_borne",
+    "nameEn": "Leptospirosis (Weil's Mud & Water Fever)",
+    "nameBn": "লেপ্টোস্পাইরোসিস (ওয়াটার ও মাড ফিভার)",
+    "icdCode": "A27.9",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 86,
+    "transmission": "Exposure to flood water contaminated with rat/animal urine",
+    "transmissionBn": "ইঁদুরের মূত্র মিশ্রিত নোংরা পানি ও বন্যার পানির স্পর্শ",
+    "symptoms": ["leptospirosis_fever", "high_fever", "calf_muscle_pain", "conjunctival_suffusion", "jaundice", "kidney_impairment"],
+    "diagnosticTests": ["Leptospira MAT (Microscopic Agglutination)", "Leptospira IgM ELISA", "Renal & Liver Function Tests"],
+    "diagnosticTestsBn": ["লেপ্টোস্পাইরা এমএটি (MAT)", "আইজিএম এলিজা", "লিভার ও কিডনি ফাংশন টেস্ট"],
+    "specialistEn": "Infectious Disease Specialist / Nephrologist",
+    "specialistBn": "সংক্রামক রোগ ও কিডনি বিশেষজ্ঞ",
+    "descEn": "Zoonotic bacterial spirochete infection contracted via dirty flood water causing conjunctival red eyes, severe calf pain, and yellow jaundice.",
+    "descBn": "বন্যা বা নোংরা ড্রেনের পানিতে কাজ করার পর চোখ টকটকে লাল হওয়া, পায়ের বাছির (Calf) পেশীতে তীব্র ব্যথা ও জন্ডিস দেখা যাওয়া।",
+    "adviceEn": [
+      "Seek prompt medical care for early Doxycycline or Penicillin antibiotic therapy.",
+      "Avoid walking barefoot in stagnant flood water.",
+      "Monitor kidney function (serum creatinine) and liver bilirubin."
+    ],
+    "adviceBn": [
+      "অবিলম্বে ডাক্তার দেখিয়ে ডক্সিসাইক্লিন বা পেনিসিলিন অ্যান্টিবায়োটিক শুরু করুন।",
+      "বন্যার পানি বা নোংরা ডোবার পানিতে খালি পায়ে নামবেন না।"
+    ]
+  },
+  {
+    "id": "kala_azar_leishmaniasis",
+    "category": "vector_borne",
+    "nameEn": "Visceral Leishmaniasis (Kala-Azar Fever)",
+    "nameBn": "কালাজ্বর বা ভিসারাল লিশম্যানিয়াসিস",
+    "icdCode": "B55.0",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 89,
+    "transmission": "Phlebotomus sandfly bite",
+    "transmissionBn": "বেলে মাছি (Sandfly) এর কামড়",
+    "symptoms": ["kala_azar_fever", "prolonged_fever", "massive_splenomegaly", "dark_skin_pigmentation", "weight_loss", "pancytopenia"],
+    "diagnosticTests": ["rK39 Rapid Immunochromatographic Strip", "Bone Marrow / Splenic Aspirate Leishmania Bodies"],
+    "diagnosticTestsBn": ["rK39 অ্যান্টিবডি স্ট্রিপ টেস্ট", "বোন ম্যারো রস পরীক্ষা"],
+    "specialistEn": "Tropical Medicine Specialist",
+    "specialistBn": "ট্রপিক্যাল মেডিসিন ও ইনফেকশন বিশেষজ্ঞ",
+    "descEn": "Chronic protozoan infection causing prolonged irregular fever, massive enlargement of spleen, severe anemia, and dark skin discoloration.",
+    "descBn": "দীর্ঘদিনের অনিয়মিত জ্বর, পেটের প্লীহা (Spleen) ও লিভার মারাত্মক বড় হয়ে যাওয়া, রক্তশূন্যতা এবং গায়ের চামড়া কালো হয়ে যাওয়া।",
+    "adviceEn": [
+      "Perform rK39 rapid strip blood test.",
+      "Single-dose Liposomal Amphotericin B injection treatment at specialized government Kala-Azar hospital.",
+      "Vector control with indoor residual insecticide spraying."
+    ],
+    "adviceBn": [
+      "রক্তের rK39 টেস্ট করিয়ে কালাজ্বর নিশ্চিত হোন।",
+      "বিশেষায়িত সরকারি হাসপাতালে অ্যামফোটেরিসিন-বি ইনজেকশন গ্রহণ করুন।"
+    ]
+  },
+  {
+    "id": "scrub_typhus",
+    "category": "vector_borne",
+    "nameEn": "Scrub Typhus (Orientia Tsutsugamushi)",
+    "nameBn": "স্ক্রাব টাইফাস (চিগার মাইট জ্বর)",
+    "icdCode": "A75.3",
+    "riskLevel": "URGENT",
+    "urgencyScore": 80,
+    "transmission": "Bite of infected larval trombiculid chigger mites",
+    "transmissionBn": "ঝোপঝাড়ের চিগার মাইট পোকার কামড়",
+    "symptoms": ["scrub_typhus_fever", "high_fever", "eschar_black_scab", "lymphadenopathy", "headache", "confusion"],
+    "diagnosticTests": ["Scrub Typhus IgM ELISA", "Weil-Felix Reaction"],
+    "diagnosticTestsBn": ["স্ক্রাব টাইফাস আইজিএম এলিজা", "ওয়াইল-ফেলিক্স রিঅ্যাকশন"],
+    "specialistEn": "Infectious Disease Consultant",
+    "specialistBn": "ইনফেকশাস ডিজিজ কনসালটেন্ট",
+    "descEn": "Mite-borne bacterial infection characterized by high fever, localized lymph node swelling, and a pathognomonic black cigarette-burn skin eschar scab.",
+    "descBn": "ঝোপঝাড়ে ঘোরার পর গায়ে cigarette দিয়ে ছ্যাঁকা দেওয়ার মতো কালো ঘা (Eschar), লিম্ফ গ্ল্যান্ড ফুলে যাওয়া ও কড়া জ্বর।",
+    "adviceEn": [
+      "Examine body thoroughly for characteristic black eschar lesion (armpit, groin, waist).",
+      "Start Doxycycline 100mg twice daily immediately under medical supervision.",
+      "Use insect repellent when visiting vegetation/farms."
+    ],
+    "adviceBn": [
+      "শরীরে (কাখ, কুঁচকি বা কোমর) কোথাও কালো পোড়া ঘা (Eschar) আছে কিনা পরীক্ষা করুন।",
+      "ডাক্তারের পরামর্শে অবিলম্বে ডক্সিসাইক্লিন অ্যান্টিবায়োটিক শুরু করুন।"
+    ]
+  },
+  {
+    "id": "rheumatic_fever",
+    "category": "pediatric_rheumatic",
+    "nameEn": "Acute Rheumatic Fever (Streptococcal Alert)",
+    "nameBn": "একিউট রিউমেটিক বা বাত জ্বর (হার্ট ভালভ সতর্কতা)",
+    "icdCode": "I00",
+    "riskLevel": "URGENT",
+    "urgencyScore": 79,
+    "transmission": "Post-streptococcal sore throat immune complication",
+    "transmissionBn": "গলার ইনফেকশনের পর অটোইমিউন প্রতিক্রিয়া",
+    "symptoms": ["knee_joint_fever", "high_fever", "migrating_polyarthritis", "sydenham_chorea", "carditis", "subcutaneous_nodules"],
+    "diagnosticTests": ["ASO Titre Blood Level", "Echocardiogram (Echo)", "Throat Culture", "ECG"],
+    "diagnosticTestsBn": ["এএসও টিটার (ASO Titre)", "ইকো-কার্ডিওগ্রাম", "থ্রোট কালচার"],
+    "specialistEn": "Pediatrician / Cardiologist",
+    "specialistBn": "শিশু বিশেষজ্ঞ / হৃদরোগ বিশেষজ্ঞ",
+    "descEn": "Autoimmune systemic inflammatory condition following untreated throat infection leading to joint swelling and permanent heart valve damage.",
+    "descBn": "গলা ইনফেকশনের ২-৩ সপ্তাহ পর এক হাঁটু বা কনুই থেকে আরেক জয়েন্টে ছড়ানো ব্যথা, কড়া জ্বর ও হার্টের ভালভে সমস্যা।",
+    "adviceEn": [
+      "Perform blood ASO Titre and Echocardiogram to evaluate heart valves.",
+      "Complete anti-streptococcal Penicillin prophylaxis therapy.",
+      "Enforce mandatory bed rest during active carditis phase."
+    ],
+    "adviceBn": [
+      "এএসও টিটার ও ইকো-কার্ডিওগ্রাম টেস্ট করান।",
+      "কার্ডিওলজিস্টের পরামর্শ অনুযায়ী মেয়াদী পেনিসিলিন অ্যান্টিবায়োটিক নিন।"
+    ]
+  },
+  {
+    "id": "septicemia_sepsis",
+    "category": "neurological_critical",
+    "nameEn": "Sepsis & Septic Shock Blood Crisis",
+    "nameBn": "সেপসিস বা রক্তে বিষাক্ত ইনফেকশন শকে যাওয়া",
+    "icdCode": "A41.9",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 99,
+    "transmission": "Severe localized infection spreading into bloodstream",
+    "transmissionBn": "যে কোনো অর্গানের ইনফেকশন রক্তে ছড়িয়ে পড়া",
+    "symptoms": ["sepsis_fever", "extreme_high_low_temp", "hypotension_low_bp", "tachypnea_fast_breath", "confusion", "oliguria"],
+    "diagnosticTests": ["Paired Blood Cultures", "Serum Lactate Level", "Procalcitonin (PCT)", "ABG Analysis"],
+    "diagnosticTestsBn": ["ব্লাড কালচার টেস্ট", "সিরাম ল্যাকটেট", "প্রোক্যালসিটোনিন (PCT)"],
+    "specialistEn": "ICU Intensivist / Critical Care Specialist",
+    "specialistBn": "আইসিইউ ও ক্রিকটিক্যাল কেয়ার বিশেষজ্ঞ",
+    "descEn": "Life-threatening medical emergency caused by systemic immune inflammatory response to blood infection leading to multiorgan failure.",
+    "descBn": "রক্তের ঘাতক ইনফেকশন যাতে ব্লাড প্রেশার মারাত্মক কমে যাওয়া, দ্রুত শ্বাস ফেলা ও শরীরের অঙ্গ নিষ্ক্রিয় হয়ে যাওয়ার ঝুঁকি থাকে।",
+    "adviceEn": [
+      "ACTIVATE EMERGENCY AMBULANCE FOR IMMEDIATE ICU ADMISSION.",
+      "Hour-1 Bundle: IV broad-spectrum antibiotics, fluid resuscitation, and blood lactate check.",
+      "Do not attempt any outpatient management."
+    ],
+    "adviceBn": [
+      "অবিলম্বে আইসিইউ অ্যাম্বুলেন্স ডেকে হাসপাতালে ভর্তি হন।",
+      "আইভি অ্যান্টিবায়োটিক ও স্যালাইন অ্যাডমিশন ছাড়া প্রতি মিনিটে জীবনের ঝুঁকি বাড়ে।"
+    ]
+  },
+  {
+    "id": "heat_stroke_hyperthermia",
+    "category": "environmental",
+    "nameEn": "Heat Stroke & Extreme Hyperthermia (>104°F)",
+    "nameBn": "হিট স্ট্রোক ও শরীরের থার্মোস্টেট বিকল জ্বর",
+    "icdCode": "T67.0",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 92,
+    "transmission": "Exertional or environmental extreme heat exposure",
+    "transmissionBn": "প্রচণ্ড রোদ ও অতিরিক্ত গরমে কাজ করা",
+    "symptoms": ["heat_stroke_fever", "core_temp_above_104", "hot_dry_skin_no_sweat", "delirium_fainting", "throbbing_headache"],
+    "diagnosticTests": ["Core Temperature Measurement", "Serum Electrolytes", "CPK & Renal Panel"],
+    "diagnosticTestsBn": ["শরীরের কোড টেম্পারেচার মাপ", "সিরাম ইলেকট্রোলাইটস", "সিপিকে ও কিডনি টেস্ট"],
+    "specialistEn": "Emergency Medicine Specialist",
+    "specialistBn": "ইমার্জেন্সি ও ক্রিকটিক্যাল কেয়ার কনসালটেন্ট",
+    "descEn": "Medical emergency where body heat-regulation fails causing core body temperature > 104°F (40°C), absence of sweating, and brain delirium.",
+    "descBn": "প্রচণ্ড তাপদাহে শরীরের থার্মোস্টেট নষ্ট হয়ে ১০৪°F+ তাপমাত্রা হওয়া, ঘাম বন্ধ হয়ে যাওয়া ও অজ্ঞান বা প্রলাপ বকার জরুরি অবস্থা।",
+    "adviceEn": [
+      "Move patient immediately to a cool, shaded air-conditioned area.",
+      "Apply ice packs to neck, armpits, and groin area; continuously cold sponge skin.",
+      "Provide cold water / ORS saline if patient is conscious."
+    ],
+    "adviceBn": [
+      "রোগীকে সাথে সাথে ঠান্ডা এয়ারকন্ডিশন বা ছায়াযুক্ত রুমে আনুন।",
+      "ঘাড়, কাখ ও কুঁচকিতে বরফের ছ্যাক দিন এবং ঠান্ডা পানি দিয়ে শরীর মুছে দিন।"
+    ]
+  },
+  {
+    "id": "kawasaki_pediatric",
+    "category": "pediatric_rheumatic",
+    "nameEn": "Kawasaki Disease (Pediatric Vasculitis Fever)",
+    "nameBn": "কাওয়াসাকি ডিজিজ (শিশুদের কড়া জ্বর ও রক্তনালীর ফোলা)",
+    "icdCode": "M30.3",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 91,
+    "transmission": "Immune-mediated pediatric medium vessel vasculitis",
+    "transmissionBn": "শিশুদের ইমিউনজনিত রক্তনালীর প্রদাহ",
+    "symptoms": ["kawasaki_fever", "fever_above_5_days", "strawberry_tongue", "red_eyes_conjunctivitis", "swollen_hands_feet", "cervical_node"],
+    "diagnosticTests": ["Pediatric Echocardiogram (Coronary Aneurysm)", "CRP / ESR Levels", "Platelet Count"],
+    "diagnosticTestsBn": ["শিশুদের ইকো-কার্ডিওগ্রাম", "সিআরপি ও ইএসআর", "প্লাটিলেট কাউন্ট"],
+    "specialistEn": "Pediatric Cardiologist / Pediatrician",
+    "specialistBn": "শিশু কার্ডিওগ্রাফি ও শিশু বিশেষজ্ঞ",
+    "descEn": "Pediatric illness causing high fever lasting > 5 days with strawberry red tongue, bloodshot eyes, and risk of coronary artery aneurysm.",
+    "descBn": "শিশুদের ৫ দিনের বেশি কড়া জ্বর, স্ট্রবেরির মতো লাল জিব, লাল চোখ, হাত-পা ফোলা ও হার্টের রক্তনালী ক্ষতিগ্রস্ত হওয়ার রোগ।",
+    "adviceEn": [
+      "Consult Pediatrician immediately for IVIG (Intravenous Immunoglobulin) infusion.",
+      "Perform Echocardiogram to monitor coronary artery aneurysm development."
+    ],
+    "adviceBn": [
+      "অবিলম্বে শিশু হাসপাতালে ভর্তি করিয়ে আইভিআইজি (IVIG) ইনফিউশন শুরু করুন।"
+    ]
+  },
+  {
+    "id": "febrile_seizures",
+    "category": "pediatric_rheumatic",
+    "nameEn": "Pediatric Febrile Fits / Seizure Syndrome",
+    "nameBn": "শিশুদের জ্বরের খিঁচুনি বা ফেব্রাইল সিজার",
+    "icdCode": "R56.0",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 87,
+    "transmission": "Rapid spike in pediatric body temperature",
+    "transmissionBn": "শিশুদের শরীরের তাপমাত্রা দ্রুত বৃদ্ধি পাওয়া",
+    "symptoms": ["febrile_seizure_fever", "rapid_fever_spike", "convulsions_jerking", "eye_rolling", "temporary_loss_consciousness"],
+    "diagnosticTests": ["EEG (Electroencephalogram)", "Serum Electrolytes", "CSF Analysis if meningitis suspected"],
+    "diagnosticTestsBn": ["ইইজি (EEG) ব্রেইন ওয়েভ", "ইলেকট্রোলাইটস"],
+    "specialistEn": "Pediatric Neurologist",
+    "specialistBn": "শিশু নিউরোলজিস্ট / চাইল্ড কনসালটেন্ট",
+    "descEn": "Convulsion fit triggered by a rapid rise in body temperature in infants and young children aged 6 months to 5 years.",
+    "descBn": "৬ মাস থেকে ৫ বছর বয়সী শিশুদের জ্বর হঠাৎ দ্রুত বাড়লে চোখ উল্টে যাওয়া, হাত-পা শক্ত হওয়া ও ঝিম ধরা খিঁচুনি।",
+    "adviceEn": [
+      "Place child on their side (recovery position) on a flat surface; do not insert objects in mouth.",
+      "Sponge child with tepid water and administer Rectal Paracetamol Suppository.",
+      "Seek emergency medical evaluation to rule out meningitis."
+    ],
+    "adviceBn": [
+      "শিশুকে সমান জায়গায় এক পাশে কাত করে শুইয়ে দিন (মুখে কিছু দেবেন না)।",
+      "ঠান্ডা পানির নরম কাপড়ে পুরো শরীর মুছে দিন ও প্যারাসিটামল সাপোজিটরি ব্যবহার করুন।"
+    ]
+  },
+  {
+    "id": "scarlet_fever",
+    "category": "pediatric_rheumatic",
+    "nameEn": "Scarlet Fever (Group A Strep Exanthem)",
+    "nameBn": "স্কার্লেট ফিভার (রেড স্যান্ডপেপার র‍্যাশ জ্বর)",
+    "icdCode": "A38.9",
+    "riskLevel": "URGENT",
+    "urgencyScore": 73,
+    "transmission": "Group A Streptococcus throat infection",
+    "transmissionBn": "গ্রুপ এ স্ট্রেপ্টোকক্কাস ব্যাকটেরিয়া",
+    "symptoms": ["scarlet_fever", "high_fever", "sandpaper_red_rash", "strawberry_tongue", "sore_throat", "pastia_lines"],
+    "diagnosticTests": ["Rapid Strep Test (RST)", "Throat Swab Culture"],
+    "diagnosticTestsBn": ["র‍্যাপিড স্ট্রেপ টেস্ট", "থ্রোট সোয়াব কালচার"],
+    "specialistEn": "Pediatrician / ENT Specialist",
+    "specialistBn": "শিশু বিশেষজ্ঞ ও ইএনটি সার্জন",
+    "descEn": "Bacterial infection secondary to strep throat producing a characteristic rough red sandpaper-like rash and strawberry tongue.",
+    "descBn": "স্ট্রেপ থ্রোটের পর শিশুদের শরীরে সিরিশ কাগজের মতো খসখসে লাল ছোট ছোট দানা বা র‍্যাশ, জিভ লাল হওয়া ও উচ্চ জ্বর।",
+    "adviceEn": [
+      "Start 10-day oral Penicillin or Amoxicillin antibiotic therapy.",
+      "Replace toothbrush after 48 hours of starting antibiotics to prevent reinfection."
+    ],
+    "adviceBn": [
+      "ডাক্তারের পরামর্শে অ্যামোক্সিসিলিন বা পেনিসিলিন কোর্স ১০ দিন সম্পন্ন করুন।"
+    ]
+  },
+  {
+    "id": "infective_endocarditis",
+    "category": "neurological_critical",
+    "nameEn": "Infective Endocarditis (Heart Valve Bacterial Fever)",
+    "nameBn": "ইনফেকটিভ এন্ডোকার্ডাইটিস (হৃদপিন্ডের ভালভ ইনফেকশন)",
+    "icdCode": "I33.0",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 94,
+    "transmission": "Bacteremia from dental, surgical, or IV drug use spreading to heart valves",
+    "transmissionBn": "দাঁত বা অস্ত্রোপচারের ইনফেকশন থেকে হার্টে জীবাণু ছড়ানো",
+    "symptoms": ["endocarditis_fever", "prolonged_fever", "heart_murmur", "splinter_hemorrhages", "janeway_lesions", "fatigue"],
+    "diagnosticTests": ["Transthoracic / Transesophageal Echocardiogram (TEE)", "3 Sets of Blood Cultures"],
+    "diagnosticTestsBn": ["ইকো-কার্ডিওগ্রাম (TEE)", "৩ বার ব্লাড কালচার পরীক্ষা"],
+    "specialistEn": "Cardiologist / Cardiac Surgeon",
+    "specialistBn": "কার্ডিওলজিস্ট ও কার্ডিয়াক সার্জন",
+    "descEn": "Serious bacterial infection of the inner heart lining and cardiac valves causing chronic fever, heart murmur, and fingernail splinter hemorrhages.",
+    "descBn": "হৃদপিন্ডের ভালবে বিপজ্জনক ব্যাকটেরিয়ার আস্তরণ পড়ে কড়া জ্বর, হার্টে বিট পাওয়ার শব্দে পরিবর্তন ও নখের নিচে রক্তের দাগ।",
+    "adviceEn": [
+      "Immediate hospitalization for 4-6 weeks IV antibiotic therapy.",
+      "Consult Cardiac Surgery team if valve vegetation or regurgitation develops."
+    ],
+    "adviceBn": [
+      "অবিলম্বে কার্ডিওলজি হাসপাতালে ভর্তি হয়ে ৪-৬ সপ্তাহের আইভি অ্যান্টিবায়োটিক গ্রহণ করুন।"
+    ]
+  },
+  {
+    "id": "ebola_marburg_hemorrhagic",
+    "category": "vector_borne",
+    "nameEn": "Ebola / Marburg Viral Hemorrhagic Fever",
+    "nameBn": "ইবোলা ও মারবার্গ ভাইরাল হেমোরেজিক জ্বর",
+    "icdCode": "A98.4",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 99,
+    "transmission": "Direct contact with infected body fluids, blood, or fruit bats",
+    "transmissionBn": "সংক্রামিত ব্যক্তির রক্ত ও শরীরের তরলের স্পর্শ",
+    "symptoms": ["ebola_fever", "sudden_high_fever", "uncontrolled_bleeding", "severe_diarrhea", "vomiting_blood", "multi_organ_failure"],
+    "diagnosticTests": ["RT-PCR in Biosafety Level-4 Lab", "ELISA Antigen Capture"],
+    "diagnosticTestsBn": ["বিএসএল-৪ ল্যাব আরটি-পিসিআর"],
+    "specialistEn": "Epidemiologist / Isolation Critical Care",
+    "specialistBn": "মহামারীবিদ্যা ও আইসোলেশন ক্রিটিক্যাল কেয়ার",
+    "descEn": "Extremely lethal filovirus viral hemorrhagic fever causing severe internal/external bleeding, shock, and organ failure.",
+    "descBn": "মারাত্মক সংক্রামক ভাইরাল জ্বর যাতে শরীরের ভেতর ও বাইরে অনিয়ন্ত্রিত রক্তপাত, তীব্র ডায়রিয়া ও অর্গান ফেইলিয়র হয়।",
+    "adviceEn": [
+      "STRICT ISOLATION PROTOCOL IN SPECIALIZED BIOCONTAINMENT UNIT.",
+      "Wear full PPE (Personal Protective Equipment) for healthcare workers.",
+      "Supportive fluid management and monoclonal antibody therapy."
+    ],
+    "adviceBn": [
+      "অবিলম্বে বিশেষায়িত আইসোলেশন ওয়ার্ডে রোগীকে কোয়ারেন্টাইন করুন।"
+    ]
+  },
+  {
+    "id": "japanese_encephalitis",
+    "category": "vector_borne",
+    "nameEn": "Japanese Encephalitis (Brain Viral Fever)",
+    "nameBn": "জাপানিজ এনসেফালাইটিস (মস্তিষ্ক প্রদাহ জ্বর)",
+    "icdCode": "A83.0",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 93,
+    "transmission": "Culex mosquito bite near pig farms / rice paddies",
+    "transmissionBn": "কিউলেক্স মশার কামড়",
+    "symptoms": ["encephalitis_fever", "high_fever", "seizures_fits", "parkinsonian_tremors", "neck_stiffness", "coma"],
+    "diagnosticTests": ["JE Virus IgM ELISA in CSF & Serum", "Brain MRI Scan"],
+    "diagnosticTestsBn": ["জেই ভাইরাস আইজিএম এলিজা", "মস্তিষ্কের এমআরআই স্ক্যান"],
+    "specialistEn": "Neurologist / Pediatric Intensivist",
+    "specialistBn": "নিউরো কনসালটেন্ট ও আইসিইউ বিশেষজ্ঞ",
+    "descEn": "Flavivirus infection transmitted by Culex mosquitoes causing severe brain inflammation, tremors, seizures, and high neurological mortality.",
+    "descBn": "কিউলেক্স মশাবাহিত মস্তিস্কের ভাইরাল প্রদাহ জ্বর যাতে হঠাৎ খিঁচুনি, হাত-পা কাঁপা, অজ্ঞান হওয়া ও নিউরোলজিক্যাল জটিলতা দেখা দেয়।",
+    "adviceEn": [
+      "Immediate ICU supportive admission for seizure control & cerebral edema reduction.",
+      "JE Vaccination highly recommended in endemic zones."
+    ],
+    "adviceBn": [
+      "অবিলম্বে নিউরো-আইসিইউতে ভর্তি করিয়ে চিকিৎসা শুরু করুন।"
+    ]
+  },
+  {
+    "id": "thyroid_storm_fever",
+    "category": "environmental",
+    "nameEn": "Thyroid Storm (Thyrotoxic Crisis Fever)",
+    "nameBn": "থাইরয়েড স্টর্ম ও অতিরিক্ত মেটাবলিক হাইপারথার্মিয়া",
+    "icdCode": "E05.50",
+    "riskLevel": "EMERGENCY",
+    "urgencyScore": 95,
+    "transmission": "Decompensated hyperthyroidism induced by infection or surgery",
+    "transmissionBn": "হাইপারথাইরয়েডিজম রোগীদের হঠাৎ হরমোনের আধিক্য",
+    "symptoms": ["thyroid_storm_fever", "extreme_fever_105", "extreme_tachycardia", "agitation_delirium", "goiter", "diarrhea"],
+    "diagnosticTests": ["Free T3, Free T4, TSH Levels", "ECG", "Thyroid Scan"],
+    "diagnosticTestsBn": ["ফ্রি টি৩, টি৪ ও টিএসএইচ হরমোন টেস্ট"],
+    "specialistEn": "Endocrinologist / Critical Care Specialist",
+    "specialistBn": "এন্ডোক্রাইনোলজিস্ট (হরমোন বিশেষজ্ঞ)",
+    "descEn": "Life-threatening hypermetabolic endocrine crisis presenting with extreme fever (> 105°F), severe tachycardia (> 140 bpm), and agitation.",
+    "descBn": "হরমোনের মারাত্মক ভারসাম্যহীনতায় শরীরের মেটাবলিজম প্রচণ্ড বেড়ে গিয়ে অতিরিক্ত উচ্চ জ্বর (১০৫°F+) ও বুক ধড়ফড় করার জরুরি অবস্থা।",
+    "adviceEn": [
+      "IMMEDIATE ICU ADMISSION REQUIRED.",
+      "Administer Anti-thyroid drugs (PTU/Methimazole), Beta-blockers (Propranolol), and Hydrocortisone under endocrinologist care."
+    ],
+    "adviceBn": [
+      "অবিলম্বে হরমোন ও আইসিইউ হাসপাতালে ভর্তি করে অ্যান্টাই-থাইরয়েড ওষুধ শুরু করুন।"
+    ]
+  },
+  {
+    "id": "fever_unknown_origin",
+    "category": "pediatric_rheumatic",
+    "nameEn": "Fever of Unknown Origin (FUO / Prolonged Pyrexia)",
+    "nameBn": "অজ্ঞাত কারণের দীর্ঘস্থায়ী জ্বর (FUO)",
+    "icdCode": "R50.9",
+    "riskLevel": "URGENT",
+    "urgencyScore": 74,
+    "transmission": "Undiagnosed infection, occult malignancy, or autoimmune disorder",
+    "transmissionBn": "অনির্দিষ্ট ইনফেকশন, টিউমার বা অটোইমিউন কারণ",
+    "symptoms": ["fuo_fever", "prolonged_fever_above_3_weeks", "unexplained_weight_loss", "fatigue", "night_sweats"],
+    "diagnosticTests": ["PET-CT Scan", "Autoimmune Panel (ANA, Anti-CCP)", "Bone Marrow Biopsy", "Blood Cultures"],
+    "diagnosticTestsBn": ["পেট-সিটি (PET-CT) স্ক্যান", "অটোইমিউন প্যানেল", "বোন ম্যারো বায়োপসি"],
+    "specialistEn": "Internal Medicine / Infectious Disease",
+    "specialistBn": "মেডিসিন ও ডায়াগনস্টিক বিশেষজ্ঞ",
+    "descEn": "Temperature > 38.3°C (101°F) lasting for more than 3 weeks without an identified diagnosis despite 1 week of inpatient investigation.",
+    "descBn": "৩ সপ্তাহের বেশি সময় ধরে চলা ক্রমাগত জ্বর যা সাধারণ পরীক্ষায় কারণ নির্ণয় করা সম্ভব হয়নি।",
+    "adviceEn": [
+      "Comprehensive diagnostic workup including PET-CT scan and autoimmune serology.",
+      "Consult internal medicine specialist for systematic step-by-step investigation."
+    ],
+    "adviceBn": [
+      "মেডিসিন বিশেষজ্ঞদের অধীনে ভর্তি হয়ে পেট-সিটি স্ক্যান ও উচ্চতর পরীক্ষা-নিরীক্ষা করান।"
+    ]
+  }
+]

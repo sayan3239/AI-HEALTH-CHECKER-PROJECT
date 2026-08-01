@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MediPulse AI - Advanced Clinical AI Symptom Diagnostic Engine & Medical Triage Platform. Instant bilingual health risk triage, body map analysis, and health calculators.">
+  <title>MediPulse AI | Next-Gen Intelligent Healthcare Diagnostic System</title>
+  
+  <!-- FontAwesome Icons & Leaflet Map Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+
+  <!-- Background Ambient Cyber Grid Overlay & Logo Watermark -->
+  <div class="bg-grid-overlay"></div>
+  <img src="logo2.png" alt="MediPulse AI Background Watermark" class="bg-logo-watermark">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#" class="brand-logo" id="brand-logo">
+        <img src="logo2.png" alt="MediPulse AI Logo" class="brand-img-logo">
+        <span>MediPulse<span style="color: var(--accent-cyan);">.AI</span></span>
+      </a>
+
+      <!-- Live Engine Status Badge -->
+      <div class="status-indicator">
+        <div class="pulse-dot"></div>
+        <span data-i18n="engineActive">AI Engine Online</span>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Language Switcher (EN / BN / HI) -->
+        <div class="toggle-pill" id="language-switcher">
+          <button class="toggle-option active" id="lang-en" onclick="setLanguage('en')">English</button>
+          <button class="toggle-option" id="lang-bn" onclick="setLanguage('bn')">বাংলা</button>
+          <button class="toggle-option" id="lang-hi" onclick="setLanguage('hi')">हिंदी</button>
+        </div>
+
+        <!-- Dark/Light Theme Switcher -->
+        <button class="btn btn-secondary" id="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Theme">
+          <i class="fa-solid fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Authentication User Profile / Sign In Button -->
+        <div id="auth-nav-container">
+          <button class="btn btn-primary btn-auth" id="open-auth-btn" onclick="openAuthModal('login')">
+            <i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="navSignIn">Sign In</span>
+          </button>
+        </div>
+
+        <!-- 3-Dot / 3-Dash All Features Dropdown Menu -->
+        <div class="nav-menu-wrapper" style="position: relative;">
+          <button class="btn btn-secondary nav-more-btn" id="nav-more-btn" onclick="toggleNavMoreMenu(event)" title="Features & Tools Menu" aria-label="Features Menu" style="width: 40px; height: 40px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; border-color: rgba(6, 182, 212, 0.4);">
+            <i class="fa-solid fa-ellipsis-vertical" style="font-size: 1.2rem; color: var(--accent-cyan);"></i>
+          </button>
+
+          <div class="nav-more-dropdown hidden" id="nav-more-dropdown">
+            <button class="nav-dropdown-item" onclick="openVoiceAnalyzerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-lungs" style="color: #ec4899; width: 20px;"></i>
+              <span data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openHealthHistoryModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-chart-line" style="color: #3b82f6; width: 20px;"></i>
+              <span data-i18n="navHealthHistory">Health History Journal</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openMedicineReminderModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-bell" style="color: #f59e0b; width: 20px;"></i>
+              <span data-i18n="navMedReminder">Smart Medicine Reminder</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openFoodScannerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-utensils" style="color: #10b981; width: 20px;"></i>
+              <span data-i18n="navFoodScanner">AI Food & Nutrition Scanner</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openSkinDetectorModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-camera" style="color: #ec4899; width: 20px;"></i>
+              <span data-i18n="navSkinDetector">Skin Disease Detection</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openReportAnalyzerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-file-medical" style="color: #f59e0b; width: 20px;"></i>
+              <span data-i18n="navReportAnalyzer">AI Medical Report Analyzer</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openBioSensorModal(event); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-heart-pulse" style="color: #f43f5e; width: 20px;"></i>
+              <span data-i18n="navBioSensor">Pulse Rate & Heart Beat Scanner</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openFeatureModal('fever'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-temperature-full" style="color: #ef4444; width: 20px;"></i>
+              <span data-i18n="navFeverDB">35+ Clinical Fever DB</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openFeatureModal('hospitals'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-hospital-user" style="color: #10b981; width: 20px;"></i>
+              <span data-i18n="navHospitals">Nearby Hospitals & GPS</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openFeatureModal('calculators'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-calculator" style="color: #06b6d4; width: 20px;"></i>
+              <span data-i18n="navCalculators">Health Calculators</span>
+            </button>
+            <div class="dropdown-divider"></div>
+            <button class="nav-dropdown-item" onclick="openFeatureModal('triage'); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-stethoscope" style="color: #3b82f6; width: 20px;"></i>
+              <span>AI Symptom Triage</span>
+            </button>
+            <button class="nav-dropdown-item" onclick="openFloatingChatModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <i class="fa-solid fa-user-doctor" style="color: #8b5cf6; width: 20px;"></i>
+              <span data-i18n="navConsultAI">AI Medical Consult</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header Section -->
+  <header class="hero-section" id="hero-section">
+    <div class="container">
+      <div class="badge-tag">
+        <i class="fa-solid fa-microchip"></i> <span data-i18n="heroBadge">Clinical Grade AI Triage & Analysis</span>
+      </div>
+      <h1 class="hero-title" id="hero-title">
+        <span data-i18n="heroTitlePart1">Smart AI Health</span> Assessment & <br><span data-i18n="heroTitlePart2">Diagnostic Engine</span>
+      </h1>
+      <p class="hero-subtitle" data-i18n="heroSubtitle">
+        Select body regions, search or tap symptoms, and receive instantaneous clinical risk triage, differential diagnosis match scores, and actionable medical next steps.
+      </p>
+
+      <!-- Floating Stat Bar Metrics -->
+      <div class="hero-stats-grid">
+        <div class="stat-item">
+          <div class="stat-num">99.4%</div>
+          <div class="stat-label" data-i18n="statAccuracy">Triage Rule Accuracy</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">&lt; 0.2s</div>
+          <div class="stat-label" data-i18n="statSpeed">Instant AI Analysis</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">500+</div>
+          <div class="stat-label" data-i18n="statRules">Clinical Protocols</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">Bilingual</div>
+          <div class="stat-label" data-i18n="statLang">Bangla & English</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Workspace -->
+  <main class="container">
+    
+    <!-- Red-Flag Emergency Banner -->
+    <div class="emergency-banner" id="emergency-banner">
+      <div class="emergency-title">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span data-i18n="emergencyTitle">CRITICAL WARNING: Immediate Emergency Care Required</span>
+      </div>
+      <p class="emergency-desc" data-i18n="emergencyDesc">
+        One or more symptoms selected require immediate emergency medical attention (e.g. Call 999/911 or visit the nearest Emergency Dept immediately). Do not wait!
+      </p>
+    </div>
+
+    <div class="app-workspace">
+      
+      <!-- LEFT COLUMN: Body Region & Symptom Inputs -->
+      <section class="glass-card section-card" id="symptom-input-section">
+        <h2 class="card-header-title">
+          <i class="fa-solid fa-child-reaching" style="color: var(--accent-cyan);"></i>
+          <span data-i18n="step1Title">Step 1: Select Body Region</span>
+        </h2>
+        <p class="card-subtitle" data-i18n="step1Sub">Choose the area where you are experiencing discomfort.</p>
+
+        <!-- VIEW 1: Full-Screen 3D Anatomical Human Model (Direct Touch System) -->
+        <div id="body-view-container">
+          
+          <!-- Front / Back Body View Orientation Toggle Bar -->
+          <div class="body-orientation-bar">
+            <button class="orientation-btn active" id="btn-orient-front" onclick="switchBodyOrientation('front')">
+              <i class="fa-solid fa-person"></i> <span>Front</span>
+            </button>
+            <button class="orientation-btn" id="btn-orient-back" onclick="switchBodyOrientation('back')">
+              <i class="fa-solid fa-person-walking-arrow-right"></i> <span>Back</span>
+            </button>
+          </div>
+
+          <p class="card-subtitle" style="text-align: center; margin-bottom: 1.2rem;" id="body-instruction-text">
+            Touch any part of the body model to view probable fevers & symptoms:
+          </p>
+
+          <div class="anatomical-container-full">
+            <div class="human-body-wrapper-hero direct-touch-active" id="human-body-wrapper" onclick="handleDirectBodyTouch(event)">
+              <img src="human_body.png" alt="Anatomical Human Body Model" class="human-body-img-hero" id="human-body-img">
+              <div id="touch-ripple-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 2: Dynamic Symptom & Fever View (Opened upon touching body region) -->
+        <div id="symptom-view-container" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+            <div class="region-badge-title">
+              <i class="fa-solid fa-crosshair" style="color: var(--accent-cyan);"></i>
+              <span id="active-region-name">Head & Neck Symptoms & Fevers</span>
+            </div>
+            <button class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;" onclick="showBodyView()">
+              <i class="fa-solid fa-arrow-left"></i> <span data-i18n="backToBody">← Change Body Part</span>
+            </button>
+          </div>
+
+          <p class="card-subtitle" style="margin-bottom: 1rem;">Tap all symptoms & fever types that apply:</p>
+
+          <!-- Search Bar with Voice Microphone -->
+          <div class="search-symptom-box" style="margin-bottom: 1.2rem; position: relative;">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" class="search-input" id="symptom-search" placeholder="Search symptom e.g. headache, fever, chest pain..." oninput="filterSymptoms(this.value)" style="padding-right: 2.8rem;">
+            <button class="search-mic-btn" id="symptom-mic-btn" onclick="toggleSymptomVoiceSearch()" title="Voice Search Symptoms (Click to Speak)">
+              <i class="fa-solid fa-microphone" id="symptom-mic-icon"></i>
+            </button>
+          </div>
+
+          <!-- Symptoms & Fever Chips Container -->
+          <div class="symptoms-selector-box">
+            <div class="chip-group" id="symptoms-chip-group">
+              <!-- Populated via app.js -->
+            </div>
+          </div>
+
+          <!-- Selected Symptoms Summary Panel -->
+          <div class="selected-symptoms-panel">
+            <div class="form-label">
+              <span data-i18n="selectedTitle">Selected Symptoms:</span>
+              <span id="selected-count" style="color: var(--accent-cyan); font-weight: 800;">0 selected</span>
+            </div>
+            <div class="selected-tags-container" id="selected-tags-container">
+              <span style="color: var(--text-muted); font-size: 0.88rem;" data-i18n="noSymptomsSelected">No symptoms selected yet.</span>
+            </div>
+
+            <!-- Severity & Duration Inputs -->
+            <div class="form-group">
+              <div class="form-label">
+                <span data-i18n="severityLabel">Pain / Severity Level (1 - 10):</span>
+                <span id="severity-val" style="color: var(--accent-cyan); font-weight: 800; font-size: 1.1rem;">5</span>
+              </div>
+              <input type="range" min="1" max="10" value="5" class="range-slider" id="severity-slider" oninput="updateSeverityValue(this.value)">
+            </div>
+
+            <div class="form-group">
+              <div class="form-label">
+                <span data-i18n="durationLabel">Symptom Duration:</span>
+              </div>
+              <select class="input-field" id="duration-select">
+                <option value="today" data-i18n="durToday">Started today (&lt; 24 hrs)</option>
+                <option value="few-days" data-i18n="durFewDays">Few days (1 - 3 days)</option>
+                <option value="week" data-i18n="durWeek">About a week</option>
+                <option value="chronic" data-i18n="durChronic">Chronic / More than 2 weeks</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Main Action Button -->
+          <button class="btn btn-primary" style="width: 100%; padding: 1.1rem; font-size: 1.15rem;" id="analyze-btn" onclick="runDiagnosis()">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="analyzeBtn">Analyze Symptoms with AI</span>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- RIGHT COLUMN: Assessment Results & Triage -->
+      <section class="glass-card section-card result-card" id="diagnosis-result-section">
+        <h2 class="card-header-title">
+          <i class="fa-solid fa-square-poll-vertical" style="color: var(--accent-cyan);"></i>
+          <span data-i18n="resultTitle">AI Health Assessment Results</span>
+        </h2>
+        <p class="card-subtitle" data-i18n="resultSub">Instant algorithmic clinical analysis & risk triage.</p>
+
+        <!-- Initial Empty State -->
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon" id="heart-pulse-icon-container" style="background: rgba(239, 68, 68, 0.12); border: 2px solid rgba(239, 68, 68, 0.35); border-radius: 50%; width: 90px; height: 90px; margin: 0 auto 1.2rem auto; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 18px rgba(239, 68, 68, 0.2); transition: all 0.3s ease;">
+            <i class="fa-solid fa-heart-pulse" id="heart-pulse-icon" style="color: #ef4444; font-size: 2.5rem;"></i>
+          </div>
+          <h3 data-i18n="emptyStateHeading" style="color: var(--text-main); font-weight: 700; margin-bottom: 0.5rem;">No Symptoms Analyzed Yet</h3>
+          <p data-i18n="emptyStateSub">Select your symptoms on the left and click "Analyze Symptoms with AI" to generate your comprehensive clinical report.</p>
+        </div>
+
+        <!-- Active Result View (Initially hidden) -->
+        <div id="active-result" style="display: none;">
+          
+          <!-- Triage Urgency Badge -->
+          <div class="triage-status-badge low" id="triage-badge">
+            <i class="fa-solid fa-circle-check" id="triage-icon"></i>
+            <span id="triage-text">Low Urgency / Routine Care</span>
+          </div>
+
+          <!-- Matching Potential Conditions -->
+          <h3 style="font-size: 1.1rem; margin-top: 1rem; font-weight: 700;" data-i18n="possibleConditionsTitle">Possible Differential Diagnoses:</h3>
+          
+          <div class="condition-list" id="condition-list">
+            <!-- Dynamically populated via app.js -->
+          </div>
+
+          <!-- Actionable Clinical Advice -->
+          <div style="background: rgba(0, 0, 0, 0.25); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.3rem; margin-top: 1.2rem;">
+            <h4 style="font-size: 1.05rem; margin-bottom: 0.8rem; color: var(--accent-cyan); font-weight: 700;" data-i18n="recommendedActionTitle">
+              <i class="fa-solid fa-user-doctor"></i> Recommended Next Steps
+            </h4>
+            <ul class="advice-list" id="advice-list">
+              <!-- Dynamically populated via app.js -->
+            </ul>
+          </div>
+
+          <!-- PDF, Print Prescription & Find Hospital Actions -->
+          <div style="margin-top: 1.8rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+            <button class="btn btn-primary" style="flex: 2; min-width: 220px;" onclick="generatePrescription()">
+              <i class="fa-solid fa-file-prescription"></i> <span data-i18n="printReportBtn">Generate Medical Prescription (Rx)</span>
+            </button>
+            <button class="btn btn-secondary" style="border-color: rgba(239, 68, 68, 0.5); color: #f87171;" onclick="scrollToHospitalsAndSearch()">
+              <i class="fa-solid fa-truck-medical"></i> <span data-i18n="findNearbyHospBtn">📍 Find Nearby Hospitals</span>
+            </button>
+            <button class="btn btn-secondary" onclick="resetForm()">
+              <i class="fa-solid fa-rotate"></i> <span data-i18n="resetBtn">Reset</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+    <!-- NEARBY HOSPITALS & NURSING HOMES LOCATOR SECTION -->
+    <section class="tools-section" id="hospital-finder-section" style="margin-top: 3.5rem;">
+      <div class="glass-card" style="padding: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+          <div>
+            <h2 style="font-size: 1.6rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.6rem;">
+              <i class="fa-solid fa-hospital-user" style="color: #ef4444;"></i>
+              <span data-i18n="hospSectionTitle">Nearby Hospitals & Nursing Homes Locator</span>
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.3rem;" data-i18n="hospSectionSub">
+              Find instant location, distance, contact details & directions for hospitals and nursing homes near your address.
+            </p>
+          </div>
+          <div class="status-indicator" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: #f87171;">
+            <i class="fa-solid fa-truck-medical"></i> <span data-i18n="emergencySupportBadge">24/7 Emergency Medical GPS</span>
+          </div>
+        </div>
+
+        <!-- Search Controls Bar -->
+        <div class="hospital-search-bar" style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.2rem;">
+          <div style="flex: 2; min-width: 260px; position: relative;">
+            <input type="text" id="hospital-search-address" class="form-input" placeholder="Enter full address, area name, or PIN code (e.g. Park Street, Kolkata)" style="width: 100%; padding-left: 2.5rem;" onkeypress="if(event.key === 'Enter') searchNearbyHospitalsUI()">
+            <i class="fa-solid fa-location-dot" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--accent-cyan);"></i>
+          </div>
+
+          <button class="btn btn-secondary" id="btn-use-location" onclick="handleUseMyLocation()" title="Detect GPS Location" style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-location-crosshairs" style="color: var(--accent-cyan);"></i>
+            <span data-i18n="useMyLocationBtn">Use My Location</span>
+          </button>
+
+          <select id="hospital-radius-select" class="form-input" style="width: auto; min-width: 130px;" onchange="searchNearbyHospitalsUI()">
+            <option value="2">2 km radius</option>
+            <option value="5" selected>5 km radius</option>
+            <option value="10">10 km radius</option>
+            <option value="25">25 km radius</option>
+            <option value="50">50 km radius</option>
+          </select>
+
+          <button class="btn btn-primary" onclick="searchNearbyHospitalsUI()" style="display: flex; align-items: center; gap: 0.5rem; min-width: 120px; justify-content: center;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span data-i18n="searchBtn">Search</span>
+          </button>
+
+          <button class="btn btn-secondary" onclick="openGoogleMapsSearch()" title="Open Address directly on Google Maps" style="display: flex; align-items: center; gap: 0.5rem; border-color: #4285f4; color: #60a5fa; background: rgba(66, 133, 244, 0.12);">
+            <i class="fa-solid fa-map-location-dot" style="color: #4285f4;"></i>
+            <span data-i18n="openGoogleMapsBtn">Open in Google Maps</span>
+          </button>
+        </div>
+
+        <!-- Facility Filter Category Tabs -->
+        <div class="facility-filter-tabs" style="display: flex; gap: 0.6rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.3rem;">
+          <button class="filter-tab-btn active" data-category="all" onclick="filterFacilityCategory('all')">
+            <i class="fa-solid fa-layer-group"></i> <span data-i18n="filterAll">All Facilities</span>
+          </button>
+          <button class="filter-tab-btn" data-category="hospital" onclick="filterFacilityCategory('hospital')">
+            <i class="fa-solid fa-hospital"></i> <span data-i18n="filterHospitals">Hospitals</span>
+          </button>
+          <button class="filter-tab-btn" data-category="nursing_home" onclick="filterFacilityCategory('nursing_home')">
+            <i class="fa-solid fa-house-medical"></i> <span data-i18n="filterNursingHomes">Nursing Homes</span>
+          </button>
+          <button class="filter-tab-btn" data-category="emergency" onclick="filterFacilityCategory('emergency')">
+            <i class="fa-solid fa-heart-pulse"></i> <span data-i18n="filterEmergency">24/7 ICU & Emergency</span>
+          </button>
+        </div>
+
+        <!-- Active Location Banner & Summary -->
+        <div id="hospital-location-info" style="display: flex; background: rgba(0, 210, 255, 0.08); border: 1px solid rgba(0, 210, 255, 0.25); border-radius: var(--radius-sm); padding: 0.8rem 1.2rem; margin-bottom: 1.2rem; color: var(--text-primary); font-size: 0.95rem; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.8rem;">
+          <div>
+            <i class="fa-solid fa-map-pin" style="color: var(--accent-cyan);"></i> <strong data-i18n="activeLocationLabel">Active Search Zone:</strong> <span id="active-location-name">Enter an address or click 'Use My Location' to search</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;">
+            <span id="active-location-count" class="badge" style="background: rgba(0, 210, 255, 0.2); color: var(--accent-cyan);">0 Facilities Found</span>
+            <button class="btn btn-secondary" onclick="openGoogleMapsSearch()" style="padding: 0.35rem 0.8rem; font-size: 0.82rem; border-color: #4285f4; color: #60a5fa; background: rgba(66, 133, 244, 0.15);">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> <span data-i18n="openZoneGmapBtn">View Zone on Google Maps</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Split Layout (Google Maps Display + Cards List) -->
+        <div class="hospital-main-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          
+          <!-- Interactive Google Maps Container -->
+          <div style="position: relative; height: 480px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); background: #0f172a; display: flex; flex-direction: column;">
+            <!-- Map Mode Header Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid var(--border-subtle); padding: 0.5rem 0.8rem; z-index: 5;">
+              <span style="font-size: 0.82rem; color: var(--text-muted); font-weight: 600; display: flex; align-items: center; gap: 0.4rem;">
+                <i class="fa-solid fa-map-location-dot" style="color: #4285f4;"></i> <span data-i18n="mapDisplayHeader">Google Maps Live Location</span>
+              </span>
+              <div style="display: flex; gap: 0.4rem;">
+                <button class="map-toggle-btn active" id="btn-toggle-gmap" onclick="switchMapProvider('google')">
+                  <i class="fa-solid fa-map-marked-alt" style="color: #4285f4;"></i> Google Maps
+                </button>
+                <button class="map-toggle-btn" id="btn-toggle-osm" onclick="switchMapProvider('osm')">
+                  <i class="fa-solid fa-layer-group" style="color: var(--accent-cyan);"></i> Dark Map
+                </button>
+              </div>
+            </div>
+
+            <!-- Map View Area -->
+            <div style="position: relative; flex: 1; width: 100%; height: 100%;">
+              <!-- Direct Embedded Google Map -->
+              <iframe id="google-maps-iframe" style="width: 100%; height: 100%; border: 0; display: block;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=hospitals+and+nursing+homes+near+Kolkata&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+
+              <!-- Leaflet OSM Layer Container -->
+              <div id="hospital-map" style="width: 100%; height: 100%; position: absolute; inset: 0; display: none; z-index: 2;"></div>
+
+              <!-- Map Loader Overlay -->
+              <div id="map-loader" style="display: none; position: absolute; inset: 0; background: rgba(15, 23, 42, 0.88); backdrop-filter: blur(4px); z-index: 10; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; color: var(--accent-cyan);">
+                <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+                <span style="font-weight: 600;" data-i18n="mapLoadingText">Loading Google Maps location...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facility Cards Results List -->
+          <div id="hospital-cards-container" style="height: 480px; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; padding-right: 0.4rem;">
+            <!-- Dynamically populated via app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPREHENSIVE FEVER ENCYCLOPEDIA & TRIAGE DATASET SECTION -->
+    <section class="hospital-finder-section" id="fever-encyclopedia-section" style="margin-top: 4rem;">
+      <div class="glass-card" style="padding: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+          <div>
+            <h2 class="card-header-title" style="font-size: 1.6rem; display: flex; align-items: center; gap: 0.7rem;">
+              <i class="fa-solid fa-temperature-arrow-up" style="color: #ef4444;"></i>
+              <span data-i18n="feverDbTitle">Comprehensive Clinical Fever Encyclopedia</span>
+            </h2>
+            <p class="card-subtitle" style="margin-top: 0.3rem;" data-i18n="feverDbSub">Browse 35+ clinical fever syndromes, diagnostic blood tests, vector causes & triage guidelines.</p>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 0.8rem;">
+            <span class="pulse-live-tag" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.4);">
+              <i class="fa-solid fa-database"></i> 35+ Clinical Fevers DB
+            </span>
+          </div>
+        </div>
+
+        <!-- Search Bar & Category Filter Pills -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+          <div style="flex: 1; min-width: 260px; position: relative;">
+            <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--accent-cyan);"></i>
+            <input type="text" id="fever-db-search" class="search-input" placeholder="Search any fever, disease, or symptom..." onkeyup="filterFeverDatasetUI()" style="padding-left: 2.8rem; padding-right: 2.8rem;">
+            <button class="search-mic-btn" id="fever-mic-btn" onclick="toggleFeverVoiceSearch()" title="Voice Search Fever Database (Click to Speak)">
+              <i class="fa-solid fa-microphone" id="fever-mic-icon"></i>
+            </button>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.2rem;">
+            <button class="filter-tab-btn active fever-cat-btn" data-fcat="all" onclick="filterFeverCategoryUI('all')">All Fevers</button>
+            <button class="filter-tab-btn fever-cat-btn" data-fcat="vector_borne" onclick="filterFeverCategoryUI('vector_borne')">Mosquito & Vector</button>
+            <button class="filter-tab-btn fever-cat-btn" data-fcat="respiratory_viral" onclick="filterFeverCategoryUI('respiratory_viral')">Viral & Air</button>
+            <button class="filter-tab-btn fever-cat-btn" data-fcat="bacterial_enteric" onclick="filterFeverCategoryUI('bacterial_enteric')">Bacterial & Enteric</button>
+            <button class="filter-tab-btn fever-cat-btn" data-fcat="renal_urinary" onclick="filterFeverCategoryUI('renal_urinary')">Urinary & Renal</button>
+            <button class="filter-tab-btn fever-cat-btn" data-fcat="neurological_critical" onclick="filterFeverCategoryUI('neurological_critical')">Neurological & Emergency</button>
+            <button class="filter-tab-btn fever-cat-btn" data-fcat="pediatric_rheumatic" onclick="filterFeverCategoryUI('pediatric_rheumatic')">Pediatric & Rheumatic</button>
+          </div>
+        </div>
+
+        <!-- Fever Dataset Grid Cards -->
+        <div id="fever-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.2rem;">
+          <!-- Dynamically populated via app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- HEALTH CALCULATORS SECTION -->
+    <section class="tools-section" id="calculators">
+      <h2 class="section-title-center" data-i18n="calcSectionTitle">Vital Health & Wellness Calculators</h2>
+      <p style="text-align: center; color: var(--text-muted);" data-i18n="calcSectionSub">Quick diagnostic tools for daily health management.</p>
+
+      <div class="tools-grid">
+        
+        <!-- BMI Calculator -->
+        <div class="glass-card calculator-card" id="bmi-calculator">
+          <h3 class="card-header-title">
+            <i class="fa-solid fa-weight-scale" style="color: var(--primary);"></i>
+            <span data-i18n="bmiTitle">BMI Calculator</span>
+          </h3>
+          <p class="card-subtitle" data-i18n="bmiSub">Body Mass Index for adults</p>
+          
+          <div class="calc-input-group">
+            <div>
+              <label class="form-label" data-i18n="weightLabel">Weight (kg):</label>
+              <input type="number" id="bmi-weight" class="input-field" placeholder="e.g. 70" value="70">
+            </div>
+            <div>
+              <label class="form-label" data-i18n="heightLabel">Height (cm):</label>
+              <input type="number" id="bmi-height" class="input-field" placeholder="e.g. 175" value="175">
+            </div>
+          </div>
+          
+          <button class="btn btn-primary" style="width: 100%;" onclick="calculateBMI()">
+            <span data-i18n="calcBmiBtn">Calculate BMI</span>
+          </button>
+
+          <div class="calc-result-box" id="bmi-result-box" style="display: none;">
+            <div class="calc-val" id="bmi-val">22.9</div>
+            <div id="bmi-category" style="font-weight: 700; color: var(--text-main);">Normal Weight</div>
+          </div>
+        </div>
+
+        <!-- Water Intake Calculator -->
+        <div class="glass-card calculator-card" id="water-calculator">
+          <h3 class="card-header-title">
+            <i class="fa-solid fa-droplet" style="color: var(--accent-cyan);"></i>
+            <span data-i18n="waterTitle">Daily Water Intake</span>
+          </h3>
+          <p class="card-subtitle" data-i18n="waterSub">Optimal daily hydration goal</p>
+
+          <div class="calc-input-group">
+            <div>
+              <label class="form-label" data-i18n="weightLabel">Weight (kg):</label>
+              <input type="number" id="water-weight" class="input-field" placeholder="e.g. 70" value="70">
+            </div>
+            <div>
+              <label class="form-label" data-i18n="activityLabel">Activity Level:</label>
+              <select id="water-activity" class="input-field">
+                <option value="moderate" data-i18n="actModerate">Moderate (30m ex)</option>
+                <option value="active" data-i18n="actHigh">Active (1h+ ex)</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%;" onclick="calculateWaterIntake()">
+            <span data-i18n="calcWaterBtn">Calculate Water Need</span>
+          </button>
+
+          <div class="calc-result-box" id="water-result-box" style="display: none;">
+            <div class="calc-val" id="water-val">2.6 Liters</div>
+            <div style="font-weight: 700; color: var(--text-main);" data-i18n="waterTip">~ 10.5 glasses per day</div>
+          </div>
+        </div>
+
+        <!-- Calorie & BMR Calculator -->
+        <div class="glass-card calculator-card" id="calorie-calculator">
+          <h3 class="card-header-title">
+            <i class="fa-solid fa-fire-flame-curved" style="color: var(--accent-purple);"></i>
+            <span data-i18n="bmrTitle">BMR & Calorie Estimator</span>
+          </h3>
+          <p class="card-subtitle" data-i18n="bmrSub">Basal Metabolic Rate & Energy maintenance</p>
+
+          <div class="calc-input-group">
+            <div>
+              <label class="form-label" data-i18n="ageLabel">Age (yrs):</label>
+              <input type="number" id="bmr-age" class="input-field" value="25">
+            </div>
+            <div>
+              <label class="form-label" data-i18n="genderLabel">Gender:</label>
+              <select id="bmr-gender" class="input-field">
+                <option value="male" data-i18n="genderMale">Male</option>
+                <option value="female" data-i18n="genderFemale">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%;" onclick="calculateBMR()">
+            <span data-i18n="calcBmrBtn">Calculate Calorie Need</span>
+          </button>
+
+          <div class="calc-result-box" id="bmr-result-box" style="display: none;">
+            <div class="calc-val" id="bmr-val">1,680 kcal</div>
+            <div style="font-weight: 700; color: var(--text-main);" data-i18n="bmrTip">Daily Maintenance Calories</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-disclaimer" data-i18n="disclaimer">
+        <strong>MEDICAL DISCLAIMER:</strong> MediPulse AI is an artificial intelligence triage and educational decision support system. It is NOT a medical diagnosis or a substitute for professional healthcare advice, diagnosis, or treatment. If you believe you have a medical emergency, immediately call your local emergency number or visit a hospital.
+      </p>
+      <p>© 2026 MediPulse AI Health Systems. Built for learning and healthcare innovation.</p>
+    </div>
+  <!-- MEDICAL PRESCRIPTION MODAL (Matching prescription2.png 1:1) -->
+  <div class="prescription-modal-overlay" id="prescription-modal" style="display: none;">
+    <div class="prescription-modal-container">
+      
+      <!-- Top Action Toolbar (No-Print) -->
+      <div class="prescription-toolbar no-print">
+        <button class="btn btn-primary" onclick="printPrescription()">
+          <i class="fa-solid fa-print"></i> <span>Print / Save PDF Prescription</span>
+        </button>
+        <button class="btn btn-secondary" onclick="closePrescriptionModal()">
+          <i class="fa-solid fa-xmark"></i> <span>Close</span>
+        </button>
+      </div>
+
+      <!-- Printable Prescription Document Container (Single Page Document) -->
+      <div class="prescription-paper" id="prescription-paper">
+        
+        <!-- Header Banner with Dark Teal Styling & Pulse Graph -->
+        <div class="rx-header-banner">
+          <div class="rx-header-title">MEDICAL PRESCRIPTION</div>
+          <div class="rx-pulse-svg">
+            <svg viewBox="0 0 100 20" class="rx-ecg-wave">
+              <path d="M0 10 L30 10 L35 0 L40 20 L45 5 L50 15 L55 10 L100 10" stroke="#00b4d8" stroke-width="2" fill="none" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Top Header Info Row -->
+        <div class="rx-doctor-hospital-row">
+          <!-- Left Doctor Info -->
+          <div class="rx-doc-info">
+            <div class="rx-brand-box">
+              <img src="logo2.png" alt="MediPulse AI Logo" class="rx-brand-logo">
+              <div>
+                <div class="rx-brand-name">MediPulse AI</div>
+                <div class="rx-brand-tagline">SMARTER CARE. BETTER TOMORROW.</div>
+              </div>
+            </div>
+            <div class="rx-doc-name">Dr. MediPulse AI Engine</div>
+            <div class="rx-doc-sub">MBBS, MD (Clinical Diagnostics)</div>
+            <div class="rx-doc-role">Consultant Physician & Triage Specialist</div>
+          </div>
+
+          <!-- Middle Cross Icon -->
+          <div class="rx-cross-icon">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+
+          <!-- Right Hospital Info -->
+          <div class="rx-hosp-info">
+            <div class="rx-hosp-name">HOSPITAL NAME</div>
+            <div class="rx-hosp-sub">CARE WITH COMPASSION</div>
+            <div class="rx-hosp-detail">📍 123, Healthcare Street, Your City, State - 000123</div>
+            <div class="rx-hosp-detail">📞 +91 12345 67890</div>
+            <div class="rx-hosp-detail">✉️ info@hospitalname.com</div>
+          </div>
+        </div>
+
+        <!-- Patient Info Bar -->
+        <div class="rx-patient-bar">
+          <div class="rx-patient-grid">
+            <div><strong>Patient Name :</strong> <input type="text" id="rx-p-name" placeholder="Type Patient Name..." class="rx-input-inline"></div>
+            <div><strong>Age :</strong> <input type="text" id="rx-p-age" placeholder="e.g. 25 Yrs" class="rx-input-inline-sm"></div>
+            <div><strong>Gender :</strong> <input type="text" id="rx-p-gender" placeholder="Male / Female" class="rx-input-inline-sm"></div>
+          </div>
+          <div class="rx-patient-grid" style="margin-top: 0.5rem;">
+            <div><strong>Address :</strong> <input type="text" id="rx-p-address" placeholder="Enter City, State..." class="rx-input-inline-lg"></div>
+            <div><strong>Date :</strong> <span id="rx-p-date">25/07/2026</span></div>
+            <div><strong>Contact No. :</strong> <input type="text" id="rx-p-contact" placeholder="Phone Number..." class="rx-input-inline-md"></div>
+          </div>
+        </div>
+
+        <!-- Main Rx Content Box with Faint Background Watermark Cross -->
+        <div class="rx-body-box">
+          
+          <!-- Left Column Sidebar -->
+          <div class="rx-left-sidebar">
+            <div class="rx-mp-watermark">
+              <span class="rx-mp-large">MP</span>
+              <span class="rx-mp-label">MEDICAL PRESCRIPTION</span>
+              <div class="rx-dots">• • •</div>
+            </div>
+            
+            <div class="rx-sidebar-section">
+              <div class="rx-section-label">Chief Symptoms:</div>
+              <div class="rx-symptoms-summary" id="rx-symptoms-summary">High Fever, Headache</div>
+            </div>
+
+            <div class="rx-sidebar-section">
+              <div class="rx-section-label">AI Diagnosis Match:</div>
+              <div class="rx-diagnosis-name" id="rx-diagnosis-name">Viral Fever Complex</div>
+            </div>
+
+            <div class="rx-sidebar-section">
+              <div class="rx-section-label">Triage Risk Category:</div>
+              <div class="rx-risk-badge" id="rx-risk-badge">Moderate Urgency</div>
+            </div>
+          </div>
+
+          <!-- Main Right Rx Area -->
+          <div class="rx-right-main">
+            
+            <!-- Rx Symbol & Prescribed Medications Table -->
+            <div class="rx-symbol">Rx</div>
+            
+            <table class="rx-meds-table">
+              <thead>
+                <tr>
+                  <th>Prescribed Care & OTC Medication</th>
+                  <th>Dosage (M - A - N)</th>
+                  <th>Timing</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody id="rx-meds-tbody">
+                <!-- Dynamically populated via app.js -->
+              </tbody>
+            </table>
+
+            <!-- Clinical Advice Section -->
+            <div class="rx-advice-container">
+              <div class="rx-advice-header">Clinical Advice & Patient Instructions:</div>
+              <ul class="rx-advice-ul" id="rx-advice-ul">
+                <!-- Dynamically populated via app.js -->
+              </ul>
+            </div>
+
+            <!-- Doctor Signature Block -->
+            <div class="rx-signature-block">
+              <div class="rx-sig-line"></div>
+              <div class="rx-sig-name">Dr. MediPulse AI</div>
+              <div class="rx-sig-reg">Reg. No. : 12345 (AI Verification ID)</div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Footer Contact & Operating Hours Bar -->
+        <div class="rx-footer-row">
+          <div class="rx-footer-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong>+91 12345 67890</strong>
+              <div style="font-size: 0.75rem; color: #008b8b;">Emergency</div>
+            </div>
+          </div>
+          <div class="rx-footer-divider"></div>
+          <div class="rx-footer-item">
+            <i class="fa-solid fa-calendar-days"></i>
+            <div>
+              <strong>Book Appointment</strong>
+              <div style="font-size: 0.75rem; color: #008b8b;">www.hospitalname.com</div>
+            </div>
+          </div>
+          <div class="rx-footer-divider"></div>
+          <div class="rx-footer-item">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+              <strong>Mon - Sat : 9:00 AM - 8:00 PM</strong>
+              <div style="font-size: 0.75rem; color: #008b8b;">Sunday : Emergency Only</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Angular Accent Bar with ECG wave -->
+        <div class="rx-footer-banner">
+          <div class="rx-pulse-svg-center">
+            <svg viewBox="0 0 100 20" class="rx-ecg-wave-footer">
+              <path d="M0 10 L35 10 L40 2 L45 18 L50 6 L55 14 L60 10 L100 10" stroke="#00f2fe" stroke-width="2" fill="none" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Interactive Features Hub Modal Overlay -->
+  <div class="features-modal-overlay hidden" id="features-modal" onclick="if(event.target.id==='features-modal') closeFeaturesModal()">
+    <div class="features-modal-card">
+      <div class="features-modal-header">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--accent-cyan);">
+            <i class="fa-solid fa-grid-2"></i>
+          </div>
+          <div>
+            <h2 style="font-size: 1.45rem; font-weight: 800; color: var(--text-main);" data-i18n="featuresModalTitle">Clinical AI Features & Tools Hub</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="featuresModalSub">Click any tool below to open it directly in a pop-up window without scrolling.</p>
+          </div>
+        </div>
+        <button class="features-modal-close" onclick="closeFeaturesModal()">&times;</button>
+      </div>
+
+      <div class="features-grid">
+        <!-- 0. Voice Analysis -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); openVoiceAnalyzerModal();">
+          <div class="feature-card-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899; border-color: rgba(236, 72, 153, 0.4);">
+            <i class="fa-solid fa-lungs"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</h3>
+            <p>কাশি বা কণ্ঠস্বর শুনে সম্ভাব্য শ্বাসযন্ত্রের সমস্যা সম্পর্কে প্রাথমিক ধারণা।</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 0. Health History Journal -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); openHealthHistoryModal();">
+          <div class="feature-card-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border-color: rgba(59, 130, 246, 0.4);">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navHealthHistory">Health History Journal</h3>
+            <p>Save all past symptom checks & timeline logs with 1-click doctor copy & export.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 0. Smart Medicine Reminder -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); openMedicineReminderModal();">
+          <div class="feature-card-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: rgba(245, 158, 11, 0.4);">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navMedReminder">Smart Medicine Reminder</h3>
+            <p>Set alarms for Morning, Afternoon & Night with live notifications & AI safety check.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 0. AI Food Scanner -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); openFoodScannerModal();">
+          <div class="feature-card-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.4);">
+            <i class="fa-solid fa-utensils"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navFoodScanner">AI Food & Nutrition Scanner</h3>
+            <p>Upload Food Photo for AI Calories, Protein, Fat & Sugar breakdown.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 0. Skin Disease Detection -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); openSkinDetectorModal();">
+          <div class="feature-card-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899; border-color: rgba(236, 72, 153, 0.4);">
+            <i class="fa-solid fa-camera"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navSkinDetector">Skin Disease Detection</h3>
+            <p>Live Camera & Photo analysis for Acne, Rash, Allergy, Eczema & Skin infections.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 0. AI Medical Report Analyzer -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); openReportAnalyzerModal();">
+          <div class="feature-card-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border-color: rgba(245, 158, 11, 0.4);">
+            <i class="fa-solid fa-file-medical"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navReportAnalyzer">AI Medical Report Analyzer</h3>
+            <p>Upload Blood Report, CBC, X-ray, MRI, Prescription & Lab Reports for simple AI explanation.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 1. Fever DB -->
+        <div class="feature-item-card" onclick="openFeatureModal('fever')">
+          <div class="feature-card-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
+            <i class="fa-solid fa-temperature-arrow-up"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navFeverDB">35+ Clinical Fever DB</h3>
+            <p>Browse 35+ viral fevers, Dengue, Typhoid, Malaria & blood test rules.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 2. Nearby Hospitals -->
+        <div class="feature-item-card" onclick="openFeatureModal('hospitals')">
+          <div class="feature-card-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border-color: rgba(16, 185, 129, 0.4);">
+            <i class="fa-solid fa-hospital-user"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navHospitals">Nearby Hospitals & GPS</h3>
+            <p>Find instant location, distance & emergency ambulance hotlines near you.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 3. Health Calculators -->
+        <div class="feature-item-card" onclick="openFeatureModal('calculators')">
+          <div class="feature-card-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4; border-color: rgba(6, 182, 212, 0.4);">
+            <i class="fa-solid fa-calculator"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navCalculators">Health Calculators</h3>
+            <p>Calculate BMI body mass index, BMR daily calorie need & water intake.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 4. AI Medical Consult Chat -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); openFloatingChatModal();">
+          <div class="feature-card-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border-color: rgba(139, 92, 246, 0.4);">
+            <i class="fa-solid fa-user-doctor"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3 data-i18n="navConsultAI">AI Medical Consult</h3>
+            <p>Interactive 24/7 Gemini LLM clinical doctor consultation chat.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 5. AI Symptom Triage -->
+        <div class="feature-item-card" onclick="openFeatureModal('triage')">
+          <div class="feature-card-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border-color: rgba(59, 130, 246, 0.4);">
+            <i class="fa-solid fa-stethoscope"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3>AI Symptom Triage</h3>
+            <p>Body region selector & instant algorithmic risk evaluation engine.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+
+        <!-- 6. Digital Prescription Generator -->
+        <div class="feature-item-card" onclick="closeFeaturesModal(); triggerPrescriptionGenerator();">
+          <div class="feature-card-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899; border-color: rgba(236, 72, 153, 0.4);">
+            <i class="fa-solid fa-file-prescription"></i>
+          </div>
+          <div class="feature-card-content">
+            <h3>Digital Prescription</h3>
+            <p>Generate clinical prescription report & pathology lab test advice PDF.</p>
+          </div>
+          <i class="fa-solid fa-arrow-right feature-card-arrow"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Feature Viewer Popup Modal Window -->
+  <div class="feature-viewer-overlay hidden" id="feature-viewer-modal" onclick="if(event.target.id==='feature-viewer-modal') closeFeatureViewerModal()">
+    <div class="feature-viewer-card">
+      <div class="feature-viewer-header">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <i id="feature-viewer-icon" class="fa-solid fa-microchip" style="font-size: 1.5rem; color: var(--accent-cyan);"></i>
+          <h2 id="feature-viewer-title" style="font-size: 1.45rem; font-weight: 800; color: var(--text-main);">Clinical Feature Tool</h2>
+        </div>
+        <button class="feature-viewer-close" onclick="closeFeatureViewerModal()">&times;</button>
+      </div>
+      <div id="feature-viewer-body">
+        <!-- Dynamically injected feature view -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase Authentication Modal Overlay -->
+  <div class="auth-modal-overlay hidden" id="auth-modal" onclick="handleAuthOverlayClick(event)">
+    <div class="auth-modal-card">
+      <div class="auth-ambient-glow"></div>
+      <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close modal">&times;</button>
+      
+      <div class="auth-header">
+        <div class="auth-logo-badge">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+        <h2 class="auth-title" id="auth-modal-title" data-i18n="authTitle">Welcome to MediPulse AI</h2>
+        <p class="auth-subtitle" id="auth-modal-subtitle" data-i18n="authSubtitle">Access clinical diagnostic records & AI health insights</p>
+      </div>
+
+      <!-- Auth Tab Navigation -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" id="tab-btn-login" onclick="switchAuthTab('login')" data-i18n="tabSignIn">Sign In</button>
+        <button class="auth-tab-btn" id="tab-btn-register" onclick="switchAuthTab('register')" data-i18n="tabRegister">Register</button>
+      </div>
+
+      <!-- Google Sign-In Button -->
+      <div class="auth-social-container">
+        <button class="btn-google" id="google-auth-btn" onclick="handleGoogleSignIn()">
+          <svg class="google-icon" viewBox="0 0 48 48" width="20" height="20">
+            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          </svg>
+          <span id="google-btn-text" data-i18n="btnGoogle">Continue with Google</span>
+        </button>
+      </div>
+
+      <div class="auth-divider">
+        <span data-i18n="authDivider">OR WITH EMAIL</span>
+      </div>
+
+      <!-- Auth Alert Feedback Box -->
+      <div class="auth-alert hidden" id="auth-alert"></div>
+
+      <!-- Sign In Form -->
+      <form id="login-form" class="auth-form" onsubmit="handleEmailSignIn(event)">
+        <div class="form-group">
+          <label for="login-email"><i class="fa-solid fa-envelope"></i> <span data-i18n="labelEmail">Email Address</span></label>
+          <div class="input-wrapper">
+            <input type="email" id="login-email" class="form-input" placeholder="doctor@medipulse.ai" required autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="login-password"><i class="fa-solid fa-lock"></i> <span data-i18n="labelPassword">Password</span></label>
+          <div class="input-wrapper">
+            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+            <i class="fa-solid fa-eye password-toggle-eye" onclick="togglePasswordVisibility('login-password', this)" title="Show/Hide Password"></i>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-auth-submit" id="login-submit-btn">
+          <i class="fa-solid fa-right-to-bracket"></i> <span data-i18n="btnSignIn">Sign In</span>
+        </button>
+      </form>
+
+      <!-- Register / Sign Up Form -->
+      <form id="register-form" class="auth-form hidden" onsubmit="handleEmailSignUp(event)">
+        <div class="form-group">
+          <label for="register-name"><i class="fa-solid fa-user"></i> <span data-i18n="labelFullName">Full Name</span></label>
+          <div class="input-wrapper">
+            <input type="text" id="register-name" class="form-input" placeholder="Dr. Alex Rivera" required autocomplete="name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="register-email"><i class="fa-solid fa-envelope"></i> <span data-i18n="labelEmail">Email Address</span></label>
+          <div class="input-wrapper">
+            <input type="email" id="register-email" class="form-input" placeholder="doctor@medipulse.ai" required autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="register-password"><i class="fa-solid fa-lock"></i> <span data-i18n="labelPassword">Password</span></label>
+          <div class="input-wrapper">
+            <input type="password" id="register-password" class="form-input" placeholder="Minimum 6 characters" minlength="6" required autocomplete="new-password">
+            <i class="fa-solid fa-eye password-toggle-eye" onclick="togglePasswordVisibility('register-password', this)" title="Show/Hide Password"></i>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="register-confirm-password"><i class="fa-solid fa-shield-halved"></i> <span data-i18n="labelConfirmPassword">Confirm Password</span></label>
+          <div class="input-wrapper">
+            <input type="password" id="register-confirm-password" class="form-input" placeholder="Repeat password" minlength="6" required autocomplete="new-password">
+            <i class="fa-solid fa-eye password-toggle-eye" onclick="togglePasswordVisibility('register-confirm-password', this)" title="Show/Hide Password"></i>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-auth-submit" id="register-submit-btn">
+          <i class="fa-solid fa-user-plus"></i> <span data-i18n="btnRegister">Create Account</span>
+        </button>
+      </form>
+
+      <!-- Trust & Security Footer Badge -->
+      <div class="auth-security-footer">
+        <i class="fa-solid fa-shield-halved"></i>
+        <span>256-Bit SSL Encrypted • Secure Health Data</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Interactive User Profile & Health Passport Modal -->
+  <div class="profile-modal-overlay hidden" id="user-profile-modal" onclick="handleProfileOverlayClick(event)">
+    <div class="profile-modal-card">
+      <button class="profile-modal-close" onclick="closeUserProfileModal()" aria-label="Close profile">&times;</button>
+
+      <!-- Profile Header Hero -->
+      <div class="profile-hero">
+        <div class="profile-avatar-container">
+          <div id="profile-avatar-display">
+            <!-- Dynamic Avatar or Photo -->
+          </div>
+          <span class="online-status-dot" title="Authenticated Session"></span>
+        </div>
+        <div class="profile-hero-info">
+          <h2 class="profile-name" id="profile-display-name">Patient Name</h2>
+          <div class="profile-email-badge">
+            <i class="fa-solid fa-envelope"></i> <span id="profile-display-email">patient@medipulse.ai</span>
+          </div>
+          <div class="profile-meta-tags">
+            <span class="meta-tag verified"><i class="fa-solid fa-shield-check"></i> Firebase Verified</span>
+            <span class="meta-tag clinical"><i class="fa-solid fa-file-medical"></i> Patient ID: <strong id="profile-user-id">#ID-12345</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Health Stats Metrics Grid -->
+      <div class="profile-stats-grid">
+        <div class="p-stat-card">
+          <div class="p-stat-icon cyan"><i class="fa-solid fa-notes-medical"></i></div>
+          <div class="p-stat-info">
+            <div class="p-stat-num" id="stat-assessments-count">0</div>
+            <div class="p-stat-label">AI Triage Runs</div>
+          </div>
+        </div>
+        <div class="p-stat-card">
+          <div class="p-stat-icon emerald"><i class="fa-solid fa-file-prescription"></i></div>
+          <div class="p-stat-info">
+            <div class="p-stat-num" id="stat-saved-reports">0</div>
+            <div class="p-stat-label">Saved Reports</div>
+          </div>
+        </div>
+        <div class="p-stat-card">
+          <div class="p-stat-icon purple"><i class="fa-solid fa-heart-pulse"></i></div>
+          <div class="p-stat-info">
+            <div class="p-stat-num" id="stat-health-risk">Normal</div>
+            <div class="p-stat-label">Risk Profile</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Patient Personal Details Form (Auto-filled on Prescriptions) -->
+      <div class="patient-details-section">
+        <div class="p-section-header">
+          <h3><i class="fa-solid fa-user-pen" style="color: var(--accent-cyan);"></i> Patient Prescription Profile</h3>
+          <span class="p-section-badge"><i class="fa-solid fa-bolt"></i> Auto-Fills Prescriptions</span>
+        </div>
+        <form id="patient-profile-form" onsubmit="savePatientProfile(event)">
+          <div class="profile-form-grid">
+            <div class="p-form-group">
+              <label for="p-name"><i class="fa-solid fa-user"></i> Patient Name</label>
+              <input type="text" id="p-name" class="p-input" placeholder="e.g. Sayan Pattanayak" required>
+            </div>
+            <div class="p-form-group">
+              <label for="p-age"><i class="fa-solid fa-cake-candles"></i> Age</label>
+              <input type="text" id="p-age" class="p-input" placeholder="e.g. 25 Yrs" required>
+            </div>
+            <div class="p-form-group">
+              <label for="p-gender"><i class="fa-solid fa-venus-mars"></i> Gender</label>
+              <select id="p-gender" class="p-input">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="p-form-group">
+              <label for="p-phone"><i class="fa-solid fa-phone"></i> Contact Phone</label>
+              <input type="text" id="p-phone" class="p-input" placeholder="+91 98765 43210">
+            </div>
+          </div>
+          <div class="p-form-group" style="margin-top: 0.6rem;">
+            <label for="p-address"><i class="fa-solid fa-location-dot"></i> Address / City</label>
+            <input type="text" id="p-address" class="p-input" placeholder="City, State">
+          </div>
+          <div style="display: flex; justify-content: flex-end; margin-top: 0.8rem;">
+            <button type="submit" class="btn btn-primary" id="save-patient-profile-btn" style="padding: 0.5rem 1.2rem; font-size: 0.88rem;">
+              <i class="fa-solid fa-floppy-disk"></i> <span id="save-btn-text">Save Patient Details</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Saved Diagnostic History Section -->
+      <div class="profile-history-section">
+        <div class="p-history-header">
+          <h3><i class="fa-solid fa-clock-rotate-left"></i> Diagnostic Assessment History</h3>
+          <button class="btn-refresh-history" onclick="loadUserProfileData()"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
+        </div>
+        <div class="p-history-list" id="profile-history-list">
+          <div class="p-history-empty">
+            <i class="fa-solid fa-clipboard-list" style="font-size: 2rem; color: var(--text-subtle);"></i>
+            <p>No saved diagnostic reports found yet. Run an AI symptom triage to generate records!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Actions Footer -->
+      <div class="profile-footer">
+        <button class="btn btn-secondary" onclick="closeUserProfileModal()">
+          <i class="fa-solid fa-xmark"></i> Close
+        </button>
+        <button class="btn btn-secondary danger-outline" onclick="handleSignOut()">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOATING AI DOCTOR CONSULTATION TRIGGER BUTTON -->
+  <button id="floating-chat-trigger" onclick="toggleAIChatModal()" title="Consult Dr. MediPulse AI Doctor">
+    <div style="position: relative;">
+      <i class="fa-solid fa-user-doctor" style="font-size: 1.4rem; color: #00f2fe;"></i>
+      <span class="chat-online-dot"></span>
+    </div>
+    <span style="font-weight: 700;" data-i18n="floatingConsultText">AI Consult</span>
+  </button>
+
+  <!-- INTERACTIVE AI MEDICAL CONSULTATION CHAT MODAL -->
+  <div class="ai-chat-modal" id="ai-chat-modal" style="display: none;">
+    <!-- Chat Header Bar -->
+    <div class="chat-header">
+      <div style="display: flex; align-items: center; gap: 0.7rem;">
+        <div style="position: relative;">
+          <img src="logo2.png" alt="Dr. MediPulse AI Avatar" class="chat-doctor-avatar">
+          <span class="chat-online-dot"></span>
+        </div>
+        <div>
+          <div style="font-weight: 700; color: #ffffff; font-size: 1rem;" data-i18n="chatDoctorName">Dr. MediPulse AI</div>
+          <div style="font-size: 0.75rem; color: var(--accent-cyan);" data-i18n="chatDoctorSub">Gemini Clinical AI Consultant</div>
+        </div>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <button class="chat-header-btn" onclick="promptGeminiApiKey()" title="Configure Gemini AI Key">
+          <i class="fa-solid fa-key" style="color: var(--accent-cyan);"></i>
+        </button>
+        <button class="chat-header-btn" onclick="clearAIChatHistory()" title="Clear Chat">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+        <button class="chat-header-btn" onclick="toggleAIChatModal()" title="Close Consultation">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Suggest Prompts Chips Bar -->
+    <div class="chat-quick-prompts" id="chat-quick-prompts">
+      <button class="prompt-chip" onclick="sendQuickPrompt('What should I do if I have high fever and headache?')">
+        🌡️ <span data-i18n="chipPrompt1">Fever & Headache advice</span>
+      </button>
+      <button class="prompt-chip" onclick="sendQuickPrompt('How to treat severe stomach pain and acid reflux?')">
+        💊 <span data-i18n="chipPrompt2">Stomach pain & Gas remedies</span>
+      </button>
+      <button class="prompt-chip" onclick="sendQuickPrompt('What are the warning signs of chest pain?')">
+        🚨 <span data-i18n="chipPrompt3">Chest pain warning signs</span>
+      </button>
+    </div>
+
+    <!-- Chat Messages Scrollable Area -->
+    <div class="chat-messages-container" id="chat-messages-container">
+      <!-- Initial Welcome Message -->
+      <div class="chat-msg ai-msg">
+        <div class="msg-bubble">
+          <p data-i18n="chatWelcomeMsg">👋 Hello! I am <strong>Dr. MediPulse AI</strong>, your clinical AI medical consultant. How can I assist with your symptoms or medical questions today?</p>
+        </div>
+        <div class="msg-time">Just now</div>
+      </div>
+    </div>
+
+    <!-- Typing Indicator Animation -->
+    <div id="chat-typing-indicator" style="display: none; padding: 0.5rem 1rem; align-items: center; gap: 0.5rem; color: var(--accent-cyan); font-size: 0.82rem;">
+      <i class="fa-solid fa-circle-notch fa-spin"></i>
+      <span data-i18n="chatTypingText">Dr. MediPulse AI is analyzing your query...</span>
+    </div>
+
+    <!-- Chat Input Form Controls -->
+    <div class="chat-input-wrapper">
+      <div style="display: flex; gap: 0.6rem; align-items: center;">
+        <textarea id="chat-user-input" class="chat-textarea" placeholder="Ask Dr. MediPulse AI any health question..." rows="1" onkeypress="handleChatKeyPress(event)"></textarea>
+        
+        <button class="btn btn-secondary chat-mic-btn" id="btn-voice-input" onclick="toggleVoiceInput()" title="Voice Input">
+          <i class="fa-solid fa-microphone" id="mic-icon"></i>
+        </button>
+
+        <button class="btn btn-primary chat-send-btn" id="btn-send-chat" onclick="sendUserChatMessage()">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+      <div style="font-size: 0.7rem; color: var(--text-subtle); margin-top: 0.4rem; text-align: center;" data-i18n="chatDisclaimerText">
+        AI Triage & Decision Support tool. In emergencies, call Ambulance (102 / 108 / 999).
+      </div>
+    </div>
+  </div>
+
+  <!-- Bio-Sensor Pulse Rate & Blood Pressure Scanner Modal -->
+  <div class="modal-overlay hidden" id="biosensor-modal" onclick="if(event.target===this) closeBioSensorModal();">
+    <div class="modal-card biosensor-modal-card">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div class="biosensor-icon-wrapper">
+            <i class="fa-solid fa-heart-pulse" style="color: #f43f5e; font-size: 1.4rem;"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.2rem; font-weight: 700; color: #ffffff;" data-i18n="bioSensorTitle">AI Bio-Sensor Pulse Rate Checker</h3>
+            <p style="margin: 0; font-size: 0.78rem; color: var(--accent-cyan);" data-i18n="bioSensorSub">Touch & Hold Optical Sensor for Pulse (BPM) & Heartbeat Check</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeBioSensorModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.25rem; text-align: center;">
+        <!-- Scanner Instruction Banner -->
+        <div class="biosensor-status-pill" id="biosensor-status-pill">
+          <i class="fa-solid fa-fingerprint" style="color: var(--accent-cyan);"></i>
+          <span id="biosensor-status-text">Touch and hold your finger on the optical sensor below</span>
+        </div>
+
+        <!-- Bio Sensor Scanner Interactive Pad -->
+        <div class="biosensor-pad-container" id="biosensor-pad-container"
+             onmousedown="startBioSensorScan()" onmouseup="stopBioSensorScan()" onmouseleave="stopBioSensorScan()"
+             ontouchstart="startBioSensorScan(event)" ontouchend="stopBioSensorScan(event)">
+          <div class="biosensor-ring-pulse" id="biosensor-ring"></div>
+          <div class="biosensor-pad" id="biosensor-pad">
+            <i class="fa-solid fa-fingerprint biosensor-fp-icon" id="biosensor-fp-icon"></i>
+            <div class="biosensor-laser-line" id="biosensor-laser"></div>
+          </div>
+        </div>
+
+        <!-- Real-time Progress & ECG Waveform Container -->
+        <div class="biosensor-metrics-box hidden" id="biosensor-metrics-box">
+          <!-- ECG Animated Canvas -->
+          <div class="ecg-canvas-wrapper" style="margin-bottom: 0.75rem;">
+            <canvas id="ecg-canvas" width="380" height="70"></canvas>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="biosensor-progress-wrapper">
+            <div class="biosensor-progress-bar" id="biosensor-progress-bar"></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-subtle); margin-top: 0.4rem;">
+            <span>Scanning Optical Vitals...</span>
+            <span id="biosensor-progress-pct" style="font-weight: 700; color: var(--accent-cyan);">0%</span>
+          </div>
+
+          <!-- Live Fluctuating Heartbeat Display -->
+          <div class="live-bpm-ticker" style="margin-top: 0.75rem; font-size: 1.5rem; font-weight: 700; color: #ffffff;">
+            <i class="fa-solid fa-heart fa-beat" style="color: #f43f5e; font-size: 1.4rem; margin-right: 0.4rem;"></i>
+            <span id="live-bpm-value">--</span> <span style="font-size: 0.85rem; color: var(--text-subtle); font-weight: 400;">BPM</span>
+          </div>
+        </div>
+
+        <!-- Clinical Scan Results Section (shown after scan finishes) -->
+        <div class="biosensor-results-box hidden" id="biosensor-results-box">
+          <div style="font-size: 0.85rem; color: #10b981; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1rem;">
+            <i class="fa-solid fa-circle-check"></i> Vitals Check Complete
+          </div>
+
+          <div class="vitals-cards-grid">
+            <!-- Heart Rate Card -->
+            <div class="vital-card">
+              <div class="vital-icon" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e;">
+                <i class="fa-solid fa-heart-pulse"></i>
+              </div>
+              <div class="vital-label">Heart Rate (Pulse)</div>
+              <div class="vital-val" id="res-pulse-val">74 <span style="font-size: 0.75rem; font-weight: 400;">BPM</span></div>
+              <div class="vital-badge badge-normal" id="res-pulse-status">Normal (60-100)</div>
+            </div>
+
+            <!-- Blood Pressure Card -->
+            <div class="vital-card">
+              <div class="vital-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;">
+                <i class="fa-solid fa-gauge-high"></i>
+              </div>
+              <div class="vital-label">Blood Pressure</div>
+              <div class="vital-val" id="res-bp-val">120 / 80 <span style="font-size: 0.75rem; font-weight: 400;">mmHg</span></div>
+              <div class="vital-badge badge-normal" id="res-bp-status">Optimal (120/80)</div>
+            </div>
+
+            <!-- SpO2 Oxygen Card -->
+            <div class="vital-card">
+              <div class="vital-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
+                <i class="fa-solid fa-lungs"></i>
+              </div>
+              <div class="vital-label">Blood Oxygen (SpO2)</div>
+              <div class="vital-val" id="res-spo2-val">98%</div>
+              <div class="vital-badge badge-normal" id="res-spo2-status">Normal (95-100%)</div>
+            </div>
+          </div>
+
+          <!-- AI Clinical Interpretation -->
+          <div class="biosensor-ai-note" id="biosensor-ai-note">
+            <i class="fa-solid fa-user-doctor" style="color: var(--accent-cyan); font-size: 1.2rem;"></i>
+            <div style="text-align: left;">
+              <strong style="color: #ffffff; font-size: 0.88rem;">Dr. MediPulse AI Summary:</strong>
+              <p id="res-clinical-summary" style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+                Your resting pulse rate and blood pressure are within healthy clinical ranges. No signs of tachycardia or hypertension detected.
+              </p>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem;">
+            <button class="btn btn-secondary" onclick="resetBioSensorScan()">
+              <i class="fa-solid fa-rotate-right"></i> Re-Scan
+            </button>
+            <button class="btn btn-primary" onclick="openFloatingChatModal(); closeBioSensorModal();">
+              <i class="fa-solid fa-comments"></i> Consult AI Doctor
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI MEDICAL REPORT ANALYZER MODAL (Blood, CBC, X-Ray, MRI, Prescription, Lab Report) -->
+  <div class="modal-overlay hidden" id="report-analyzer-modal" onclick="if(event.target===this) closeReportAnalyzerModal();">
+    <div class="modal-card report-modal-card" style="max-width: 760px; width: 92%;">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #f59e0b;">
+            <i class="fa-solid fa-file-medical"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;" data-i18n="reportModalTitle">4. AI Medical Report Analyzer</h3>
+            <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: var(--accent-cyan);" data-i18n="reportModalSub">Upload or paste reports for instant AI simple-language explanation (সহজ ভাষায়)</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeReportAnalyzerModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.5rem 1.25rem;">
+        
+        <!-- Step 1: Report Category Selection Pills -->
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.6rem;">
+            <i class="fa-solid fa-list-check" style="color: var(--accent-cyan);"></i> <span data-i18n="selectReportTypeLabel">Select Medical Report Category:</span>
+          </label>
+
+          <div class="report-category-pills">
+            <button class="report-cat-pill active" data-rcat="cbc" onclick="selectReportCategory('cbc', this)">
+              <i class="fa-solid fa-droplet"></i> CBC Report
+            </button>
+            <button class="report-cat-pill" data-rcat="blood" onclick="selectReportCategory('blood', this)">
+              <i class="fa-solid fa-vial"></i> Blood Report
+            </button>
+            <button class="report-cat-pill" data-rcat="xray" onclick="selectReportCategory('xray', this)">
+              <i class="fa-solid fa-x-ray"></i> X-Ray
+            </button>
+            <button class="report-cat-pill" data-rcat="mri" onclick="selectReportCategory('mri', this)">
+              <i class="fa-solid fa-brain"></i> MRI / CT
+            </button>
+            <button class="report-cat-pill" data-rcat="prescription" onclick="selectReportCategory('prescription', this)">
+              <i class="fa-solid fa-prescription"></i> Prescription
+            </button>
+            <button class="report-cat-pill" data-rcat="lab" onclick="selectReportCategory('lab', this)">
+              <i class="fa-solid fa-microscope"></i> Lab Report
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Upload File / Document Dropzone -->
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.6rem;">
+            <i class="fa-solid fa-cloud-arrow-up" style="color: var(--accent-cyan);"></i> <span data-i18n="uploadReportLabel">Upload Report Image / Scan:</span>
+          </label>
+
+          <input type="file" id="report-file-input" accept="image/*,.pdf" style="display: none;" onchange="handleReportFileSelect(event)">
+          
+          <div class="report-dropzone" id="report-dropzone" onclick="document.getElementById('report-file-input').click()" ondragover="handleReportDragOver(event)" ondragleave="handleReportDragLeave(event)" ondrop="handleReportDrop(event)">
+            <div id="dropzone-default-view" style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--text-muted);">
+              <i class="fa-solid fa-file-arrow-up" style="font-size: 2.2rem; color: var(--accent-cyan);"></i>
+              <div style="font-size: 0.95rem; font-weight: 600; color: #ffffff;">
+                <span data-i18n="dropzoneText">Click or Drag & Drop Report Image / PDF Scan</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-subtle);">
+                Supports Blood Report, CBC, X-ray, MRI, Prescription, Lab Report (PNG, JPG, WEBP)
+              </div>
+            </div>
+
+            <!-- Thumbnail Image Preview -->
+            <div id="report-preview-container" class="hidden" style="position: relative; text-align: center; width: 100%;">
+              <img id="report-preview-img" src="" alt="Report Thumbnail Preview" style="max-height: 180px; max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); object-fit: contain;">
+              <button class="btn-remove-preview" onclick="event.stopPropagation(); removeReportImage();" title="Remove Uploaded Image">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+              <div id="report-file-name" style="font-size: 0.8rem; color: var(--accent-cyan); margin-top: 0.4rem; font-weight: 600;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Text Paste or Manual Findings Input -->
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">
+            <i class="fa-solid fa-pen-to-square" style="color: var(--accent-cyan);"></i> <span data-i18n="textReportLabel">Or Type / Paste Report Details:</span>
+          </label>
+          <textarea id="report-text-input" class="form-input" rows="3" placeholder="Type or paste lab report text, test values, or doctor impression (e.g., Hemoglobin: 10.5 g/dL, Platelets: 135,000 /uL, Chest X-Ray: Opacity right lower lobe)..." style="width: 100%; font-family: inherit; font-size: 0.9rem; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn btn-primary" id="btn-analyze-report" onclick="analyzeMedicalReport()" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; background: linear-gradient(135deg, #f59e0b, #d97706); border: none;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span id="analyze-report-btn-text" data-i18n="analyzeReportBtn">Analyze & Explain Report with AI</span>
+        </button>
+
+        <!-- Loader Spinner (Initially Hidden, appears only on Analyze click) -->
+        <div id="report-loader" class="hidden" style="display: none; text-align: center; padding: 1.5rem 0; color: #f59e0b;">
+          <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+          <div style="margin-top: 0.6rem; font-weight: 600; font-size: 0.92rem;" data-i18n="analyzingReportText">
+            Dr. MediPulse AI is analyzing your medical report findings...
+          </div>
+        </div>
+
+        <!-- Analysis Results Output Box -->
+        <div id="report-result-box" class="hidden" style="margin-top: 1.5rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: var(--radius-md); padding: 1.3rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.8rem; margin-bottom: 1rem;">
+            <div style="font-weight: 800; font-size: 1.1rem; color: #f59e0b; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-brain"></i> <span data-i18n="reportAnalysisTitle">AI Simple-Language Analysis Result:</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-secondary" onclick="copyReportAnalysisText()" style="padding: 0.3rem 0.7rem; font-size: 0.8rem;" title="Copy Explanation">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
+            </div>
+          </div>
+
+          <!-- Formatted Markdown Content Container -->
+          <div id="report-analysis-content" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main); white-space: pre-line;">
+            <!-- Dynamically populated via app.js -->
+          </div>
+
+          <div style="margin-top: 1.2rem; padding-top: 0.8rem; border-top: 1px solid var(--border-subtle); font-size: 0.75rem; color: var(--text-subtle); text-align: center;">
+            <i class="fa-solid fa-circle-info"></i> AI educational report summary. Always consult your attending doctor for official clinical diagnosis.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- AI SKIN DISEASE DETECTION MODAL (Camera + Photo Upload for Acne, Rash, Allergy) -->
+  <div class="modal-overlay hidden" id="skin-detector-modal" onclick="if(event.target===this) closeSkinDetectorModal();">
+    <div class="modal-card skin-modal-card" style="max-width: 760px; width: 92%;">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #ec4899;">
+            <i class="fa-solid fa-camera"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;" data-i18n="skinModalTitle">Skin Disease Detection</h3>
+            <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: var(--accent-cyan);" data-i18n="skinModalSub">Camera দিয়ে বা ছবি আপলোড করে Acne, Rash, Allergy পরীক্ষা করুন</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeSkinDetectorModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.5rem 1.25rem;">
+        
+        <!-- Step 1: Input Mode Switcher (Camera vs Upload Photo) -->
+        <div class="skin-mode-toggle" style="display: flex; gap: 0.6rem; margin-bottom: 1.2rem;">
+          <button class="skin-mode-btn active" id="btn-skin-mode-cam" onclick="switchSkinInputMode('camera')">
+            <i class="fa-solid fa-video"></i> <span>Live Camera (Camera দিয়ে)</span>
+          </button>
+          <button class="skin-mode-btn" id="btn-skin-mode-file" onclick="switchSkinInputMode('file')">
+            <i class="fa-solid fa-image"></i> <span>Upload Photo (গ্যালারি)</span>
+          </button>
+        </div>
+
+        <!-- Mode A: Live Camera Viewfinder -->
+        <div id="skin-camera-view" style="margin-bottom: 1.2rem;">
+          <div class="camera-viewfinder-container" style="text-align: center;">
+            <video id="skin-video-feed" autoplay playsinline muted style="width: 100%; max-height: 280px; background: #000; border-radius: var(--radius-md); object-fit: cover; border: 1px solid rgba(236, 72, 153, 0.4);"></video>
+            <canvas id="skin-canvas-snapshot" style="display: none;"></canvas>
+
+            <div class="camera-controls-overlay" style="display: flex; justify-content: center; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap;">
+              <button class="btn btn-primary" onclick="startSkinCamera()" id="btn-start-cam" title="Start Camera" style="padding: 0.65rem 1.3rem; font-size: 1.2rem; background: linear-gradient(135deg, #ec4899, #db2777); border: none; border-radius: 50px;">
+                <i class="fa-solid fa-power-off"></i>
+              </button>
+              <button class="btn btn-primary hidden" id="btn-capture-photo" onclick="captureSkinPhoto()" title="Capture Photo" style="padding: 0.65rem 1.3rem; font-size: 1.2rem; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 50px;">
+                <i class="fa-solid fa-circle-dot"></i>
+              </button>
+              <button class="btn btn-secondary hidden" id="btn-switch-cam" onclick="switchSkinCameraFacing()" title="Switch Front/Back Camera" style="padding: 0.65rem 1.3rem; font-size: 1.2rem; border-radius: 50px;">
+                <i class="fa-solid fa-camera-rotate"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode B: Upload File Dropzone (Initially Hidden) -->
+        <div id="skin-file-view" class="hidden" style="margin-bottom: 1.2rem;">
+          <input type="file" id="skin-file-input" accept="image/*" style="display: none;" onchange="handleSkinFileSelect(event)">
+          
+          <div class="skin-dropzone" id="skin-dropzone" onclick="document.getElementById('skin-file-input').click()" ondragover="handleSkinDragOver(event)" ondragleave="handleSkinDragLeave(event)" ondrop="handleSkinDrop(event)">
+            <div id="skin-drop-default" style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--text-muted);">
+              <i class="fa-solid fa-images" style="font-size: 2.2rem; color: #ec4899;"></i>
+              <div style="font-size: 0.95rem; font-weight: 600; color: #ffffff;">
+                <span>Click or Drag & Drop Skin Photo</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-subtle);">
+                Supports Acne, Rash, Allergy, Eczema photos (PNG, JPG, WEBP)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Captured / Selected Photo Preview Container -->
+        <div id="skin-preview-container" class="hidden" style="margin-bottom: 1.2rem; text-align: center; position: relative;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.4rem;">
+            📸 Active Skin Image Captured:
+          </label>
+          <img id="skin-preview-img" src="" alt="Captured Skin Lesion" style="max-height: 200px; max-width: 100%; border-radius: var(--radius-md); border: 2px solid #ec4899; object-fit: contain;">
+          <button class="btn-remove-preview" onclick="removeSkinImage()" title="Remove Image" style="top: 24px; right: 10px;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Step 2: Skin Condition Category Pills -->
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.6rem;">
+            <i class="fa-solid fa-virus" style="color: #ec4899;"></i> <span>Select Condition Category:</span>
+          </label>
+
+          <div class="skin-category-pills">
+            <button class="skin-cat-pill active" data-scat="acne" onclick="selectSkinCategory('acne', this)">
+              🌋 Acne (ব্রণ)
+            </button>
+            <button class="skin-cat-pill" data-scat="rash" onclick="selectSkinCategory('rash', this)">
+              🔴 Rash (র‍্যাশ)
+            </button>
+            <button class="skin-cat-pill" data-scat="allergy" onclick="selectSkinCategory('allergy', this)">
+              🐝 Allergy (এলার্জি)
+            </button>
+            <button class="skin-cat-pill" data-scat="eczema" onclick="selectSkinCategory('eczema', this)">
+              🩹 Eczema
+            </button>
+            <button class="skin-cat-pill" data-scat="fungal" onclick="selectSkinCategory('fungal', this)">
+              🍄 Fungal / Ringworm
+            </button>
+            <button class="skin-cat-pill" data-scat="general" onclick="selectSkinCategory('general', this)">
+              🔬 General
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Optional Symptoms Note -->
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">
+            <i class="fa-solid fa-pen-to-square" style="color: var(--accent-cyan);"></i> <span>Symptoms Note (Optional):</span>
+          </label>
+          <textarea id="skin-user-note" class="form-input" rows="2" placeholder="Describe symptoms e.g., itching for 3 days, burning sensation, redness..." style="width: 100%; font-family: inherit; font-size: 0.88rem; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn btn-primary" id="btn-analyze-skin" onclick="analyzeSkinImage()" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; background: linear-gradient(135deg, #ec4899, #db2777); border: none;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span id="analyze-skin-btn-text">Analyze Skin Image with AI (AI Image Analysis)</span>
+        </button>
+
+        <!-- Loader Spinner (Initially Hidden) -->
+        <div id="skin-loader" class="hidden" style="display: none; text-align: center; padding: 1.5rem 0; color: #ec4899;">
+          <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+          <div style="margin-top: 0.6rem; font-weight: 600; font-size: 0.92rem;">
+            Dr. MediPulse AI Dermatology Engine is analyzing skin lesion...
+          </div>
+        </div>
+
+        <!-- Analysis Results Output Box -->
+        <div id="skin-result-box" class="hidden" style="display: none; margin-top: 1.5rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(236, 72, 153, 0.4); border-radius: var(--radius-md); padding: 1.3rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.8rem; margin-bottom: 1rem;">
+            <div style="font-weight: 800; font-size: 1.1rem; color: #ec4899; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-microscope"></i> <span>AI Skin Dermatology Result:</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-secondary" onclick="copySkinAnalysisText()" style="padding: 0.3rem 0.7rem; font-size: 0.8rem;" title="Copy Explanation">
+                <i class="fa-solid fa-copy"></i> Copy
+              </button>
+            </div>
+          </div>
+
+          <!-- Formatted Markdown Content Container -->
+          <div id="skin-analysis-content" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main); white-space: pre-line;">
+            <!-- Dynamically populated via app.js -->
+          </div>
+
+          <div style="margin-top: 1.2rem; padding-top: 0.8rem; border-top: 1px solid var(--border-subtle); font-size: 0.75rem; color: var(--text-subtle); text-align: center;">
+            <i class="fa-solid fa-circle-info"></i> AI educational skin analysis. Consult a certified Dermatologist for medical diagnosis.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- AI FOOD SCANNER & NUTRITION ESTIMATOR MODAL (Calories, Protein, Fat, Sugar) -->
+  <div class="modal-overlay hidden" id="food-scanner-modal" onclick="if(event.target===this) closeFoodScannerModal();">
+    <div class="modal-card food-modal-card" style="max-width: 760px; width: 92%;">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #10b981;">
+            <i class="fa-solid fa-utensils"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;" data-i18n="foodModalTitle">Food Scanner & Nutrition Estimator</h3>
+            <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: var(--accent-cyan);" data-i18n="foodModalSub">খাবারের ছবি Upload করলে AI বলবে: Calories, Protein, Fat, Sugar</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeFoodScannerModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.5rem 1.25rem;">
+        
+        <!-- Step 1: Input Mode Switcher (Camera vs Upload Photo) -->
+        <div class="food-mode-toggle" style="display: flex; gap: 0.6rem; margin-bottom: 1.2rem;">
+          <button class="food-mode-btn active" id="btn-food-mode-cam" onclick="switchFoodInputMode('camera')">
+            <i class="fa-solid fa-video"></i> <span>Live Camera (Camera দিয়ে)</span>
+          </button>
+          <button class="food-mode-btn" id="btn-food-mode-file" onclick="switchFoodInputMode('file')">
+            <i class="fa-solid fa-image"></i> <span>Upload Photo (গ্যালারি)</span>
+          </button>
+        </div>
+
+        <!-- Mode A: Live Camera Viewfinder -->
+        <div id="food-camera-view" style="margin-bottom: 1.2rem;">
+          <div class="camera-viewfinder-container" style="text-align: center;">
+            <video id="food-video-feed" autoplay playsinline muted style="width: 100%; max-height: 280px; background: #000; border-radius: var(--radius-md); object-fit: cover; border: 1px solid rgba(16, 185, 129, 0.4);"></video>
+            <canvas id="food-canvas-snapshot" style="display: none;"></canvas>
+
+            <div class="camera-controls-overlay" style="display: flex; justify-content: center; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap;">
+              <button class="btn btn-primary" onclick="startFoodCamera()" id="btn-start-food-cam" title="Start Camera" style="padding: 0.65rem 1.3rem; font-size: 1.2rem; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 50px;">
+                <i class="fa-solid fa-power-off"></i>
+              </button>
+              <button class="btn btn-primary hidden" id="btn-capture-food-photo" onclick="captureFoodPhoto()" title="Capture Photo" style="padding: 0.65rem 1.3rem; font-size: 1.2rem; background: linear-gradient(135deg, #3b82f6, #2563eb); border: none; border-radius: 50px;">
+                <i class="fa-solid fa-circle-dot"></i>
+              </button>
+              <button class="btn btn-secondary hidden" id="btn-switch-food-cam" onclick="switchFoodCameraFacing()" title="Switch Front/Back Camera" style="padding: 0.65rem 1.3rem; font-size: 1.2rem; border-radius: 50px;">
+                <i class="fa-solid fa-camera-rotate"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mode B: Upload File Dropzone (Initially Hidden) -->
+        <div id="food-file-view" class="hidden" style="margin-bottom: 1.2rem;">
+          <input type="file" id="food-file-input" accept="image/*" style="display: none;" onchange="handleFoodFileSelect(event)">
+          
+          <div class="food-dropzone" id="food-dropzone" onclick="document.getElementById('food-file-input').click()" ondragover="handleFoodDragOver(event)" ondragleave="handleFoodDragLeave(event)" ondrop="handleFoodDrop(event)">
+            <div id="food-drop-default" style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: var(--text-muted);">
+              <i class="fa-solid fa-bowl-food" style="font-size: 2.4rem; color: #10b981;"></i>
+              <div style="font-size: 0.95rem; font-weight: 600; color: #ffffff;">
+                <span>Click or Drag & Drop Food Photo</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-subtle);">
+                Supports Rice, Curry, Salad, Fast Food, Snacks, Desserts (PNG, JPG, WEBP)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Food Photo Preview Container -->
+        <div id="food-preview-container" class="hidden" style="margin-bottom: 1.2rem; text-align: center; position: relative;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.4rem;">
+            🍱 Selected Food Photo Preview:
+          </label>
+          <img id="food-preview-img" src="" alt="Selected Food Dish" style="max-height: 200px; max-width: 100%; border-radius: var(--radius-md); border: 2px solid #10b981; object-fit: contain;">
+          <button class="btn-remove-preview" onclick="removeFoodImage()" title="Remove Image" style="top: 24px; right: 10px;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <!-- Step 2: Optional Meal Description -->
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; font-size: 0.88rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.4rem;">
+            <i class="fa-solid fa-pen-to-square" style="color: var(--accent-cyan);"></i> <span>Meal Description or Portions (Optional):</span>
+          </label>
+          <textarea id="food-user-note" class="form-input" rows="2" placeholder="Describe dish e.g. 1 bowl white rice with fish curry and cucumber salad..." style="width: 100%; font-family: inherit; font-size: 0.88rem; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn btn-primary" id="btn-analyze-food" onclick="analyzeFoodImage()" style="width: 100%; padding: 0.95rem; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; background: linear-gradient(135deg, #10b981, #059669); border: none;">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span id="analyze-food-btn-text">Analyze Food & Calculate Calories with AI</span>
+        </button>
+
+        <!-- Loader Spinner (Initially Hidden) -->
+        <div id="food-loader" class="hidden" style="display: none; text-align: center; padding: 1.5rem 0; color: #10b981;">
+          <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+          <div style="margin-top: 0.6rem; font-weight: 600; font-size: 0.92rem;">
+            Dr. MediPulse AI Nutritionist is calculating macronutrients & calories...
+          </div>
+        </div>
+
+        <!-- Analysis Results Output Box -->
+        <div id="food-result-box" class="hidden" style="display: none; margin-top: 1.5rem; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: var(--radius-md); padding: 1.3rem;">
+          
+          <!-- Header with Copy -->
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.8rem; margin-bottom: 1rem;">
+            <div style="font-weight: 800; font-size: 1.1rem; color: #10b981; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-calculator"></i> <span>AI Food Macro Breakdown & Advisory:</span>
+            </div>
+            <button class="btn btn-secondary" onclick="copyFoodAnalysisText()" style="padding: 0.3rem 0.7rem; font-size: 0.8rem;" title="Copy Explanation">
+              <i class="fa-solid fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <!-- 4 Key Macro Metric Cards Grid -->
+          <div class="food-macro-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-bottom: 1.2rem;">
+            <div class="macro-card" style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.75rem; color: #ef4444; font-weight: 700; text-transform: uppercase;">🔥 Calories</div>
+              <div id="food-macro-cal" style="font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-top: 0.2rem;">-- kcal</div>
+            </div>
+            <div class="macro-card" style="background: rgba(59, 130, 246, 0.12); border: 1px solid rgba(59, 130, 246, 0.35); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.75rem; color: #3b82f6; font-weight: 700; text-transform: uppercase;">🥩 Protein</div>
+              <div id="food-macro-protein" style="font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-top: 0.2rem;">-- g</div>
+            </div>
+            <div class="macro-card" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.75rem; color: #f59e0b; font-weight: 700; text-transform: uppercase;">🥑 Fat</div>
+              <div id="food-macro-fat" style="font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-top: 0.2rem;">-- g</div>
+            </div>
+            <div class="macro-card" style="background: rgba(236, 72, 153, 0.12); border: 1px solid rgba(236, 72, 153, 0.35); padding: 0.75rem 0.5rem; border-radius: 10px; text-align: center;">
+              <div style="font-size: 0.75rem; color: #ec4899; font-weight: 700; text-transform: uppercase;">🍬 Sugar</div>
+              <div id="food-macro-sugar" style="font-size: 1.15rem; font-weight: 800; color: #ffffff; margin-top: 0.2rem;">-- g</div>
+            </div>
+          </div>
+
+          <!-- Formatted Markdown Content Container -->
+          <div id="food-analysis-content" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main); white-space: pre-line;">
+            <!-- Dynamically populated via app.js -->
+          </div>
+
+          <div style="margin-top: 1.2rem; padding-top: 0.8rem; border-top: 1px solid var(--border-subtle); font-size: 0.75rem; color: var(--text-subtle); text-align: center;">
+            <i class="fa-solid fa-circle-info"></i> AI estimated nutrition values. Consult a registered Dietitian for personalized meal plans.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SMART MEDICINE REMINDER MODAL (Morning, Afternoon, Night Alarms & Notifications) -->
+  <div class="modal-overlay hidden" id="medicine-reminder-modal" onclick="if(event.target===this) closeMedicineReminderModal();">
+    <div class="modal-card med-modal-card" style="max-width: 780px; width: 92%;">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #f59e0b;">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;" data-i18n="medModalTitle">Smart Medicine Reminder & Alarm</h3>
+            <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: var(--accent-cyan);" data-i18n="medModalSub">Morning, Afternoon, Night সেবন সময় সেট করুন (Notification & Alarm sound দিবে)</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeMedicineReminderModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.5rem 1.25rem;">
+        
+        <!-- Section A: Add New Medicine Form -->
+        <div class="med-form-card" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-md); padding: 1.2rem; margin-bottom: 1.5rem;">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #f59e0b; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-plus-circle"></i> <span>Add New Medicine Alarm:</span>
+          </div>
+
+          <!-- Medicine Name Input -->
+          <div style="margin-bottom: 0.9rem;">
+            <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.3rem;">
+              💊 Medicine Name & Dosage (ঔষধের নাম ও ডোজ):
+            </label>
+            <input type="text" id="med-name-input" class="form-input" placeholder="e.g. Napa 500mg, Seclo 20mg, Ace..." style="width: 100%; font-size: 0.9rem;">
+          </div>
+
+          <!-- Schedule Time Presets (Morning, Afternoon, Night) -->
+          <div style="margin-bottom: 0.9rem;">
+            <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">
+              ⏰ Select Dosage Schedule (সেবন সময়):
+            </label>
+
+            <div class="med-preset-pills" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.6rem;">
+              <button type="button" class="med-preset-pill active" data-time="08:00" onclick="selectMedPresetTime('08:00', this)">
+                🌅 Morning (সকাল ০৮:০০ AM)
+              </button>
+              <button type="button" class="med-preset-pill" data-time="13:30" onclick="selectMedPresetTime('13:30', this)">
+                ☀️ Afternoon (দুপুর ০১:৩০ PM)
+              </button>
+              <button type="button" class="med-preset-pill" data-time="21:00" onclick="selectMedPresetTime('21:00', this)">
+                🌙 Night (রাত ০৯:০০ PM)
+              </button>
+            </div>
+
+            <!-- Custom TimePicker -->
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <span style="font-size: 0.8rem; color: var(--text-subtle);">Custom Time:</span>
+              <input type="time" id="med-time-input" class="form-input" value="08:00" style="padding: 0.4rem 0.6rem; font-size: 0.85rem; width: 140px;" onchange="handleMedCustomTimeChange(this.value)">
+            </div>
+          </div>
+
+          <!-- Food Instruction (Before / After Meal) -->
+          <div style="margin-bottom: 1.1rem;">
+            <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;">
+              🍽️ Food Relation (খাবারের আগে/পরে):
+            </label>
+            <div style="display: flex; gap: 0.6rem;">
+              <button type="button" class="med-meal-pill active" data-meal="after" onclick="selectMedMealRelation('after', this)">
+                🍚 After Meal (খাবারের পরে)
+              </button>
+              <button type="button" class="med-meal-pill" data-meal="before" onclick="selectMedMealRelation('before', this)">
+                🥛 Before Meal (খাবারের আগে)
+              </button>
+            </div>
+          </div>
+
+          <!-- Add Button + Sound Test -->
+          <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="addMedicineReminder()" style="flex: 1; min-width: 180px; padding: 0.75rem; font-size: 0.95rem; background: linear-gradient(135deg, #f59e0b, #d97706); border: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+              <i class="fa-solid fa-bell-plus"></i> Set Medicine Alarm
+            </button>
+            <button class="btn btn-secondary" onclick="testReminderAlarmSound()" style="padding: 0.75rem 1rem; font-size: 0.85rem;" title="Test Alarm Notification & Sound">
+              <i class="fa-solid fa-volume-high"></i> Test Sound
+            </button>
+          </div>
+        </div>
+
+        <!-- Section B: Scheduled Active Reminders List -->
+        <div style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
+            <div style="font-weight: 800; font-size: 1rem; color: #ffffff; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-clock-rotate-left" style="color: #f59e0b;"></i> <span>Active Scheduled Reminders:</span>
+            </div>
+            <span id="med-active-count-badge" style="font-size: 0.75rem; background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 700;">0 Active Alarms</span>
+          </div>
+
+          <div id="med-list-container" style="display: flex; flex-direction: column; gap: 0.6rem;">
+            <!-- Dynamically populated via app.js -->
+            <div style="text-align: center; padding: 1.5rem; color: var(--text-muted); font-size: 0.88rem; background: rgba(15, 23, 42, 0.4); border-radius: var(--radius-md); border: 1px dashed var(--border-subtle);">
+              No medicine alarms added yet. Use the form above to add Morning, Afternoon, or Night alarms.
+            </div>
+          </div>
+        </div>
+
+        <!-- Section C: AI Medicine Safety Check -->
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.2rem;">
+          <button class="btn btn-primary" id="btn-check-med-safety" onclick="checkMedicineSafetyWithAI()" style="width: 100%; padding: 0.85rem; font-size: 0.95rem; background: linear-gradient(135deg, #3b82f6, #2563eb); border: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+            <i class="fa-solid fa-shield-halved"></i> Check Medicine Safety & Interactions with AI
+          </button>
+
+          <!-- Loader -->
+          <div id="med-safety-loader" class="hidden" style="display: none; text-align: center; padding: 1.2rem 0; color: #3b82f6;">
+            <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+            <div style="margin-top: 0.5rem; font-size: 0.88rem; font-weight: 600;">
+              Dr. MediPulse AI Pharmacologist is evaluating medicine safety...
+            </div>
+          </div>
+
+          <!-- Result Output -->
+          <div id="med-safety-result-box" class="hidden" style="display: none; margin-top: 1rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: var(--radius-md); padding: 1.1rem;">
+            <div style="font-weight: 800; font-size: 1rem; color: #3b82f6; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem;">
+              <i class="fa-solid fa-pills"></i> <span>AI Pharmacologist Safety Guidelines:</span>
+            </div>
+            <div id="med-safety-content" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-main); white-space: pre-line;">
+              <!-- Dynamically populated via app.js -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALTH HISTORY & SYMPTOM TIMELINE MODAL -->
+  <div class="modal-overlay hidden" id="health-history-modal" onclick="if(event.target===this) closeHealthHistoryModal();">
+    <div class="modal-card history-modal-card" style="max-width: 760px; width: 92%;">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #3b82f6;">
+            <i class="fa-solid fa-chart-line"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;" data-i18n="historyModalTitle">Health History</h3>
+            <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: var(--accent-cyan);" data-i18n="historyModalSub">সব Symptom History Save থাকবে</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeHealthHistoryModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.5rem 1.25rem;">
+        
+        <!-- Toolbar Controls (Manual Entry Toggle + Copy All + Clear) -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.2rem;">
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-secondary" onclick="toggleManualHistoryForm()" style="padding: 0.5rem 0.9rem; font-size: 0.85rem;">
+              <i class="fa-solid fa-plus"></i> Add Symptom Log
+            </button>
+            <button class="btn btn-secondary" onclick="clearHealthHistory()" style="padding: 0.5rem 0.9rem; font-size: 0.85rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
+              <i class="fa-solid fa-trash-can"></i> Clear History
+            </button>
+          </div>
+          <button class="btn btn-primary" onclick="copyHealthHistoryToClipboard()" style="padding: 0.5rem 1.1rem; font-size: 0.88rem; background: linear-gradient(135deg, #3b82f6, #2563eb); border: none; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-copy"></i> Copy All History
+          </button>
+        </div>
+
+        <!-- Manual Add Form (Initially Hidden) -->
+        <div id="history-manual-form" class="hidden" style="display: none; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: var(--radius-md); padding: 1.1rem; margin-bottom: 1.2rem;">
+          <div style="font-weight: 700; font-size: 0.9rem; color: #3b82f6; margin-bottom: 0.6rem;">
+            ✍️ Add Symptom Record Manually:
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 0.6rem; margin-bottom: 0.8rem;">
+            <input type="text" id="hist-date-input" class="form-input" placeholder="e.g. 20 July" style="font-size: 0.88rem;">
+            <input type="text" id="hist-symptom-input" class="form-input" placeholder="e.g. Headache, Fever, Stomach Pain..." style="font-size: 0.88rem;">
+          </div>
+          <button class="btn btn-primary" onclick="addManualHealthHistoryEntry()" style="padding: 0.55rem 1.2rem; font-size: 0.85rem; background: #3b82f6; border: none;">
+            Save Entry
+          </button>
+        </div>
+
+        <!-- Main History Card Container (Matching User's Screenshot Design) -->
+        <div class="history-main-box" style="position: relative; background: #1e1e1e; border-radius: 16px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 1.5rem;">
+          
+          <!-- Top Right Copy Icon (Matching exact screenshot icon!) -->
+          <button onclick="copyHealthHistoryToClipboard()" title="Copy History" style="position: absolute; top: 18px; right: 20px; background: transparent; border: none; color: #ffffff; cursor: pointer; font-size: 1.2rem; opacity: 0.8; transition: opacity 0.2s ease;">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+
+          <!-- History Timeline Entry Items Stream -->
+          <div id="health-history-timeline" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <!-- Dynamically populated via app.js -->
+          </div>
+        </div>
+
+        <!-- AI Longitudinal Summary Section -->
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.2rem;">
+          <button class="btn btn-primary" id="btn-summarize-history" onclick="generateAIHealthHistorySummary()" style="width: 100%; padding: 0.9rem; font-size: 0.95rem; background: linear-gradient(135deg, #3b82f6, #1d4ed8); border: none; display: flex; align-items: center; justify-content: center; gap: 0.6rem;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Generate Doctor-Ready AI Health Summary</span>
+          </button>
+
+          <!-- Loader -->
+          <div id="history-summary-loader" class="hidden" style="display: none; text-align: center; padding: 1.2rem 0; color: #3b82f6;">
+            <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+            <div style="margin-top: 0.5rem; font-size: 0.88rem; font-weight: 600;">
+              Dr. MediPulse AI Clinical Historian is analyzing symptom timeline...
+            </div>
+          </div>
+
+          <!-- Result Output -->
+          <div id="history-summary-result-box" class="hidden" style="display: none; margin-top: 1rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: var(--radius-md); padding: 1.2rem;">
+            <div style="font-weight: 800; font-size: 1rem; color: #3b82f6; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-user-doctor"></i> <span>Physician Clinical Trend Summary:</span>
+            </div>
+            <div id="history-summary-content" style="font-size: 0.92rem; line-height: 1.6; color: var(--text-main); white-space: pre-line;">
+              <!-- Dynamically populated via app.js -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- AI VOICE & COUGH SOUND ANALYZER MODAL -->
+  <div class="modal-overlay hidden" id="voice-analyzer-modal" onclick="if(event.target===this) closeVoiceAnalyzerModal();">
+    <div class="modal-card voice-modal-card" style="max-width: 780px; width: 92%;">
+      
+      <!-- Modal Header -->
+      <div class="modal-header" style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.8rem;">
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(236, 72, 153, 0.15); border: 1px solid rgba(236, 72, 153, 0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #ec4899;">
+            <i class="fa-solid fa-lungs"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: #ffffff;" data-i18n="voiceModalTitle">🫁 Voice Analysis</h3>
+            <p style="margin: 0.2rem 0 0 0; font-size: 0.82rem; color: var(--accent-cyan);" data-i18n="voiceModalSub">Preliminary assessment of respiratory health by analyzing cough and voice acoustics</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeVoiceAnalyzerModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="modal-body" style="padding: 1.5rem 1.25rem;">
+        
+        <!-- Input Mode Switcher Tabs (Live Microphone vs Audio File Upload) -->
+        <div class="voice-mode-toggle" style="margin-bottom: 1.2rem;">
+          <button type="button" class="voice-mode-btn active" id="btn-voice-mic-mode" onclick="switchVoiceInputMode('mic')">
+            <i class="fa-solid fa-microphone"></i> <span data-i18n="voiceMicTab">🎙️ Record Cough (Microphone)</span>
+          </button>
+          <button type="button" class="voice-mode-btn" id="btn-voice-file-mode" onclick="switchVoiceInputMode('file')">
+            <i class="fa-solid fa-file-audio"></i> <span data-i18n="voiceFileTab">📁 Upload Audio File</span>
+          </button>
+        </div>
+
+        <!-- Mode A: Live Microphone Recorder Card -->
+        <div id="voice-mic-card" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(236, 72, 153, 0.3); border-radius: var(--radius-md); padding: 1.5rem; text-align: center; margin-bottom: 1.2rem;">
+          
+          <div id="voice-rec-status-text" style="font-size: 0.92rem; font-weight: 600; color: var(--text-muted); margin-bottom: 1rem;" data-i18n="voiceMicInstruction">
+            Turn on microphone and cough or speak clearly 3–5 times.
+          </div>
+
+          <!-- Pulsing Red Record Circle Button -->
+          <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
+            <button id="btn-record-toggle" onclick="toggleVoiceRecording()" class="voice-rec-btn" style="width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #be185d); border: 3px solid rgba(255, 255, 255, 0.2); color: #ffffff; font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);">
+              <i class="fa-solid fa-microphone" id="rec-btn-icon"></i>
+            </button>
+          </div>
+
+          <!-- Timer Ticker & Wave visualizer placeholder -->
+          <div id="voice-rec-timer" style="font-size: 1.2rem; font-weight: 800; color: #ec4899; margin-bottom: 0.8rem;">
+            00:00
+          </div>
+
+          <!-- Audio Preview Player (After Stop) -->
+          <div id="voice-audio-preview-box" class="hidden" style="display: none; max-width: 380px; margin: 0 auto; background: rgba(0,0,0,0.3); padding: 0.8rem; border-radius: 12px; border: 1px solid var(--border-subtle);">
+            <div style="font-size: 0.78rem; color: var(--text-subtle); margin-bottom: 0.4rem;">Record Preview Playback:</div>
+            <audio id="voice-audio-player" controls style="width: 100%; height: 40px;"></audio>
+          </div>
+
+        </div>
+
+        <!-- Mode B: Audio File Upload Dropzone (Initially Hidden) -->
+        <div id="voice-file-card" class="hidden" style="display: none; margin-bottom: 1.2rem;">
+          <div class="voice-dropzone" id="voice-dropzone" onclick="document.getElementById('voice-file-input').click()" ondragover="handleVoiceDragOver(event)" ondragleave="handleVoiceDragLeave(event)" ondrop="handleVoiceDrop(event)">
+            <input type="file" id="voice-file-input" accept="audio/*,.mp3,.wav,.m4a,.webm,.ogg" class="hidden" onchange="handleVoiceFileSelect(event)">
+            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.2rem; color: #ec4899; margin-bottom: 0.6rem;"></i>
+            <div style="font-size: 0.95rem; font-weight: 700; color: #ffffff;" data-i18n="voiceDropzoneText">Drag & Drop Cough Audio File Here</div>
+            <div style="font-size: 0.78rem; color: var(--text-subtle); margin-top: 0.2rem;">Supports .mp3, .wav, .m4a, .webm, .ogg (Max 15MB)</div>
+          </div>
+
+          <!-- File Upload Preview -->
+          <div id="voice-uploaded-file-preview" class="hidden" style="display: none; margin-top: 0.8rem; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(236, 72, 153, 0.3); padding: 0.8rem 1rem; border-radius: var(--radius-md); align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.6rem;">
+              <i class="fa-solid fa-file-audio" style="color: #ec4899; font-size: 1.3rem;"></i>
+              <div>
+                <div id="voice-file-name" style="font-weight: 700; font-size: 0.88rem; color: #ffffff;">coughs_recording.mp3</div>
+                <div id="voice-file-size" style="font-size: 0.75rem; color: var(--text-subtle);">1.2 MB</div>
+              </div>
+            </div>
+            <button class="btn btn-secondary" onclick="removeVoiceAudio()" style="padding: 0.3rem 0.6rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">
+              <i class="fa-solid fa-trash-can"></i> Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- Optional Symptom Note Input -->
+        <div style="margin-bottom: 1.2rem;">
+          <label style="display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.4rem;" data-i18n="voiceSymptomsLabel">
+            📝 Additional Respiratory Symptoms (e.g. fever, sore throat, cough duration):
+          </label>
+          <input type="text" id="voice-note-input" class="form-input" placeholder="e.g. 3 days dry cough with fever & sore throat..." style="width: 100%; font-size: 0.9rem;">
+        </div>
+
+        <!-- Action Button -->
+        <button class="btn btn-primary" id="btn-analyze-voice" onclick="analyzeVoiceCoughAudio()" style="width: 100%; padding: 0.88rem; font-size: 0.98rem; background: linear-gradient(135deg, #ec4899, #be185d); border: none; display: flex; align-items: center; justify-content: center; gap: 0.6rem;">
+          <i class="fa-solid fa-lungs-virus"></i>
+          <span data-i18n="voiceAnalyzeBtn">Analyze Cough & Voice Sound with AI</span>
+        </button>
+
+        <!-- Loader -->
+        <div id="voice-loader" class="hidden" style="display: none; text-align: center; padding: 1.5rem 0; color: #ec4899;">
+          <i class="fa-solid fa-circle-notch fa-spin fa-2x"></i>
+          <div style="margin-top: 0.6rem; font-weight: 600; font-size: 0.92rem;">
+            Dr. MediPulse AI Acoustic Pulmonologist is analyzing cough frequencies...
+          </div>
+        </div>
+
+        <!-- Result Box -->
+        <div id="voice-result-box" class="hidden" style="display: none; margin-top: 1.5rem; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(236, 72, 153, 0.4); border-radius: var(--radius-md); padding: 1.3rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.8rem; margin-bottom: 1rem;">
+            <div style="font-weight: 800; font-size: 1.1rem; color: #ec4899; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-lungs"></i> <span>AI Acoustic Respiratory Assessment:</span>
+            </div>
+            <button class="btn btn-secondary" onclick="copyVoiceAnalysisText()" style="padding: 0.3rem 0.7rem; font-size: 0.8rem;">
+              <i class="fa-solid fa-copy"></i> Copy
+            </button>
+          </div>
+
+          <div id="voice-analysis-content" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-main); white-space: pre-line;">
+            <!-- Dynamically populated via app.js -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet Map JS Library -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Firebase Auth Configuration (Module Script) -->
+  <script type="module" src="firebase-config.js"></script>
+  <!-- Main Application Logic JS -->
+  <script src="app.js"></script>
+</body>
+</html>
