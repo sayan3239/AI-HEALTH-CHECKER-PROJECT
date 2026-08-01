@@ -32,13 +32,6 @@
       </div>
 
       <div class="nav-actions">
-        <!-- Language Switcher (EN / BN / HI) -->
-        <div class="toggle-pill" id="language-switcher">
-          <button class="toggle-option active" id="lang-en" onclick="setLanguage('en')">English</button>
-          <button class="toggle-option" id="lang-bn" onclick="setLanguage('bn')">বাংলা</button>
-          <button class="toggle-option" id="lang-hi" onclick="setLanguage('hi')">हिंदी</button>
-        </div>
-
         <!-- Dark/Light Theme Switcher -->
         <button class="btn btn-secondary" id="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Theme">
           <i class="fa-solid fa-moon" id="theme-icon"></i>
@@ -58,6 +51,18 @@
           </button>
 
           <div class="nav-more-dropdown hidden" id="nav-more-dropdown">
+            <!-- Language Switcher inside 3-Dot Menu -->
+            <div style="padding: 0.4rem 0.5rem 0.6rem 0.5rem; border-bottom: 1px solid var(--border-subtle); margin-bottom: 0.5rem;">
+              <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.45rem; display: flex; align-items: center; gap: 0.4rem;">
+                <i class="fa-solid fa-globe" style="color: var(--accent-cyan);"></i>
+                <span data-i18n="langTitle">Select Language</span>
+              </div>
+              <div class="toggle-pill" id="language-switcher" style="width: 100%; display: flex; justify-content: space-between; gap: 4px; padding: 3px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 20px;">
+                <button class="toggle-option active" id="lang-en" onclick="setLanguage('en')" style="flex: 1; text-align: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 16px;">English</button>
+                <button class="toggle-option" id="lang-bn" onclick="setLanguage('bn')" style="flex: 1; text-align: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 16px;">বাংলা</button>
+                <button class="toggle-option" id="lang-hi" onclick="setLanguage('hi')" style="flex: 1; text-align: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 16px;">हिंदी</button>
+              </div>
+            </div>
             <button class="nav-dropdown-item" onclick="openVoiceAnalyzerModal(); const d = document.getElementById('nav-more-dropdown'); if (d) d.classList.add('hidden');" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
               <i class="fa-solid fa-lungs" style="color: #ec4899; width: 20px;"></i>
               <span data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</span>
