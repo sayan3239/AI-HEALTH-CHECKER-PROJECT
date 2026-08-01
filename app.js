@@ -2682,6 +2682,10 @@ function handleChatKeyPress(event) {
 }
 
 function sendQuickPrompt(promptText) {
+  const modal = document.getElementById('ai-chat-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+  }
   const input = document.getElementById('chat-user-input');
   if (input) {
     input.value = promptText;
