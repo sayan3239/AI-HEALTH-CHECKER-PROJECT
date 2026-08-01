@@ -1748,27 +1748,35 @@ function getClientDiseaseFallbackPrescription(condition, symptoms, lang) {
 }
 
 let rxZoomScale = 1.0;
+let rxBaseScale = 1.0;
 
 function autoFitPrescriptionMobile() {
   const paper = document.getElementById('prescription-paper');
-  if (!paper) return;
+  const wrapper = document.getElementById('prescription-paper-wrapper');
+  if (!paper || !wrapper) return;
 
   if (window.innerWidth <= 768) {
-    // Calculate scale factor so full A4 document fits on mobile screen without scrolling
     const availableWidth = window.innerWidth - 16;
-    const targetPaperWidth = 794;
-    const autoScale = Math.min(1.0, Math.max(0.35, availableWidth / targetPaperWidth));
-    
-    rxZoomScale = parseFloat(autoScale.toFixed(2));
+    const availableHeight = window.innerHeight - 85;
+    const paperWidth = 794;
+    const paperHeight = paper.offsetHeight || 1080;
+
+    const scaleW = availableWidth / paperWidth;
+    const scaleH = availableHeight / paperHeight;
+    const autoScale = Math.min(scaleW, scaleH);
+
+    rxBaseScale = parseFloat(Math.min(1.0, Math.max(0.25, autoScale)).toFixed(2));
+    rxZoomScale = rxBaseScale;
     applyPrescriptionZoom();
   } else {
+    rxBaseScale = 1.0;
     rxZoomScale = 1.0;
     applyPrescriptionZoom();
   }
 }
 
 function zoomPrescription(delta) {
-  rxZoomScale = Math.min(2.5, Math.max(0.3, parseFloat((rxZoomScale + delta).toFixed(2))));
+  rxZoomScale = Math.min(2.5, Math.max(0.2, parseFloat((rxZoomScale + delta).toFixed(2))));
   applyPrescriptionZoom();
 }
 
@@ -1778,14 +1786,36 @@ function resetPrescriptionZoom() {
 
 function applyPrescriptionZoom() {
   const paper = document.getElementById('prescription-paper');
+  const wrapper = document.getElementById('prescription-paper-wrapper');
+  const overlay = document.getElementById('prescription-modal');
   const zoomText = document.getElementById('rx-zoom-level');
-  if (paper) {
-    paper.style.transform = `scale(${rxZoomScale})`;
-    paper.style.transformOrigin = 'top center';
-    paper.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+  if (!paper || !wrapper) return;
+
+  const paperWidth = 794;
+  const paperHeight = paper.offsetHeight || 1080;
+
+  paper.style.transform = `scale(${rxZoomScale})`;
+  paper.style.transformOrigin = 'top left';
+  paper.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+
+  wrapper.style.width = `${Math.round(paperWidth * rxZoomScale)}px`;
+  wrapper.style.height = `${Math.round(paperHeight * rxZoomScale)}px`;
+  wrapper.style.margin = '0 auto';
+  wrapper.style.position = 'relative';
+
+  if (overlay) {
+    if (window.innerWidth <= 768 && rxZoomScale <= rxBaseScale + 0.03) {
+      overlay.style.overflow = 'hidden';
+      overlay.style.overflowX = 'hidden';
+      overlay.style.overflowY = 'hidden';
+    } else {
+      overlay.style.overflow = 'auto';
+    }
   }
+
   if (zoomText) {
-    zoomText.textContent = `${Math.round(rxZoomScale * 100)}%`;
+    const pct = Math.round((rxZoomScale / rxBaseScale) * 100);
+    zoomText.textContent = `${pct}%`;
   }
 }
 
