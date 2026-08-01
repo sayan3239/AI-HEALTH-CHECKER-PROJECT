@@ -5331,7 +5331,11 @@ html, body {
   }
 
   /* Prescription Modal Full Mobile Optimization */
-  .prescription-modal-overlay {
+  .prescription-modal-overlay[style*="display: none"] {
+    display: none !important;
+  }
+
+  .prescription-modal-overlay:not([style*="display: none"]) {
     padding: 0.4rem 0.2rem !important;
     overflow: hidden !important;
     overflow-x: hidden !important;
