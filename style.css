@@ -479,8 +479,9 @@ body.light-theme .brand-img-logo {
   top: calc(100% + 0.6rem);
   right: 0;
   width: 290px;
-  max-height: none;
-  overflow: visible;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
   background: rgba(15, 23, 42, 0.98);
   border: 1px solid rgba(6, 182, 212, 0.4);
   border-radius: var(--radius-md);
@@ -493,17 +494,9 @@ body.light-theme .brand-img-logo {
 }
 
 .nav-more-dropdown::-webkit-scrollbar {
-  width: 5px;
-}
-
-.nav-more-dropdown::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px;
-}
-
-.nav-more-dropdown::-webkit-scrollbar-thumb {
-  background: rgba(6, 182, 212, 0.5);
-  border-radius: 4px;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .nav-more-dropdown.hidden {
@@ -5185,8 +5178,9 @@ body.light-theme .report-dropzone {
   top: calc(100% + 0.6rem);
   right: 0;
   width: 240px;
-  max-height: none;
-  overflow: visible;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
   background: rgba(15, 23, 42, 0.96);
   border: 1px solid rgba(6, 182, 212, 0.35);
   border-radius: var(--radius-md);
@@ -5196,6 +5190,12 @@ body.light-theme .report-dropzone {
   -webkit-backdrop-filter: blur(20px);
   z-index: 99999;
   animation: fadeInDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.user-menu-dropdown::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .user-menu-dropdown.hidden {
