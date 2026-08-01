@@ -5322,13 +5322,23 @@ html, body {
     display: flex !important;
   }
 
+  .user-menu-dropdown {
+    position: fixed !important;
+    top: 55px !important;
+    right: 2.2rem !important;
+    width: 240px !important;
+    max-height: 80vh !important;
+    z-index: 999999 !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.4) !important;
+  }
+
   .nav-more-dropdown {
     position: fixed !important;
     top: 55px !important;
     right: 0.5rem !important;
     width: 280px !important;
     max-height: 80vh !important;
-    z-index: 99999 !important;
+    z-index: 999999 !important;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.4) !important;
   }
 

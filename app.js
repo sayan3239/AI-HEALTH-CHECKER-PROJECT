@@ -11,7 +11,9 @@ let searchQuery = '';
 
 // Navbar 3-Dot / 3-Dash Menu Controls
 function toggleNavMoreMenu(event) {
-  if (event) event.stopPropagation();
+  if (event) {
+    if (event.stopPropagation) event.stopPropagation();
+  }
   const userDropdown = document.getElementById('user-menu-dropdown');
   if (userDropdown) userDropdown.classList.add('hidden');
 
@@ -1821,7 +1823,9 @@ function updateAuthUI(user) {
 
 // Toggle user profile dropdown
 function toggleUserDropdown(e) {
-  if (e) e.stopPropagation();
+  if (e) {
+    if (e.stopPropagation) e.stopPropagation();
+  }
   closeNavMoreMenu(); // Close 3-dot menu if open
 
   const dropdown = document.getElementById('user-menu-dropdown');
@@ -1832,15 +1836,21 @@ function toggleUserDropdown(e) {
 
 // Close dropdowns when clicking outside
 document.addEventListener('click', (e) => {
-  const wrapper = document.getElementById('user-profile-wrapper');
+  const userBtn = document.getElementById('user-profile-wrapper');
   const dropdown = document.getElementById('user-menu-dropdown');
-  if (dropdown && (!wrapper || !wrapper.contains(e.target))) {
+  if (dropdown && !dropdown.classList.contains('hidden')) {
+    if (userBtn && (userBtn.contains(e.target) || (e.target && e.target.closest && e.target.closest('#user-profile-wrapper')))) {
+      return;
+    }
     dropdown.classList.add('hidden');
   }
 
-  const navWrapper = document.querySelector('.nav-menu-wrapper');
+  const navBtn = document.querySelector('.nav-menu-wrapper');
   const navDropdown = document.getElementById('nav-more-dropdown');
-  if (navDropdown && (!navWrapper || !navWrapper.contains(e.target))) {
+  if (navDropdown && !navDropdown.classList.contains('hidden')) {
+    if (navBtn && (navBtn.contains(e.target) || (e.target && e.target.closest && e.target.closest('.nav-menu-wrapper')))) {
+      return;
+    }
     navDropdown.classList.add('hidden');
   }
 });
