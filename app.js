@@ -2035,8 +2035,15 @@ function toggleUserDropdown(e) {
   }
 }
 
-// Close dropdowns when clicking outside
+// Global Click Delegator for Sign In & Outside Dropdown Click Handling
 document.addEventListener('click', (e) => {
+  const authBtn = e.target.closest && (e.target.closest('#open-auth-btn') || e.target.closest('.btn-auth'));
+  if (authBtn) {
+    if (e.stopPropagation) e.stopPropagation();
+    openAuthModal('login');
+    return;
+  }
+
   const userBtn = document.getElementById('user-profile-wrapper');
   const dropdown = document.getElementById('user-menu-dropdown');
   if (dropdown && !dropdown.classList.contains('hidden')) {
@@ -2058,6 +2065,7 @@ document.addEventListener('click', (e) => {
 
 // Open Auth Modal
 function openAuthModal(tab = 'login') {
+  closeNavMoreMenu();
   const modal = document.getElementById('auth-modal');
   if (!modal) return;
   clearAuthAlert();
