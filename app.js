@@ -11,9 +11,7 @@ let searchQuery = '';
 
 // Navbar 3-Dot / 3-Dash Menu Controls
 function toggleNavMoreMenu(event) {
-  if (event) {
-    if (event.stopPropagation) event.stopPropagation();
-  }
+  if (event) event.stopPropagation();
   const userDropdown = document.getElementById('user-menu-dropdown');
   if (userDropdown) userDropdown.classList.add('hidden');
 
@@ -502,7 +500,6 @@ const i18n = {
     calcBmrBtn: 'Calculate Calorie Need',
     bmrTip: 'Daily Maintenance Calories',
     disclaimer: 'MEDICAL DISCLAIMER: MediPulse AI is an artificial intelligence triage and educational decision support system. It is NOT a medical diagnosis or a substitute for professional healthcare advice, diagnosis, or treatment. If you believe you have a medical emergency, immediately call your local emergency number or visit a hospital.',
-    langTitle: 'Select Language',
     navSignIn: 'Sign In',
     navFeatures: 'Features',
     authTitle: 'Welcome to MediPulse AI',
@@ -621,7 +618,6 @@ const i18n = {
     calcBmrBtn: 'ক্যালোরি হিসাব করুন',
     bmrTip: 'দৈনিক প্রয়োজনীয় ক্যালোরি',
     disclaimer: 'মেডিকেল ডিসক্লেইমার: মেডিপালস এআই একটি শিক্ষামূলক ও প্রাথমিক স্বাস্থ্য ঝুঁকি অ্যাসেসমেন্ট টুল। এটি কোনো রেজিস্টার্ড ডাক্তারের বিকল্প বা চূড়ান্ত ডায়াগনোসিস নয়। যেকোনো জরুরি পরিস্থিতিতে দ্রুত হাসপাতালে যোগাযোগ করুন।',
-    langTitle: 'ভাষা নির্বাচন',
     navSignIn: 'সাইন ইন',
     authTitle: 'মেডিপালস এআই-এ স্বাগতম',
     authSubtitle: 'আপনার ক্লিনিক্যাল রিপোর্ট ও এআই হেলথ রেকর্ড অ্যাক্সেস করুন',
@@ -1636,7 +1632,6 @@ async function generatePrescription() {
 
   // Display Modal immediately
   document.getElementById('prescription-modal').style.display = 'flex';
-  setTimeout(autoFitPrescriptionMobile, 50);
 
   // Fetch dynamic disease-specific prescription from backend API
   try {
@@ -1747,85 +1742,6 @@ function getClientDiseaseFallbackPrescription(condition, symptoms, lang) {
   };
 }
 
-let rxZoomScale = 1.0;
-let rxBaseScale = 1.0;
-
-function autoFitPrescriptionMobile() {
-  const paper = document.getElementById('prescription-paper');
-  const wrapper = document.getElementById('prescription-paper-wrapper');
-  if (!paper || !wrapper) return;
-
-  if (window.innerWidth <= 768) {
-    const availableWidth = window.innerWidth - 16;
-    const availableHeight = window.innerHeight - 85;
-    const paperWidth = 794;
-    const paperHeight = paper.offsetHeight || 1080;
-
-    const scaleW = availableWidth / paperWidth;
-    const scaleH = availableHeight / paperHeight;
-    const autoScale = Math.min(scaleW, scaleH);
-
-    rxBaseScale = parseFloat(Math.min(1.0, Math.max(0.25, autoScale)).toFixed(2));
-    rxZoomScale = rxBaseScale;
-    applyPrescriptionZoom();
-  } else {
-    rxBaseScale = 1.0;
-    rxZoomScale = 1.0;
-    applyPrescriptionZoom();
-  }
-}
-
-function zoomPrescription(delta) {
-  rxZoomScale = Math.min(2.5, Math.max(0.2, parseFloat((rxZoomScale + delta).toFixed(2))));
-  applyPrescriptionZoom();
-}
-
-function resetPrescriptionZoom() {
-  autoFitPrescriptionMobile();
-}
-
-function applyPrescriptionZoom() {
-  const paper = document.getElementById('prescription-paper');
-  const wrapper = document.getElementById('prescription-paper-wrapper');
-  const overlay = document.getElementById('prescription-modal');
-  const zoomText = document.getElementById('rx-zoom-level');
-  if (!paper || !wrapper) return;
-
-  const paperWidth = 794;
-  const paperHeight = paper.offsetHeight || 1080;
-
-  paper.style.transform = `scale(${rxZoomScale})`;
-  paper.style.transformOrigin = 'top left';
-  paper.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
-
-  wrapper.style.width = `${Math.round(paperWidth * rxZoomScale)}px`;
-  wrapper.style.height = `${Math.round(paperHeight * rxZoomScale)}px`;
-  wrapper.style.margin = '0 auto';
-  wrapper.style.position = 'relative';
-
-  if (overlay) {
-    if (window.innerWidth <= 768 && rxZoomScale <= rxBaseScale + 0.03) {
-      overlay.style.overflow = 'hidden';
-      overlay.style.overflowX = 'hidden';
-      overlay.style.overflowY = 'hidden';
-    } else {
-      overlay.style.overflow = 'auto';
-    }
-  }
-
-  if (zoomText) {
-    const pct = Math.round((rxZoomScale / rxBaseScale) * 100);
-    zoomText.textContent = `${pct}%`;
-  }
-}
-
-window.addEventListener('resize', () => {
-  const modal = document.getElementById('prescription-modal');
-  if (modal && modal.style.display !== 'none') {
-    autoFitPrescriptionMobile();
-  }
-});
-
 function printPrescription() {
   window.print();
 }
@@ -1905,9 +1821,7 @@ function updateAuthUI(user) {
 
 // Toggle user profile dropdown
 function toggleUserDropdown(e) {
-  if (e) {
-    if (e.stopPropagation) e.stopPropagation();
-  }
+  if (e) e.stopPropagation();
   closeNavMoreMenu(); // Close 3-dot menu if open
 
   const dropdown = document.getElementById('user-menu-dropdown');
@@ -1918,21 +1832,15 @@ function toggleUserDropdown(e) {
 
 // Close dropdowns when clicking outside
 document.addEventListener('click', (e) => {
-  const userBtn = document.getElementById('user-profile-wrapper');
+  const wrapper = document.getElementById('user-profile-wrapper');
   const dropdown = document.getElementById('user-menu-dropdown');
-  if (dropdown && !dropdown.classList.contains('hidden')) {
-    if (userBtn && (userBtn.contains(e.target) || (e.target && e.target.closest && e.target.closest('#user-profile-wrapper')))) {
-      return;
-    }
+  if (dropdown && (!wrapper || !wrapper.contains(e.target))) {
     dropdown.classList.add('hidden');
   }
 
-  const navBtn = document.querySelector('.nav-menu-wrapper');
+  const navWrapper = document.querySelector('.nav-menu-wrapper');
   const navDropdown = document.getElementById('nav-more-dropdown');
-  if (navDropdown && !navDropdown.classList.contains('hidden')) {
-    if (navBtn && (navBtn.contains(e.target) || (e.target && e.target.closest && e.target.closest('.nav-menu-wrapper')))) {
-      return;
-    }
+  if (navDropdown && (!navWrapper || !navWrapper.contains(e.target))) {
     navDropdown.classList.add('hidden');
   }
 });
@@ -2765,8 +2673,6 @@ function toggleAIChatModal() {
     if (input) input.focus();
   }
 }
-window.toggleAIChatModal = toggleAIChatModal;
-window.openFloatingChatModal = toggleAIChatModal;
 
 function handleChatKeyPress(event) {
   if (event.key === 'Enter' && !event.shiftKey) {
