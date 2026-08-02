@@ -20,6 +20,11 @@ function toggleNavMoreMenu(event) {
   const dropdown = document.getElementById('nav-more-dropdown');
   if (dropdown) {
     dropdown.classList.toggle('hidden');
+    if (!dropdown.classList.contains('hidden')) {
+      dropdown.style.display = 'block';
+    } else {
+      dropdown.style.display = 'none';
+    }
   }
 }
 
@@ -27,11 +32,50 @@ function closeNavMoreMenu() {
   const dropdown = document.getElementById('nav-more-dropdown');
   if (dropdown) {
     dropdown.classList.add('hidden');
+    dropdown.style.display = 'none';
   }
 }
 
 window.toggleNavMoreMenu = toggleNavMoreMenu;
 window.closeNavMoreMenu = closeNavMoreMenu;
+
+// Delegated Click Backup Listener for 3-Dot Navigation Items
+document.addEventListener('DOMContentLoaded', () => {
+  const navContainer = document.getElementById('nav-menu-scroll-container');
+  if (navContainer) {
+    navContainer.addEventListener('click', (e) => {
+      const item = e.target.closest('.nav-dropdown-item');
+      if (!item) return;
+      closeNavMoreMenu();
+      const onclickAttr = item.getAttribute('onclick') || '';
+      if (onclickAttr.includes('openVoiceAnalyzerModal')) {
+        openVoiceAnalyzerModal();
+      } else if (onclickAttr.includes('openHealthHistoryModal')) {
+        openHealthHistoryModal();
+      } else if (onclickAttr.includes('openMedicineReminderModal')) {
+        openMedicineReminderModal();
+      } else if (onclickAttr.includes('openFoodScannerModal')) {
+        openFoodScannerModal();
+      } else if (onclickAttr.includes('openSkinDetectorModal')) {
+        openSkinDetectorModal();
+      } else if (onclickAttr.includes('openReportAnalyzerModal')) {
+        openReportAnalyzerModal();
+      } else if (onclickAttr.includes('openBioSensorModal')) {
+        openBioSensorModal(e);
+      } else if (onclickAttr.includes("'fever'")) {
+        openFeatureModal('fever');
+      } else if (onclickAttr.includes("'hospitals'")) {
+        openFeatureModal('hospitals');
+      } else if (onclickAttr.includes("'calculators'")) {
+        openFeatureModal('calculators');
+      } else if (onclickAttr.includes("'triage'")) {
+        openFeatureModal('triage');
+      } else if (onclickAttr.includes('toggleAIChatModal')) {
+        toggleAIChatModal();
+      }
+    });
+  }
+});
 
 // Features Modal & Popup Window Controls
 function openFeaturesModal() {
@@ -5150,14 +5194,17 @@ let currentAudioMimeType = 'audio/webm';
 let currentVoiceAnalysisText = '';
 
 function openVoiceAnalyzerModal() {
-  closeNavMoreMenu();
+  if (typeof closeNavMoreMenu === 'function') closeNavMoreMenu();
   const modal = document.getElementById('voice-analyzer-modal');
   const resultBox = document.getElementById('voice-result-box');
   const loader = document.getElementById('voice-loader');
   const statusText = document.getElementById('voice-rec-status-text');
 
   if (statusText) {
-    statusText.textContent = i18n[currentLang] ? i18n[currentLang].voiceMicInstruction : i18n.en.voiceMicInstruction;
+    const txt = (typeof i18n !== 'undefined' && i18n && i18n[currentLang] && i18n[currentLang].voiceMicInstruction)
+      ? i18n[currentLang].voiceMicInstruction
+      : 'Turn on microphone and cough or speak clearly 3–5 times.';
+    statusText.textContent = txt;
   }
 
   if (resultBox) {
@@ -5169,7 +5216,10 @@ function openVoiceAnalyzerModal() {
     loader.style.display = 'none';
   }
 
-  switchVoiceInputMode('mic');
+  if (typeof switchVoiceInputMode === 'function') {
+    switchVoiceInputMode('mic');
+  }
+
   if (modal) {
     modal.classList.remove('hidden');
     modal.style.display = 'flex';
@@ -5184,6 +5234,9 @@ function closeVoiceAnalyzerModal() {
     modal.style.display = 'none';
   }
 }
+
+window.openVoiceAnalyzerModal = openVoiceAnalyzerModal;
+window.closeVoiceAnalyzerModal = closeVoiceAnalyzerModal;
 
 function switchVoiceInputMode(mode) {
   activeVoiceInputMode = mode;
