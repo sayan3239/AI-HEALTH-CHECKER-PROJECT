@@ -64,52 +64,52 @@
               </div>
             </div>
             <div class="nav-menu-scroll-container" id="nav-menu-scroll-container">
-              <button class="nav-dropdown-item" onclick="openVoiceAnalyzerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openVoiceAnalyzerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-lungs" style="color: #ec4899; width: 20px;"></i>
                 <span data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openHealthHistoryModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openHealthHistoryModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-chart-line" style="color: #3b82f6; width: 20px;"></i>
                 <span data-i18n="navHealthHistory">Health History Journal</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openMedicineReminderModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openMedicineReminderModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-bell" style="color: #f59e0b; width: 20px;"></i>
                 <span data-i18n="navMedReminder">Smart Medicine Reminder</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openFoodScannerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openFoodScannerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-utensils" style="color: #10b981; width: 20px;"></i>
                 <span data-i18n="navFoodScanner">AI Food & Nutrition Scanner</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openSkinDetectorModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openSkinDetectorModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-camera" style="color: #ec4899; width: 20px;"></i>
                 <span data-i18n="navSkinDetector">Skin Disease Detection</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openReportAnalyzerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openReportAnalyzerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-file-medical" style="color: #f59e0b; width: 20px;"></i>
                 <span data-i18n="navReportAnalyzer">AI Medical Report Analyzer</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openBioSensorModal(event); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openBioSensorModal(event); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-heart-pulse" style="color: #f43f5e; width: 20px;"></i>
                 <span data-i18n="navBioSensor">Pulse Rate & Heart Beat Scanner</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('fever'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openFeatureModal('fever'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-temperature-full" style="color: #ef4444; width: 20px;"></i>
                 <span data-i18n="navFeverDB">35+ Clinical Fever DB</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('hospitals'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openFeatureModal('hospitals'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-hospital-user" style="color: #10b981; width: 20px;"></i>
                 <span data-i18n="navHospitals">Nearby Hospitals & GPS</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('calculators'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openFeatureModal('calculators'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-calculator" style="color: #06b6d4; width: 20px;"></i>
                 <span data-i18n="navCalculators">Health Calculators</span>
               </button>
               <div class="dropdown-divider"></div>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('triage'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); openFeatureModal('triage'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-stethoscope" style="color: #3b82f6; width: 20px;"></i>
                 <span>AI Symptom Triage</span>
               </button>
-              <button class="nav-dropdown-item" onclick="toggleAIChatModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
+              <button class="nav-dropdown-item" onclick="event.stopPropagation(); toggleAIChatModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
                 <i class="fa-solid fa-user-doctor" style="color: #8b5cf6; width: 20px;"></i>
                 <span data-i18n="navConsultAI">AI Medical Consult</span>
               </button>

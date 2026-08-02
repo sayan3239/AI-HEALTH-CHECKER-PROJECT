@@ -102,12 +102,14 @@ function openFeatureModal(featureId) {
   }
 
   viewerModal.classList.remove('hidden');
+  viewerModal.style.display = 'flex';
 }
 
 function closeFeatureViewerModal() {
   const viewerModal = document.getElementById('feature-viewer-modal');
   if (viewerModal) {
     viewerModal.classList.add('hidden');
+    viewerModal.style.display = 'none';
   }
 }
 
@@ -3618,6 +3620,7 @@ let currentReportBase64 = null;
 let currentReportFileName = '';
 
 function openReportAnalyzerModal() {
+  closeNavMoreMenu();
   const modal = document.getElementById('report-analyzer-modal');
   const loader = document.getElementById('report-loader');
   if (loader) {
@@ -3626,6 +3629,7 @@ function openReportAnalyzerModal() {
   }
   if (modal) {
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
 }
 
@@ -3638,6 +3642,7 @@ function closeReportAnalyzerModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
@@ -3859,6 +3864,7 @@ let cameraFacingMode = 'user'; // 'user' or 'environment'
 let currentSkinInputMode = 'camera';
 
 function openSkinDetectorModal() {
+  closeNavMoreMenu();
   const modal = document.getElementById('skin-detector-modal');
   const loader = document.getElementById('skin-loader');
   if (loader) {
@@ -3867,6 +3873,7 @@ function openSkinDetectorModal() {
   }
   if (modal) {
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
 }
 
@@ -3880,6 +3887,7 @@ function closeSkinDetectorModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
@@ -4175,6 +4183,7 @@ let foodCameraFacingMode = 'user'; // 'user' or 'environment'
 let currentFoodInputMode = 'camera';
 
 function openFoodScannerModal() {
+  closeNavMoreMenu();
   const modal = document.getElementById('food-scanner-modal');
   const loader = document.getElementById('food-loader');
   if (loader) {
@@ -4183,6 +4192,7 @@ function openFoodScannerModal() {
   }
   if (modal) {
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
 }
 
@@ -4196,6 +4206,7 @@ function closeFoodScannerModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
@@ -4518,6 +4529,7 @@ function initMedicineReminderModule() {
 }
 
 function openMedicineReminderModal() {
+  closeNavMoreMenu();
   const modal = document.getElementById('medicine-reminder-modal');
   const loader = document.getElementById('med-safety-loader');
   if (loader) {
@@ -4528,6 +4540,7 @@ function openMedicineReminderModal() {
   renderMedicineRemindersList();
   if (modal) {
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
 }
 
@@ -4540,6 +4553,7 @@ function closeMedicineReminderModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
@@ -4862,6 +4876,7 @@ function initHealthHistoryModule() {
 }
 
 function openHealthHistoryModal() {
+  closeNavMoreMenu();
   const modal = document.getElementById('health-history-modal');
   const summaryBox = document.getElementById('history-summary-result-box');
   if (summaryBox) {
@@ -4871,6 +4886,7 @@ function openHealthHistoryModal() {
   renderHealthHistoryTimeline();
   if (modal) {
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
 }
 
@@ -4878,6 +4894,7 @@ function closeHealthHistoryModal() {
   const modal = document.getElementById('health-history-modal');
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
@@ -5133,6 +5150,7 @@ let currentAudioMimeType = 'audio/webm';
 let currentVoiceAnalysisText = '';
 
 function openVoiceAnalyzerModal() {
+  closeNavMoreMenu();
   const modal = document.getElementById('voice-analyzer-modal');
   const resultBox = document.getElementById('voice-result-box');
   const loader = document.getElementById('voice-loader');
@@ -5154,6 +5172,7 @@ function openVoiceAnalyzerModal() {
   switchVoiceInputMode('mic');
   if (modal) {
     modal.classList.remove('hidden');
+    modal.style.display = 'flex';
   }
 }
 
@@ -5162,6 +5181,7 @@ function closeVoiceAnalyzerModal() {
   const modal = document.getElementById('voice-analyzer-modal');
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
