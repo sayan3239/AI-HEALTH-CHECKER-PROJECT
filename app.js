@@ -2080,19 +2080,18 @@ function openAuthModal(tab = 'login') {
   clearAuthAlert();
   switchAuthTab(tab);
 
+  modal.style.display = '';
+  modal.style.removeProperty('display');
   modal.classList.remove('hidden');
-  modal.style.setProperty('display', 'flex', 'important');
-  modal.style.setProperty('z-index', '9999999', 'important');
-  modal.style.setProperty('visibility', 'visible', 'important');
-  modal.style.setProperty('opacity', '1', 'important');
 }
 
 // Close Auth Modal
 function closeAuthModal() {
   const modal = document.getElementById('auth-modal');
   if (modal) {
+    modal.style.display = '';
+    modal.style.removeProperty('display');
     modal.classList.add('hidden');
-    modal.style.setProperty('display', 'none', 'important');
   }
 }
 
