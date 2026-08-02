@@ -2037,7 +2037,9 @@ function toggleUserDropdown(e) {
 
 // Global Click Delegator for Sign In & Outside Dropdown Click Handling
 document.addEventListener('click', (e) => {
-  const authBtn = e.target.closest && (e.target.closest('#open-auth-btn') || e.target.closest('.btn-auth'));
+  const isProfileClick = e.target.closest && (e.target.closest('#user-profile-wrapper') || e.target.closest('.user-profile-badge'));
+  const authBtn = !isProfileClick && e.target.closest && (e.target.closest('#open-auth-btn') || e.target.closest('.btn-auth'));
+  
   if (authBtn) {
     if (e.stopPropagation) e.stopPropagation();
     openAuthModal('login');
@@ -2072,6 +2074,7 @@ function openAuthModal(tab = 'login') {
   switchAuthTab(tab);
   modal.classList.remove('hidden');
   modal.style.display = 'flex';
+  modal.style.zIndex = '999999';
 }
 
 // Close Auth Modal
@@ -2093,6 +2096,7 @@ function handleAuthOverlayClick(e) {
 window.openAuthModal = openAuthModal;
 window.closeAuthModal = closeAuthModal;
 window.handleAuthOverlayClick = handleAuthOverlayClick;
+window.switchAuthTab = switchAuthTab;
 
 // Switch between Sign In and Register tabs
 function switchAuthTab(tab) {
@@ -2105,15 +2109,27 @@ function switchAuthTab(tab) {
   const registerForm = document.getElementById('register-form');
 
   if (tab === 'login') {
-    loginTabBtn?.classList.add('active');
-    registerTabBtn?.classList.remove('active');
-    loginForm?.classList.remove('hidden');
-    registerForm?.classList.add('hidden');
+    if (loginTabBtn) loginTabBtn.classList.add('active');
+    if (registerTabBtn) registerTabBtn.classList.remove('active');
+    if (loginForm) {
+      loginForm.classList.remove('hidden');
+      loginForm.style.display = 'block';
+    }
+    if (registerForm) {
+      registerForm.classList.add('hidden');
+      registerForm.style.display = 'none';
+    }
   } else {
-    registerTabBtn?.classList.add('active');
-    loginTabBtn?.classList.remove('active');
-    registerForm?.classList.remove('hidden');
-    loginForm?.classList.add('hidden');
+    if (registerTabBtn) registerTabBtn.classList.add('active');
+    if (loginTabBtn) loginTabBtn.classList.remove('active');
+    if (registerForm) {
+      registerForm.classList.remove('hidden');
+      registerForm.style.display = 'block';
+    }
+    if (loginForm) {
+      loginForm.classList.add('hidden');
+      loginForm.style.display = 'none';
+    }
   }
 }
 
