@@ -2068,13 +2068,23 @@ document.addEventListener('click', (e) => {
 // Open Auth Modal
 function openAuthModal(tab = 'login') {
   closeNavMoreMenu();
+  const userDropdown = document.getElementById('user-menu-dropdown');
+  if (userDropdown) {
+    userDropdown.classList.add('hidden');
+    userDropdown.style.display = 'none';
+  }
+
   const modal = document.getElementById('auth-modal');
   if (!modal) return;
+
   clearAuthAlert();
   switchAuthTab(tab);
+
   modal.classList.remove('hidden');
-  modal.style.display = 'flex';
-  modal.style.zIndex = '999999';
+  modal.style.setProperty('display', 'flex', 'important');
+  modal.style.setProperty('z-index', '9999999', 'important');
+  modal.style.setProperty('visibility', 'visible', 'important');
+  modal.style.setProperty('opacity', '1', 'important');
 }
 
 // Close Auth Modal
@@ -2082,7 +2092,7 @@ function closeAuthModal() {
   const modal = document.getElementById('auth-modal');
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
+    modal.style.setProperty('display', 'none', 'important');
   }
 }
 
