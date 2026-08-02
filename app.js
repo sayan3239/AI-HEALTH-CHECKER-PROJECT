@@ -110,8 +110,32 @@ window.toggleNavMoreMenu = toggleNavMoreMenu;
 window.closeNavMoreMenu = closeNavMoreMenu;
 window.navigateToView = navigateToView;
 
-// Delegated Click Backup Listener for 3-Dot Navigation Items
+// Delegated Click Backup Listener for 3-Dot Navigation Items & Navbar Action Buttons
 document.addEventListener('DOMContentLoaded', () => {
+  const themeBtn = document.getElementById('theme-toggle');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (typeof toggleTheme === 'function') toggleTheme();
+    });
+  }
+
+  const authBtn = document.getElementById('open-auth-btn');
+  if (authBtn) {
+    authBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (typeof openAuthModal === 'function') openAuthModal('login');
+    });
+  }
+
+  const navMoreBtn = document.getElementById('nav-more-btn');
+  if (navMoreBtn) {
+    navMoreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (typeof toggleNavMoreMenu === 'function') toggleNavMoreMenu(e);
+    });
+  }
+
   const navContainer = document.getElementById('nav-menu-scroll-container');
   if (navContainer) {
     navContainer.addEventListener('click', (e) => {
@@ -1566,13 +1590,14 @@ function toggleTheme() {
   if (body.classList.contains('light-theme')) {
     body.classList.remove('light-theme');
     body.classList.add('dark-theme');
-    icon.className = 'fa-solid fa-moon';
+    if (icon) icon.className = 'fa-solid fa-moon';
   } else {
     body.classList.remove('dark-theme');
     body.classList.add('light-theme');
-    icon.className = 'fa-solid fa-sun';
+    if (icon) icon.className = 'fa-solid fa-sun';
   }
 }
+window.toggleTheme = toggleTheme;
 
 // Export PDF Summary Print View
 function exportHealthReport() {
@@ -2038,6 +2063,7 @@ function openAuthModal(tab = 'login') {
   clearAuthAlert();
   switchAuthTab(tab);
   modal.classList.remove('hidden');
+  modal.style.display = 'flex';
 }
 
 // Close Auth Modal
@@ -2045,6 +2071,7 @@ function closeAuthModal() {
   const modal = document.getElementById('auth-modal');
   if (modal) {
     modal.classList.add('hidden');
+    modal.style.display = 'none';
   }
 }
 
@@ -2054,6 +2081,10 @@ function handleAuthOverlayClick(e) {
     closeAuthModal();
   }
 }
+
+window.openAuthModal = openAuthModal;
+window.closeAuthModal = closeAuthModal;
+window.handleAuthOverlayClick = handleAuthOverlayClick;
 
 // Switch between Sign In and Register tabs
 function switchAuthTab(tab) {
