@@ -8,7 +8,6 @@ let activeRegion = 'head';
 let selectedSymptoms = new Set();
 let currentSeverity = 5;
 let searchQuery = '';
-let currentView = 'triage';
 
 // Navbar 3-Dot / 3-Dash Menu Controls
 function toggleNavMoreMenu(event) {
@@ -21,11 +20,6 @@ function toggleNavMoreMenu(event) {
   const dropdown = document.getElementById('nav-more-dropdown');
   if (dropdown) {
     dropdown.classList.toggle('hidden');
-    if (!dropdown.classList.contains('hidden')) {
-      dropdown.style.display = 'block';
-    } else {
-      dropdown.style.display = 'none';
-    }
   }
 }
 
@@ -33,121 +27,11 @@ function closeNavMoreMenu() {
   const dropdown = document.getElementById('nav-more-dropdown');
   if (dropdown) {
     dropdown.classList.add('hidden');
-    dropdown.style.display = 'none';
-  }
-}
-
-// Unified Navigation Router & View State Switcher
-function navigateToView(viewId, event) {
-  if (event) {
-    if (event.preventDefault) event.preventDefault();
-    if (event.stopPropagation) event.stopPropagation();
-  }
-
-  closeNavMoreMenu();
-  currentView = viewId;
-
-  // Highlight active menu item in 3-dot dropdown drawer
-  document.querySelectorAll('.nav-dropdown-item').forEach(item => {
-    if (item.getAttribute('data-view') === viewId) {
-      item.classList.add('active');
-    } else {
-      item.classList.remove('active');
-    }
-  });
-
-  // Dynamically route and open target feature component/modal
-  switch (viewId) {
-    case 'voice-analyzer':
-    case 'voice':
-      if (typeof openVoiceAnalyzerModal === 'function') openVoiceAnalyzerModal();
-      break;
-    case 'health-history':
-    case 'history':
-      if (typeof openHealthHistoryModal === 'function') openHealthHistoryModal();
-      break;
-    case 'medicine-reminder':
-    case 'medicine':
-      if (typeof openMedicineReminderModal === 'function') openMedicineReminderModal();
-      break;
-    case 'food-scanner':
-    case 'food':
-      if (typeof openFoodScannerModal === 'function') openFoodScannerModal();
-      break;
-    case 'skin-detector':
-    case 'skin':
-      if (typeof openSkinDetectorModal === 'function') openSkinDetectorModal();
-      break;
-    case 'report-analyzer':
-    case 'report':
-      if (typeof openReportAnalyzerModal === 'function') openReportAnalyzerModal();
-      break;
-    case 'biosensor':
-      if (typeof openBioSensorModal === 'function') openBioSensorModal(event);
-      break;
-    case 'fever':
-      if (typeof openFeatureModal === 'function') openFeatureModal('fever');
-      break;
-    case 'hospitals':
-      if (typeof openFeatureModal === 'function') openFeatureModal('hospitals');
-      break;
-    case 'calculators':
-      if (typeof openFeatureModal === 'function') openFeatureModal('calculators');
-      break;
-    case 'triage':
-      if (typeof openFeatureModal === 'function') openFeatureModal('triage');
-      break;
-    case 'ai-consult':
-    case 'consult':
-      if (typeof toggleAIChatModal === 'function') toggleAIChatModal();
-      break;
-    default:
-      console.log('Switched to view:', viewId);
   }
 }
 
 window.toggleNavMoreMenu = toggleNavMoreMenu;
 window.closeNavMoreMenu = closeNavMoreMenu;
-window.navigateToView = navigateToView;
-
-// Delegated Click Backup Listener for 3-Dot Navigation Items & Navbar Action Buttons
-document.addEventListener('DOMContentLoaded', () => {
-  const themeBtn = document.getElementById('theme-toggle');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (typeof toggleTheme === 'function') toggleTheme();
-    });
-  }
-
-  const authBtn = document.getElementById('open-auth-btn');
-  if (authBtn) {
-    authBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (typeof openAuthModal === 'function') openAuthModal('login');
-    });
-  }
-
-  const navMoreBtn = document.getElementById('nav-more-btn');
-  if (navMoreBtn) {
-    navMoreBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (typeof toggleNavMoreMenu === 'function') toggleNavMoreMenu(e);
-    });
-  }
-
-  const navContainer = document.getElementById('nav-menu-scroll-container');
-  if (navContainer) {
-    navContainer.addEventListener('click', (e) => {
-      const item = e.target.closest('.nav-dropdown-item');
-      if (!item) return;
-      const viewId = item.getAttribute('data-view');
-      if (viewId) {
-        navigateToView(viewId, e);
-      }
-    });
-  }
-});
 
 // Features Modal & Popup Window Controls
 function openFeaturesModal() {
@@ -218,14 +102,12 @@ function openFeatureModal(featureId) {
   }
 
   viewerModal.classList.remove('hidden');
-  viewerModal.style.display = 'flex';
 }
 
 function closeFeatureViewerModal() {
   const viewerModal = document.getElementById('feature-viewer-modal');
   if (viewerModal) {
     viewerModal.classList.add('hidden');
-    viewerModal.style.display = 'none';
   }
 }
 
@@ -1590,14 +1472,13 @@ function toggleTheme() {
   if (body.classList.contains('light-theme')) {
     body.classList.remove('light-theme');
     body.classList.add('dark-theme');
-    if (icon) icon.className = 'fa-solid fa-moon';
+    icon.className = 'fa-solid fa-moon';
   } else {
     body.classList.remove('dark-theme');
     body.classList.add('light-theme');
-    if (icon) icon.className = 'fa-solid fa-sun';
+    icon.className = 'fa-solid fa-sun';
   }
 }
-window.toggleTheme = toggleTheme;
 
 // Export PDF Summary Print View
 function exportHealthReport() {
@@ -2035,17 +1916,8 @@ function toggleUserDropdown(e) {
   }
 }
 
-// Global Click Delegator for Sign In & Outside Dropdown Click Handling
+// Close dropdowns when clicking outside
 document.addEventListener('click', (e) => {
-  const isProfileClick = e.target.closest && (e.target.closest('#user-profile-wrapper') || e.target.closest('.user-profile-badge'));
-  const authBtn = !isProfileClick && e.target.closest && (e.target.closest('#open-auth-btn') || e.target.closest('.btn-auth'));
-  
-  if (authBtn) {
-    if (e.stopPropagation) e.stopPropagation();
-    openAuthModal('login');
-    return;
-  }
-
   const userBtn = document.getElementById('user-profile-wrapper');
   const dropdown = document.getElementById('user-menu-dropdown');
   if (dropdown && !dropdown.classList.contains('hidden')) {
@@ -2067,21 +1939,10 @@ document.addEventListener('click', (e) => {
 
 // Open Auth Modal
 function openAuthModal(tab = 'login') {
-  closeNavMoreMenu();
-  const userDropdown = document.getElementById('user-menu-dropdown');
-  if (userDropdown) {
-    userDropdown.classList.add('hidden');
-    userDropdown.style.display = 'none';
-  }
-
   const modal = document.getElementById('auth-modal');
   if (!modal) return;
-
   clearAuthAlert();
   switchAuthTab(tab);
-
-  modal.style.display = '';
-  modal.style.removeProperty('display');
   modal.classList.remove('hidden');
 }
 
@@ -2089,8 +1950,6 @@ function openAuthModal(tab = 'login') {
 function closeAuthModal() {
   const modal = document.getElementById('auth-modal');
   if (modal) {
-    modal.style.display = '';
-    modal.style.removeProperty('display');
     modal.classList.add('hidden');
   }
 }
@@ -2101,11 +1960,6 @@ function handleAuthOverlayClick(e) {
     closeAuthModal();
   }
 }
-
-window.openAuthModal = openAuthModal;
-window.closeAuthModal = closeAuthModal;
-window.handleAuthOverlayClick = handleAuthOverlayClick;
-window.switchAuthTab = switchAuthTab;
 
 // Switch between Sign In and Register tabs
 function switchAuthTab(tab) {
@@ -2118,27 +1972,15 @@ function switchAuthTab(tab) {
   const registerForm = document.getElementById('register-form');
 
   if (tab === 'login') {
-    if (loginTabBtn) loginTabBtn.classList.add('active');
-    if (registerTabBtn) registerTabBtn.classList.remove('active');
-    if (loginForm) {
-      loginForm.classList.remove('hidden');
-      loginForm.style.display = 'block';
-    }
-    if (registerForm) {
-      registerForm.classList.add('hidden');
-      registerForm.style.display = 'none';
-    }
+    loginTabBtn?.classList.add('active');
+    registerTabBtn?.classList.remove('active');
+    loginForm?.classList.remove('hidden');
+    registerForm?.classList.add('hidden');
   } else {
-    if (registerTabBtn) registerTabBtn.classList.add('active');
-    if (loginTabBtn) loginTabBtn.classList.remove('active');
-    if (registerForm) {
-      registerForm.classList.remove('hidden');
-      registerForm.style.display = 'block';
-    }
-    if (loginForm) {
-      loginForm.classList.add('hidden');
-      loginForm.style.display = 'none';
-    }
+    registerTabBtn?.classList.add('active');
+    loginTabBtn?.classList.remove('active');
+    registerForm?.classList.remove('hidden');
+    loginForm?.classList.add('hidden');
   }
 }
 
@@ -2923,7 +2765,6 @@ function toggleAIChatModal() {
     if (input) input.focus();
   }
 }
-
 window.toggleAIChatModal = toggleAIChatModal;
 window.openFloatingChatModal = toggleAIChatModal;
 
@@ -3776,7 +3617,6 @@ let currentReportBase64 = null;
 let currentReportFileName = '';
 
 function openReportAnalyzerModal() {
-  closeNavMoreMenu();
   const modal = document.getElementById('report-analyzer-modal');
   const loader = document.getElementById('report-loader');
   if (loader) {
@@ -3785,7 +3625,6 @@ function openReportAnalyzerModal() {
   }
   if (modal) {
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
   }
 }
 
@@ -3798,7 +3637,6 @@ function closeReportAnalyzerModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
   }
 }
 
@@ -4020,7 +3858,6 @@ let cameraFacingMode = 'user'; // 'user' or 'environment'
 let currentSkinInputMode = 'camera';
 
 function openSkinDetectorModal() {
-  closeNavMoreMenu();
   const modal = document.getElementById('skin-detector-modal');
   const loader = document.getElementById('skin-loader');
   if (loader) {
@@ -4029,7 +3866,6 @@ function openSkinDetectorModal() {
   }
   if (modal) {
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
   }
 }
 
@@ -4043,7 +3879,6 @@ function closeSkinDetectorModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
   }
 }
 
@@ -4339,7 +4174,6 @@ let foodCameraFacingMode = 'user'; // 'user' or 'environment'
 let currentFoodInputMode = 'camera';
 
 function openFoodScannerModal() {
-  closeNavMoreMenu();
   const modal = document.getElementById('food-scanner-modal');
   const loader = document.getElementById('food-loader');
   if (loader) {
@@ -4348,7 +4182,6 @@ function openFoodScannerModal() {
   }
   if (modal) {
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
   }
 }
 
@@ -4362,7 +4195,6 @@ function closeFoodScannerModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
   }
 }
 
@@ -4685,7 +4517,6 @@ function initMedicineReminderModule() {
 }
 
 function openMedicineReminderModal() {
-  closeNavMoreMenu();
   const modal = document.getElementById('medicine-reminder-modal');
   const loader = document.getElementById('med-safety-loader');
   if (loader) {
@@ -4696,7 +4527,6 @@ function openMedicineReminderModal() {
   renderMedicineRemindersList();
   if (modal) {
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
   }
 }
 
@@ -4709,7 +4539,6 @@ function closeMedicineReminderModal() {
   }
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
   }
 }
 
@@ -5032,7 +4861,6 @@ function initHealthHistoryModule() {
 }
 
 function openHealthHistoryModal() {
-  closeNavMoreMenu();
   const modal = document.getElementById('health-history-modal');
   const summaryBox = document.getElementById('history-summary-result-box');
   if (summaryBox) {
@@ -5042,7 +4870,6 @@ function openHealthHistoryModal() {
   renderHealthHistoryTimeline();
   if (modal) {
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
   }
 }
 
@@ -5050,7 +4877,6 @@ function closeHealthHistoryModal() {
   const modal = document.getElementById('health-history-modal');
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
   }
 }
 
@@ -5306,17 +5132,13 @@ let currentAudioMimeType = 'audio/webm';
 let currentVoiceAnalysisText = '';
 
 function openVoiceAnalyzerModal() {
-  if (typeof closeNavMoreMenu === 'function') closeNavMoreMenu();
   const modal = document.getElementById('voice-analyzer-modal');
   const resultBox = document.getElementById('voice-result-box');
   const loader = document.getElementById('voice-loader');
   const statusText = document.getElementById('voice-rec-status-text');
 
   if (statusText) {
-    const txt = (typeof i18n !== 'undefined' && i18n && i18n[currentLang] && i18n[currentLang].voiceMicInstruction)
-      ? i18n[currentLang].voiceMicInstruction
-      : 'Turn on microphone and cough or speak clearly 3–5 times.';
-    statusText.textContent = txt;
+    statusText.textContent = i18n[currentLang] ? i18n[currentLang].voiceMicInstruction : i18n.en.voiceMicInstruction;
   }
 
   if (resultBox) {
@@ -5328,13 +5150,9 @@ function openVoiceAnalyzerModal() {
     loader.style.display = 'none';
   }
 
-  if (typeof switchVoiceInputMode === 'function') {
-    switchVoiceInputMode('mic');
-  }
-
+  switchVoiceInputMode('mic');
   if (modal) {
     modal.classList.remove('hidden');
-    modal.style.display = 'flex';
   }
 }
 
@@ -5343,12 +5161,8 @@ function closeVoiceAnalyzerModal() {
   const modal = document.getElementById('voice-analyzer-modal');
   if (modal) {
     modal.classList.add('hidden');
-    modal.style.display = 'none';
   }
 }
-
-window.openVoiceAnalyzerModal = openVoiceAnalyzerModal;
-window.closeVoiceAnalyzerModal = closeVoiceAnalyzerModal;
 
 function switchVoiceInputMode(mode) {
   activeVoiceInputMode = mode;
