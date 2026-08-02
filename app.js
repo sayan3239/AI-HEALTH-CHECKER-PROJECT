@@ -8,6 +8,7 @@ let activeRegion = 'head';
 let selectedSymptoms = new Set();
 let currentSeverity = 5;
 let searchQuery = '';
+let currentView = 'triage';
 
 // Navbar 3-Dot / 3-Dash Menu Controls
 function toggleNavMoreMenu(event) {
@@ -36,8 +37,78 @@ function closeNavMoreMenu() {
   }
 }
 
+// Unified Navigation Router & View State Switcher
+function navigateToView(viewId, event) {
+  if (event) {
+    if (event.preventDefault) event.preventDefault();
+    if (event.stopPropagation) event.stopPropagation();
+  }
+
+  closeNavMoreMenu();
+  currentView = viewId;
+
+  // Highlight active menu item in 3-dot dropdown drawer
+  document.querySelectorAll('.nav-dropdown-item').forEach(item => {
+    if (item.getAttribute('data-view') === viewId) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  // Dynamically route and open target feature component/modal
+  switch (viewId) {
+    case 'voice-analyzer':
+    case 'voice':
+      if (typeof openVoiceAnalyzerModal === 'function') openVoiceAnalyzerModal();
+      break;
+    case 'health-history':
+    case 'history':
+      if (typeof openHealthHistoryModal === 'function') openHealthHistoryModal();
+      break;
+    case 'medicine-reminder':
+    case 'medicine':
+      if (typeof openMedicineReminderModal === 'function') openMedicineReminderModal();
+      break;
+    case 'food-scanner':
+    case 'food':
+      if (typeof openFoodScannerModal === 'function') openFoodScannerModal();
+      break;
+    case 'skin-detector':
+    case 'skin':
+      if (typeof openSkinDetectorModal === 'function') openSkinDetectorModal();
+      break;
+    case 'report-analyzer':
+    case 'report':
+      if (typeof openReportAnalyzerModal === 'function') openReportAnalyzerModal();
+      break;
+    case 'biosensor':
+      if (typeof openBioSensorModal === 'function') openBioSensorModal(event);
+      break;
+    case 'fever':
+      if (typeof openFeatureModal === 'function') openFeatureModal('fever');
+      break;
+    case 'hospitals':
+      if (typeof openFeatureModal === 'function') openFeatureModal('hospitals');
+      break;
+    case 'calculators':
+      if (typeof openFeatureModal === 'function') openFeatureModal('calculators');
+      break;
+    case 'triage':
+      if (typeof openFeatureModal === 'function') openFeatureModal('triage');
+      break;
+    case 'ai-consult':
+    case 'consult':
+      if (typeof toggleAIChatModal === 'function') toggleAIChatModal();
+      break;
+    default:
+      console.log('Switched to view:', viewId);
+  }
+}
+
 window.toggleNavMoreMenu = toggleNavMoreMenu;
 window.closeNavMoreMenu = closeNavMoreMenu;
+window.navigateToView = navigateToView;
 
 // Delegated Click Backup Listener for 3-Dot Navigation Items
 document.addEventListener('DOMContentLoaded', () => {
@@ -46,32 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
     navContainer.addEventListener('click', (e) => {
       const item = e.target.closest('.nav-dropdown-item');
       if (!item) return;
-      closeNavMoreMenu();
-      const onclickAttr = item.getAttribute('onclick') || '';
-      if (onclickAttr.includes('openVoiceAnalyzerModal')) {
-        openVoiceAnalyzerModal();
-      } else if (onclickAttr.includes('openHealthHistoryModal')) {
-        openHealthHistoryModal();
-      } else if (onclickAttr.includes('openMedicineReminderModal')) {
-        openMedicineReminderModal();
-      } else if (onclickAttr.includes('openFoodScannerModal')) {
-        openFoodScannerModal();
-      } else if (onclickAttr.includes('openSkinDetectorModal')) {
-        openSkinDetectorModal();
-      } else if (onclickAttr.includes('openReportAnalyzerModal')) {
-        openReportAnalyzerModal();
-      } else if (onclickAttr.includes('openBioSensorModal')) {
-        openBioSensorModal(e);
-      } else if (onclickAttr.includes("'fever'")) {
-        openFeatureModal('fever');
-      } else if (onclickAttr.includes("'hospitals'")) {
-        openFeatureModal('hospitals');
-      } else if (onclickAttr.includes("'calculators'")) {
-        openFeatureModal('calculators');
-      } else if (onclickAttr.includes("'triage'")) {
-        openFeatureModal('triage');
-      } else if (onclickAttr.includes('toggleAIChatModal')) {
-        toggleAIChatModal();
+      const viewId = item.getAttribute('data-view');
+      if (viewId) {
+        navigateToView(viewId, e);
       }
     });
   }
