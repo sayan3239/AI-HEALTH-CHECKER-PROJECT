@@ -2691,6 +2691,15 @@ let chatHistoryStore = [];
 let isVoiceRecording = false;
 let speechRecognitionInstance = null;
 
+function openFloatingChatModal() {
+  const modal = document.getElementById('ai-chat-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+    const input = document.getElementById('chat-user-input');
+    if (input) input.focus();
+  }
+}
+
 function toggleAIChatModal() {
   const modal = document.getElementById('ai-chat-modal');
   if (!modal) return;
@@ -2702,6 +2711,9 @@ function toggleAIChatModal() {
     if (input) input.focus();
   }
 }
+
+window.openFloatingChatModal = openFloatingChatModal;
+window.toggleAIChatModal = toggleAIChatModal;
 
 function handleChatKeyPress(event) {
   if (event.key === 'Enter' && !event.shiftKey) {
