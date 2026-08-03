@@ -45,75 +45,148 @@
         </div>
 
         <!-- 3-Dot / 3-Dash All Features Dropdown Menu -->
-        <div class="nav-menu-wrapper" style="position: relative;">
+        <div class="nav-menu-wrapper">
           <button class="btn btn-secondary nav-more-btn" id="nav-more-btn" onclick="toggleNavMoreMenu(event)" title="Features & Tools Menu" aria-label="Features Menu" style="width: 40px; height: 40px; padding: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; border-color: rgba(6, 182, 212, 0.4);">
             <i class="fa-solid fa-ellipsis-vertical" style="font-size: 1.2rem; color: var(--accent-cyan);"></i>
           </button>
 
+          <!-- Top Overlay Feature Display Panel (Displayed on top of Web Page, No Scrolling) -->
           <div class="nav-more-dropdown hidden" id="nav-more-dropdown">
-            <!-- Language Switcher inside 3-Dot Menu -->
-            <div style="padding: 0.4rem 0.5rem 0.6rem 0.5rem; border-bottom: 1px solid var(--border-subtle); margin-bottom: 0.5rem;">
-              <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.45rem; display: flex; align-items: center; gap: 0.4rem;">
-                <i class="fa-solid fa-globe" style="color: var(--accent-cyan);"></i>
-                <span data-i18n="langTitle">Select Language</span>
+            <!-- Top Panel Header -->
+            <div class="top-features-header">
+              <div style="display: flex; align-items: center; gap: 0.6rem;">
+                <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.4); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; color: var(--accent-cyan);">
+                  <i class="fa-solid fa-grid-2"></i>
+                </div>
+                <h3 style="font-size: 1.05rem; font-weight: 800; color: var(--text-main); margin: 0;" data-i18n="featuresModalTitle">Clinical AI Features & Tools</h3>
               </div>
-              <div class="toggle-pill" id="language-switcher" style="width: 100%; display: flex; justify-content: space-between; gap: 4px; padding: 3px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 20px;">
-                <button class="toggle-option active" id="lang-en" onclick="setLanguage('en')" style="flex: 1; text-align: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 16px;">English</button>
-                <button class="toggle-option" id="lang-bn" onclick="setLanguage('bn')" style="flex: 1; text-align: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 16px;">বাংলা</button>
-                <button class="toggle-option" id="lang-hi" onclick="setLanguage('hi')" style="flex: 1; text-align: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 16px;">हिंदी</button>
-              </div>
+              <button class="top-features-close-btn" onclick="closeNavMoreMenu()" title="Close Menu">&times;</button>
             </div>
 
-            <!-- Feature Menu Items -->
-            <div class="nav-menu-scroll-container" id="nav-menu-scroll-container">
-              <button class="nav-dropdown-item" onclick="openVoiceAnalyzerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-lungs" style="color: #ec4899; width: 20px;"></i>
-                <span data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</span>
+            <!-- Language Switcher & Sign In Controls -->
+            <div class="top-features-subbar">
+              <div class="top-lang-wrapper">
+                <span data-i18n="langTitle" style="font-size: 0.78rem; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 0.5px;">Select Language:</span>
+                <div class="toggle-pill" id="language-switcher" style="display: inline-flex; gap: 4px; padding: 3px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(6, 182, 212, 0.3); border-radius: 20px;">
+                  <button class="toggle-option active" id="lang-en" onclick="setLanguage('en')" style="padding: 0.2rem 0.6rem; font-size: 0.75rem; border-radius: 16px;">English</button>
+                  <button class="toggle-option" id="lang-bn" onclick="setLanguage('bn')" style="padding: 0.2rem 0.6rem; font-size: 0.75rem; border-radius: 16px;">বাংলা</button>
+                  <button class="toggle-option" id="lang-hi" onclick="setLanguage('hi')" style="padding: 0.2rem 0.6rem; font-size: 0.75rem; border-radius: 16px;">हिंदी</button>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-auth nav-auth-menu-btn" id="nav-more-auth-btn" onclick="handleNavMoreAuthClick(); closeNavMoreMenu();" style="padding: 0.4rem 0.9rem; font-size: 0.82rem; border-radius: 20px; font-weight: 700;">
+                <i class="fa-solid fa-right-to-bracket" id="nav-more-auth-icon"></i>
+                <span id="nav-more-auth-text" data-i18n="navSignIn">Sign In</span>
               </button>
-              <button class="nav-dropdown-item" onclick="openHealthHistoryModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-chart-line" style="color: #3b82f6; width: 20px;"></i>
-                <span data-i18n="navHealthHistory">Health History Journal</span>
+            </div>
+
+            <!-- Feature Grid Layout (Displayed on top of page, scroll option completely off) -->
+            <div class="top-features-grid-container" id="nav-menu-scroll-container">
+              <button class="nav-dropdown-card" data-feature="voice" onclick="openVoiceAnalyzerModal(); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.3);">
+                  <i class="fa-solid fa-lungs"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navVoiceAnalyzer">Voice & Cough Analysis</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openMedicineReminderModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-bell" style="color: #f59e0b; width: 20px;"></i>
-                <span data-i18n="navMedReminder">Smart Medicine Reminder</span>
+
+              <button class="nav-dropdown-card" data-feature="history" onclick="openHealthHistoryModal(); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3);">
+                  <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navHealthHistory">Health History Journal</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openFoodScannerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-utensils" style="color: #10b981; width: 20px;"></i>
-                <span data-i18n="navFoodScanner">AI Food & Nutrition Scanner</span>
+
+              <button class="nav-dropdown-card" data-feature="medicine" onclick="openMedicineReminderModal(); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">
+                  <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navMedReminder">Smart Medicine Reminder</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openSkinDetectorModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-camera" style="color: #ec4899; width: 20px;"></i>
-                <span data-i18n="navSkinDetector">Skin Disease Detection</span>
+
+              <button class="nav-dropdown-card" data-feature="food" onclick="openFoodScannerModal(); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                  <i class="fa-solid fa-utensils"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navFoodScanner">AI Food & Nutrition Scanner</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openReportAnalyzerModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-file-medical" style="color: #f59e0b; width: 20px;"></i>
-                <span data-i18n="navReportAnalyzer">AI Medical Report Analyzer</span>
+
+              <button class="nav-dropdown-card" data-feature="skin" onclick="openSkinDetectorModal(); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(236, 72, 153, 0.15); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.3);">
+                  <i class="fa-solid fa-camera"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navSkinDetector">Skin Disease Detection</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openBioSensorModal(event); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-heart-pulse" style="color: #f43f5e; width: 20px;"></i>
-                <span data-i18n="navBioSensor">Pulse Rate & Heart Beat Scanner</span>
+
+              <button class="nav-dropdown-card" data-feature="report" onclick="openReportAnalyzerModal(); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3);">
+                  <i class="fa-solid fa-file-medical"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navReportAnalyzer">Medical Report Analyzer</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('fever'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-temperature-full" style="color: #ef4444; width: 20px;"></i>
-                <span data-i18n="navFeverDB">35+ Clinical Fever DB</span>
+
+              <button class="nav-dropdown-card" data-feature="biosensor" onclick="openBioSensorModal(event); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3);">
+                  <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navBioSensor">Pulse & Heart Beat Scanner</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('hospitals'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-hospital-user" style="color: #10b981; width: 20px;"></i>
-                <span data-i18n="navHospitals">Nearby Hospitals & GPS</span>
+
+              <button class="nav-dropdown-card" data-feature="fever" onclick="openFeatureModal('fever'); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);">
+                  <i class="fa-solid fa-temperature-full"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navFeverDB">35+ Clinical Fever DB</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('calculators'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-calculator" style="color: #06b6d4; width: 20px;"></i>
-                <span data-i18n="navCalculators">Health Calculators</span>
+
+              <button class="nav-dropdown-card" data-feature="hospitals" onclick="openFeatureModal('hospitals'); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                  <i class="fa-solid fa-hospital-user"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navHospitals">Nearby Hospitals & GPS</span>
+                </div>
               </button>
-              <div class="dropdown-divider"></div>
-              <button class="nav-dropdown-item" onclick="openFeatureModal('triage'); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-stethoscope" style="color: #3b82f6; width: 20px;"></i>
-                <span>AI Symptom Triage</span>
+
+              <button class="nav-dropdown-card" data-feature="calculators" onclick="openFeatureModal('calculators'); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.3);">
+                  <i class="fa-solid fa-calculator"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navCalculators">Health Calculators</span>
+                </div>
               </button>
-              <button class="nav-dropdown-item" onclick="openFloatingChatModal(); closeNavMoreMenu();" style="width: 100%; text-align: left; background: none; border: none; font: inherit; cursor: pointer;">
-                <i class="fa-solid fa-user-doctor" style="color: #8b5cf6; width: 20px;"></i>
-                <span data-i18n="navConsultAI">AI Medical Consult</span>
+
+              <button class="nav-dropdown-card" data-feature="triage" onclick="openFeatureModal('triage'); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3);">
+                  <i class="fa-solid fa-stethoscope"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navTriage">AI Symptom Triage</span>
+                </div>
+              </button>
+
+              <button class="nav-dropdown-card" data-feature="consult" onclick="openFloatingChatModal(); closeNavMoreMenu();">
+                <div class="nav-card-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6; border: 1px solid rgba(139, 92, 246, 0.3);">
+                  <i class="fa-solid fa-user-doctor"></i>
+                </div>
+                <div class="nav-card-text">
+                  <span data-i18n="navConsultAI">AI Medical Consult</span>
+                </div>
               </button>
             </div>
           </div>
@@ -2193,6 +2266,30 @@
 
       </div>
     </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation Bar (Appears only on Mobile Viewports <= 768px) -->
+  <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button class="mobile-nav-item active" onclick="openFeatureModal('triage'); if(typeof setActiveMobileNavItem==='function') setActiveMobileNavItem(this);">
+      <i class="fa-solid fa-house"></i>
+      <span data-i18n="mobNavHome">Home</span>
+    </button>
+    <button class="mobile-nav-item" onclick="openVoiceAnalyzerModal(); if(typeof setActiveMobileNavItem==='function') setActiveMobileNavItem(this);">
+      <i class="fa-solid fa-lungs"></i>
+      <span data-i18n="mobNavVoice">Voice</span>
+    </button>
+    <button class="mobile-nav-item" onclick="openSkinDetectorModal(); if(typeof setActiveMobileNavItem==='function') setActiveMobileNavItem(this);">
+      <i class="fa-solid fa-camera"></i>
+      <span data-i18n="mobNavSkin">Skin</span>
+    </button>
+    <button class="mobile-nav-item" onclick="openFeatureModal('hospitals'); if(typeof setActiveMobileNavItem==='function') setActiveMobileNavItem(this);">
+      <i class="fa-solid fa-hospital-user"></i>
+      <span data-i18n="mobNavHosp">Hospitals</span>
+    </button>
+    <button class="mobile-nav-item" onclick="toggleNavMoreMenu(event); if(typeof setActiveMobileNavItem==='function') setActiveMobileNavItem(this);">
+      <i class="fa-solid fa-bars"></i>
+      <span data-i18n="mobNavMenu">Menu</span>
+    </button>
   </div>
 
   <!-- Leaflet Map JS Library -->

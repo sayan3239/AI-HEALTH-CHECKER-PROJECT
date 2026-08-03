@@ -28,8 +28,22 @@ function closeNavMoreMenu() {
   }
 }
 
+function handleNavMoreAuthClick() {
+  if (typeof openAuthModal === 'function') {
+    openAuthModal('login');
+  }
+}
+
+function setActiveMobileNavItem(elem) {
+  const items = document.querySelectorAll('.mobile-nav-item');
+  items.forEach(item => item.classList.remove('active'));
+  if (elem) elem.classList.add('active');
+}
+
 window.toggleNavMoreMenu = toggleNavMoreMenu;
 window.closeNavMoreMenu = closeNavMoreMenu;
+window.handleNavMoreAuthClick = handleNavMoreAuthClick;
+window.setActiveMobileNavItem = setActiveMobileNavItem;
 
 // Features Modal & Popup Window Controls
 function openFeaturesModal() {
@@ -502,6 +516,11 @@ const i18n = {
     disclaimer: 'MEDICAL DISCLAIMER: MediPulse AI is an artificial intelligence triage and educational decision support system. It is NOT a medical diagnosis or a substitute for professional healthcare advice, diagnosis, or treatment. If you believe you have a medical emergency, immediately call your local emergency number or visit a hospital.',
     navSignIn: 'Sign In',
     navFeatures: 'Features',
+    mobNavHome: 'Home',
+    mobNavVoice: 'Voice',
+    mobNavSkin: 'Skin',
+    mobNavHosp: 'Hospitals',
+    mobNavMenu: 'Menu',
     authTitle: 'Welcome to MediPulse AI',
     authSubtitle: 'Access clinical diagnostic records & AI health insights',
     tabSignIn: 'Sign In',
@@ -619,6 +638,11 @@ const i18n = {
     bmrTip: 'দৈনিক প্রয়োজনীয় ক্যালোরি',
     disclaimer: 'মেডিকেল ডিসক্লেইমার: মেডিপালস এআই একটি শিক্ষামূলক ও প্রাথমিক স্বাস্থ্য ঝুঁকি অ্যাসেসমেন্ট টুল। এটি কোনো রেজিস্টার্ড ডাক্তারের বিকল্প বা চূড়ান্ত ডায়াগনোসিস নয়। যেকোনো জরুরি পরিস্থিতিতে দ্রুত হাসপাতালে যোগাযোগ করুন।',
     navSignIn: 'সাইন ইন',
+    mobNavHome: 'হোম',
+    mobNavVoice: 'কাশি স্ক্যান',
+    mobNavSkin: 'ত্বক স্ক্যান',
+    mobNavHosp: 'হাসপাতাল',
+    mobNavMenu: 'মেনু',
     authTitle: 'মেডিপালস এআই-এ স্বাগতম',
     authSubtitle: 'আপনার ক্লিনিক্যাল রিপোর্ট ও এআই হেলথ রেকর্ড অ্যাক্সেস করুন',
     tabSignIn: 'সাইন ইন',
@@ -735,6 +759,11 @@ const i18n = {
     bmrTip: 'दैनिक रखरखाव कैलोरी',
     disclaimer: 'चिकित्सा अस्वीकरण: मेडीपल्स एआई एक शैक्षणिक और प्रारंभिक स्वास्थ्य जोखिम मूल्यांकन उपकरण है। यह किसी डॉक्टर का विकल्प या अंतिम निदान नहीं है। किसी भी आपात स्थिति में तुरंत अस्पताल से संपर्क करें।',
     navSignIn: 'साइन इन करें',
+    mobNavHome: 'होम',
+    mobNavVoice: 'आवाज',
+    mobNavSkin: 'त्वचा',
+    mobNavHosp: 'अस्पताल',
+    mobNavMenu: 'मेनू',
     authTitle: 'मेडीपल्स एआई में आपका स्वागत है',
     authSubtitle: 'अपनी क्लिनिकल डायग्नोस्टिक रिपोर्ट और एआई हेल्थ रिकॉर्ड्स देखें',
     tabSignIn: 'साइन इन करें',
