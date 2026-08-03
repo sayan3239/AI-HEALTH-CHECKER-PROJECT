@@ -5506,7 +5506,6 @@ html, body {
   }
 
   .modal-container,
-  .prescription-modal-container,
   .auth-modal-container,
   .voice-modal-container,
   .chat-modal-container,
@@ -5522,13 +5521,208 @@ html, body {
     padding: 1.2rem 1rem 2rem 1rem !important;
   }
 
-  /* Prescription Paper Mobile View */
-  .prescription-paper {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 0.75rem !important;
-    overflow-x: auto !important;
+  /* ==========================================================================
+     Full Screen Mobile Medical Prescription System (100% Full Viewport)
+     ========================================================================== */
+  .prescription-modal-overlay#prescription-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    z-index: 999999 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #090d16 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .prescription-modal-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .prescription-toolbar {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: rgba(7, 10, 20, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.4) !important;
+    padding: 0.65rem 0.85rem !important;
+    margin-bottom: 0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    gap: 0.6rem !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  .prescription-toolbar .btn {
+    flex: 1 !important;
+    min-height: 42px !important;
     font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+  }
+
+  /* Authentic Document Full Screen Paper for Mobile */
+  .prescription-paper {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 0 2.5rem 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    min-height: calc(100vh - 60px) !important;
+    min-height: calc(100dvh - 60px) !important;
+    overflow-x: hidden !important;
+    font-size: 0.84rem !important;
+  }
+
+  .rx-header-banner {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .rx-header-title {
+    font-size: 1.05rem !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .rx-pulse-svg {
+    width: 80px !important;
+    height: 20px !important;
+  }
+
+  .rx-doctor-hospital-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 0.85rem 1rem !important;
+    gap: 0.85rem !important;
+    background: #f8fafc !important;
+  }
+
+  .rx-doc-info,
+  .rx-hosp-info {
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .rx-brand-name {
+    font-size: 1.1rem !important;
+  }
+
+  .rx-doc-name {
+    font-size: 1.05rem !important;
+  }
+
+  .rx-hosp-name {
+    font-size: 1.05rem !important;
+  }
+
+  .rx-cross-icon {
+    display: none !important;
+  }
+
+  .rx-patient-bar {
+    padding: 0.85rem 1rem !important;
+    font-size: 0.84rem !important;
+  }
+
+  .rx-patient-grid {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.45rem !important;
+    margin-top: 0 !important;
+  }
+
+  .rx-patient-grid > div {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .rx-input-inline,
+  .rx-input-inline-sm,
+  .rx-input-inline-md,
+  .rx-input-inline-lg {
+    width: 55% !important;
+    text-align: right !important;
+    font-size: 0.84rem !important;
+  }
+
+  .rx-body-box {
+    flex-direction: column !important;
+    margin: 0.75rem 0.85rem !important;
+    min-height: auto !important;
+    border-radius: 10px !important;
+  }
+
+  .rx-left-sidebar {
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  .rx-right-main {
+    width: 100% !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  .rx-meds-table {
+    width: 100% !important;
+    font-size: 0.78rem !important;
+  }
+
+  .rx-meds-table th,
+  .rx-meds-table td {
+    padding: 0.5rem 0.35rem !important;
+  }
+
+  .rx-signature-block {
+    align-self: center !important;
+    margin-top: 1.5rem !important;
+    width: 180px !important;
+  }
+
+  .rx-footer-row {
+    flex-direction: column !important;
+    gap: 0.65rem !important;
+    padding: 0.85rem 1rem !important;
+    text-align: center !important;
+  }
+
+  .rx-footer-divider {
+    display: none !important;
   }
 
   /* Floating Chat Modal on Mobile */
