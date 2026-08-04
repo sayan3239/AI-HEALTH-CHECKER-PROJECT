@@ -696,190 +696,226 @@
       <p>© 2026 MediPulse AI Health Systems. Built for learning and healthcare innovation.</p>
     </div>
   </footer>
-  <!-- MEDICAL PRESCRIPTION MODAL (Matching prescription2.png 1:1) -->
-  <div class="prescription-modal-overlay w-full overflow-x-hidden px-3 py-4" id="prescription-modal" style="display: none;">
-    <div class="prescription-modal-container w-full max-w-lg md:max-w-4xl mx-auto">
+  <!-- MEDICAL PRESCRIPTION MODAL (Matching prescription2.png 1:1 with A4 Paper Sheet Fit & Zoom Controls) -->
+  <div class="prescription-modal-overlay w-full overflow-x-hidden px-2 py-3" id="prescription-modal" style="display: none;">
+    <div class="prescription-modal-container w-full max-w-4xl mx-auto flex flex-col items-center">
       
-      <!-- Top Action Toolbar (No-Print) -->
-      <div class="prescription-toolbar rx-toolbar-top no-print w-full flex justify-between gap-2 mb-3">
-        <button class="btn btn-primary" onclick="printPrescription()">
-          <i class="fa-solid fa-print"></i> <span>Print / Save PDF Prescription</span>
-        </button>
-        <button class="btn btn-secondary" onclick="closePrescriptionModal()">
-          <i class="fa-solid fa-xmark"></i> <span>Close</span>
-        </button>
-      </div>
-
-      <!-- Printable Prescription Document Container (Single Page Document) -->
-      <div class="prescription-paper w-full max-w-full overflow-hidden" id="prescription-paper">
-        
-        <!-- Header Banner with Dark Teal Styling & Pulse Graph -->
-        <div class="rx-header-banner">
-          <div class="rx-header-title">MEDICAL PRESCRIPTION</div>
-          <div class="rx-pulse-svg">
-            <svg viewBox="0 0 100 20" class="rx-ecg-wave">
-              <path d="M0 10 L30 10 L35 0 L40 20 L45 5 L50 15 L55 10 L100 10" stroke="#00b4d8" stroke-width="2" fill="none" />
-            </svg>
-          </div>
+      <!-- Top Action Toolbar & Zoom Controller (No-Print) -->
+      <div class="prescription-toolbar rx-toolbar-top no-print w-full flex flex-wrap justify-between items-center gap-2 mb-2">
+        <div class="rx-toolbar-left flex gap-2 items-center">
+          <button class="btn btn-primary" onclick="printPrescription()">
+            <i class="fa-solid fa-print"></i> <span>Print / Save PDF</span>
+          </button>
+          <button class="btn btn-secondary" onclick="closePrescriptionModal()">
+            <i class="fa-solid fa-xmark"></i> <span>Close</span>
+          </button>
         </div>
 
-        <!-- Top Header Info Row -->
-        <div class="rx-doctor-hospital-row">
-          <!-- Left Doctor Info -->
-          <div class="rx-doc-info">
-            <div class="rx-brand-box">
-              <img src="logo2.png" alt="MediPulse AI Logo" class="rx-brand-logo">
-              <div>
-                <div class="rx-brand-name">MediPulse AI</div>
-                <div class="rx-brand-tagline">SMARTER CARE. BETTER TOMORROW.</div>
+        <!-- Interactive A4 Zoom Control Group -->
+        <div class="rx-zoom-controls">
+          <button class="btn-zoom" onclick="zoomPrescription(-0.1)" title="Zoom Out (-)">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <span class="rx-zoom-badge" id="rx-zoom-badge-top" onclick="resetPrescriptionZoom()" title="Click to Reset / Fit Screen">100%</span>
+          <button class="btn-zoom" onclick="zoomPrescription(0.1)" title="Zoom In (+)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="btn-zoom btn-zoom-fit" onclick="resetPrescriptionZoom()" title="Fit to Mobile Screen">
+            <i class="fa-solid fa-expand"></i> <span>Fit</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrollable Viewport Container for A4 Sheet -->
+      <div class="prescription-viewport-wrapper w-full overflow-auto" id="rx-viewport-wrapper">
+        
+        <!-- Printable Prescription Document Container (Single Page Authentic A4 Document Sheet) -->
+        <div class="prescription-paper a4-paper-sheet" id="prescription-paper">
+          
+          <!-- Header Banner with Dark Teal Styling & Pulse Graph -->
+          <div class="rx-header-banner">
+            <div class="rx-header-title">MEDICAL PRESCRIPTION</div>
+            <div class="rx-pulse-svg">
+              <svg viewBox="0 0 100 20" class="rx-ecg-wave">
+                <path d="M0 10 L30 10 L35 0 L40 20 L45 5 L50 15 L55 10 L100 10" stroke="#00b4d8" stroke-width="2" fill="none" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Top Header Info Row -->
+          <div class="rx-doctor-hospital-row">
+            <!-- Left Doctor Info -->
+            <div class="rx-doc-info">
+              <div class="rx-brand-box">
+                <img src="logo2.png" alt="MediPulse AI Logo" class="rx-brand-logo">
+                <div>
+                  <div class="rx-brand-name">MediPulse AI</div>
+                  <div class="rx-brand-tagline">SMARTER CARE. BETTER TOMORROW.</div>
+                </div>
+              </div>
+              <div class="rx-doc-name">Dr. MediPulse AI Engine</div>
+              <div class="rx-doc-sub">MBBS, MD (Clinical Diagnostics)</div>
+              <div class="rx-doc-role">Consultant Physician & Triage Specialist</div>
+            </div>
+
+            <!-- Middle Cross Icon -->
+            <div class="rx-cross-icon">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+
+            <!-- Right Hospital Info -->
+            <div class="rx-hosp-info">
+              <div class="rx-hosp-name">HOSPITAL NAME</div>
+              <div class="rx-hosp-sub">CARE WITH COMPASSION</div>
+              <div class="rx-hosp-detail">📍 123, Healthcare Street, Your City, State - 000123</div>
+              <div class="rx-hosp-detail">📞 +91 12345 67890</div>
+              <div class="rx-hosp-detail">✉️ info@hospitalname.com</div>
+            </div>
+          </div>
+
+          <!-- Patient Info Bar -->
+          <div class="rx-patient-bar w-full">
+            <div class="rx-patient-grid">
+              <div class="rx-patient-item"><strong>Patient Name :</strong> <input type="text" id="rx-p-name" placeholder="Type Patient Name..." class="rx-input-inline"></div>
+              <div class="rx-patient-item"><strong>Age :</strong> <input type="text" id="rx-p-age" placeholder="e.g. 25 Yrs" class="rx-input-inline-sm"></div>
+              <div class="rx-patient-item"><strong>Gender :</strong> <input type="text" id="rx-p-gender" placeholder="Male / Female" class="rx-input-inline-sm"></div>
+              <div class="rx-patient-item"><strong>Address :</strong> <input type="text" id="rx-p-address" placeholder="Enter City, State..." class="rx-input-inline-lg"></div>
+              <div class="rx-patient-item"><strong>Date :</strong> <span id="rx-p-date">25/07/2026</span></div>
+              <div class="rx-patient-item"><strong>Contact No. :</strong> <input type="text" id="rx-p-contact" placeholder="Phone Number..." class="rx-input-inline-md"></div>
+            </div>
+          </div>
+
+          <!-- Main Rx Content Box with Faint Background Watermark Cross -->
+          <div class="rx-body-box w-full">
+            
+            <!-- Left Column Sidebar -->
+            <div class="rx-left-sidebar">
+              <div class="rx-mp-watermark">
+                <span class="rx-mp-large">MP</span>
+                <span class="rx-mp-label">MEDICAL PRESCRIPTION</span>
+                <div class="rx-dots">• • •</div>
+              </div>
+              
+              <div class="rx-sidebar-section">
+                <div class="rx-section-label">Chief Symptoms:</div>
+                <div class="rx-symptoms-summary" id="rx-symptoms-summary">High Fever, Headache</div>
+              </div>
+
+              <div class="rx-sidebar-section">
+                <div class="rx-section-label">AI Diagnosis Match:</div>
+                <div class="rx-diagnosis-name" id="rx-diagnosis-name">Viral Fever Complex</div>
+              </div>
+
+              <div class="rx-sidebar-section">
+                <div class="rx-section-label">Triage Risk Category:</div>
+                <div class="rx-risk-badge" id="rx-risk-badge">Moderate Urgency</div>
               </div>
             </div>
-            <div class="rx-doc-name">Dr. MediPulse AI Engine</div>
-            <div class="rx-doc-sub">MBBS, MD (Clinical Diagnostics)</div>
-            <div class="rx-doc-role">Consultant Physician & Triage Specialist</div>
-          </div>
 
-          <!-- Middle Cross Icon -->
-          <div class="rx-cross-icon">
-            <i class="fa-solid fa-plus"></i>
-          </div>
+            <!-- Main Right Rx Area -->
+            <div class="rx-right-main">
+              
+              <!-- Rx Symbol & Prescribed Medications Table -->
+              <div class="rx-symbol">Rx</div>
+              
+              <div class="rx-table-responsive overflow-x-auto w-full">
+                <table class="rx-meds-table w-full text-xs md:text-sm break-words whitespace-normal">
+                  <thead>
+                    <tr>
+                      <th>Prescribed Care & OTC Medication</th>
+                      <th>Dosage (M - A - N)</th>
+                      <th>Timing</th>
+                      <th>Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody id="rx-meds-tbody">
+                    <!-- Dynamically populated via app.js -->
+                  </tbody>
+                </table>
+              </div>
 
-          <!-- Right Hospital Info -->
-          <div class="rx-hosp-info">
-            <div class="rx-hosp-name">HOSPITAL NAME</div>
-            <div class="rx-hosp-sub">CARE WITH COMPASSION</div>
-            <div class="rx-hosp-detail">📍 123, Healthcare Street, Your City, State - 000123</div>
-            <div class="rx-hosp-detail">📞 +91 12345 67890</div>
-            <div class="rx-hosp-detail">✉️ info@hospitalname.com</div>
-          </div>
-        </div>
-
-        <!-- Patient Info Bar -->
-        <div class="rx-patient-bar w-full">
-          <div class="rx-patient-grid">
-            <div class="rx-patient-item"><strong>Patient Name :</strong> <input type="text" id="rx-p-name" placeholder="Type Patient Name..." class="rx-input-inline"></div>
-            <div class="rx-patient-item"><strong>Age :</strong> <input type="text" id="rx-p-age" placeholder="e.g. 25 Yrs" class="rx-input-inline-sm"></div>
-            <div class="rx-patient-item"><strong>Gender :</strong> <input type="text" id="rx-p-gender" placeholder="Male / Female" class="rx-input-inline-sm"></div>
-            <div class="rx-patient-item"><strong>Address :</strong> <input type="text" id="rx-p-address" placeholder="Enter City, State..." class="rx-input-inline-lg"></div>
-            <div class="rx-patient-item"><strong>Date :</strong> <span id="rx-p-date">25/07/2026</span></div>
-            <div class="rx-patient-item"><strong>Contact No. :</strong> <input type="text" id="rx-p-contact" placeholder="Phone Number..." class="rx-input-inline-md"></div>
-          </div>
-        </div>
-
-        <!-- Main Rx Content Box with Faint Background Watermark Cross -->
-        <div class="rx-body-box w-full">
-          
-          <!-- Left Column Sidebar -->
-          <div class="rx-left-sidebar">
-            <div class="rx-mp-watermark">
-              <span class="rx-mp-large">MP</span>
-              <span class="rx-mp-label">MEDICAL PRESCRIPTION</span>
-              <div class="rx-dots">• • •</div>
-            </div>
-            
-            <div class="rx-sidebar-section">
-              <div class="rx-section-label">Chief Symptoms:</div>
-              <div class="rx-symptoms-summary" id="rx-symptoms-summary">High Fever, Headache</div>
-            </div>
-
-            <div class="rx-sidebar-section">
-              <div class="rx-section-label">AI Diagnosis Match:</div>
-              <div class="rx-diagnosis-name" id="rx-diagnosis-name">Viral Fever Complex</div>
-            </div>
-
-            <div class="rx-sidebar-section">
-              <div class="rx-section-label">Triage Risk Category:</div>
-              <div class="rx-risk-badge" id="rx-risk-badge">Moderate Urgency</div>
-            </div>
-          </div>
-
-          <!-- Main Right Rx Area -->
-          <div class="rx-right-main">
-            
-            <!-- Rx Symbol & Prescribed Medications Table -->
-            <div class="rx-symbol">Rx</div>
-            
-            <div class="rx-table-responsive overflow-x-auto w-full">
-              <table class="rx-meds-table w-full text-xs md:text-sm break-words whitespace-normal">
-                <thead>
-                  <tr>
-                    <th>Prescribed Care & OTC Medication</th>
-                    <th>Dosage (M - A - N)</th>
-                    <th>Timing</th>
-                    <th>Duration</th>
-                  </tr>
-                </thead>
-                <tbody id="rx-meds-tbody">
+              <!-- Clinical Advice Section -->
+              <div class="rx-advice-container">
+                <div class="rx-advice-header">Clinical Advice & Patient Instructions:</div>
+                <ul class="rx-advice-ul" id="rx-advice-ul">
                   <!-- Dynamically populated via app.js -->
-                </tbody>
-              </table>
-            </div>
+                </ul>
+              </div>
 
-            <!-- Clinical Advice Section -->
-            <div class="rx-advice-container">
-              <div class="rx-advice-header">Clinical Advice & Patient Instructions:</div>
-              <ul class="rx-advice-ul" id="rx-advice-ul">
-                <!-- Dynamically populated via app.js -->
-              </ul>
-            </div>
+              <!-- Doctor Signature Block -->
+              <div class="rx-signature-block">
+                <div class="rx-sig-line"></div>
+                <div class="rx-sig-name">Dr. MediPulse AI</div>
+                <div class="rx-sig-reg">Reg. No. : 12345 (AI Verification ID)</div>
+              </div>
 
-            <!-- Doctor Signature Block -->
-            <div class="rx-signature-block">
-              <div class="rx-sig-line"></div>
-              <div class="rx-sig-name">Dr. MediPulse AI</div>
-              <div class="rx-sig-reg">Reg. No. : 12345 (AI Verification ID)</div>
             </div>
 
           </div>
 
-        </div>
+          <!-- Footer Contact & Operating Hours Bar -->
+          <div class="rx-footer-row">
+            <div class="rx-footer-item">
+              <i class="fa-solid fa-phone"></i>
+              <div>
+                <strong>+91 12345 67890</strong>
+                <div style="font-size: 0.75rem; color: #008b8b;">Emergency</div>
+              </div>
+            </div>
+            <div class="rx-footer-divider"></div>
+            <div class="rx-footer-item">
+              <i class="fa-solid fa-calendar-days"></i>
+              <div>
+                <strong>Book Appointment</strong>
+                <div style="font-size: 0.75rem; color: #008b8b;">www.hospitalname.com</div>
+              </div>
+            </div>
+            <div class="rx-footer-divider"></div>
+            <div class="rx-footer-item">
+              <i class="fa-solid fa-clock"></i>
+              <div>
+                <strong>Mon - Sat : 9:00 AM - 8:00 PM</strong>
+                <div style="font-size: 0.75rem; color: #008b8b;">Sunday : Emergency Only</div>
+              </div>
+            </div>
+          </div>
 
-        <!-- Footer Contact & Operating Hours Bar -->
-        <div class="rx-footer-row">
-          <div class="rx-footer-item">
-            <i class="fa-solid fa-phone"></i>
-            <div>
-              <strong>+91 12345 67890</strong>
-              <div style="font-size: 0.75rem; color: #008b8b;">Emergency</div>
+          <!-- Bottom Angular Accent Bar with ECG wave -->
+          <div class="rx-footer-banner">
+            <div class="rx-pulse-svg-center">
+              <svg viewBox="0 0 100 20" class="rx-ecg-wave-footer">
+                <path d="M0 10 L35 10 L40 2 L45 18 L50 6 L55 14 L60 10 L100 10" stroke="#00f2fe" stroke-width="2" fill="none" />
+              </svg>
             </div>
           </div>
-          <div class="rx-footer-divider"></div>
-          <div class="rx-footer-item">
-            <i class="fa-solid fa-calendar-days"></i>
-            <div>
-              <strong>Book Appointment</strong>
-              <div style="font-size: 0.75rem; color: #008b8b;">www.hospitalname.com</div>
-            </div>
-          </div>
-          <div class="rx-footer-divider"></div>
-          <div class="rx-footer-item">
-            <i class="fa-solid fa-clock"></i>
-            <div>
-              <strong>Mon - Sat : 9:00 AM - 8:00 PM</strong>
-              <div style="font-size: 0.75rem; color: #008b8b;">Sunday : Emergency Only</div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Bottom Angular Accent Bar with ECG wave -->
-        <div class="rx-footer-banner">
-          <div class="rx-pulse-svg-center">
-            <svg viewBox="0 0 100 20" class="rx-ecg-wave-footer">
-              <path d="M0 10 L35 10 L40 2 L45 18 L50 6 L55 14 L60 10 L100 10" stroke="#00f2fe" stroke-width="2" fill="none" />
-            </svg>
-          </div>
         </div>
 
       </div>
 
-      <!-- Bottom Action Toolbar (No-Print) for easy access on mobile -->
-      <div class="prescription-toolbar rx-toolbar-bottom no-print w-full flex justify-between gap-2 mt-3 mb-4">
-        <button class="btn btn-primary" onclick="printPrescription()">
-          <i class="fa-solid fa-print"></i> <span>Print / Save PDF Prescription</span>
-        </button>
-        <button class="btn btn-secondary" onclick="closePrescriptionModal()">
-          <i class="fa-solid fa-xmark"></i> <span>Close</span>
-        </button>
+      <!-- Bottom Action Toolbar (No-Print) for easy mobile navigation -->
+      <div class="prescription-toolbar rx-toolbar-bottom no-print w-full flex flex-wrap justify-between items-center gap-2 mt-3 mb-4">
+        <div class="rx-zoom-controls">
+          <button class="btn-zoom" onclick="zoomPrescription(-0.1)" title="Zoom Out (-)">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <span class="rx-zoom-badge" id="rx-zoom-badge-bottom" onclick="resetPrescriptionZoom()" title="Click to Reset / Fit Screen">100%</span>
+          <button class="btn-zoom" onclick="zoomPrescription(0.1)" title="Zoom In (+)">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="btn-zoom btn-zoom-fit" onclick="resetPrescriptionZoom()" title="Fit to Mobile Screen">
+            <i class="fa-solid fa-expand"></i> <span>Fit</span>
+          </button>
+        </div>
+
+        <div class="rx-toolbar-left flex gap-2 items-center">
+          <button class="btn btn-primary" onclick="printPrescription()">
+            <i class="fa-solid fa-print"></i> <span>Print / Save PDF</span>
+          </button>
+          <button class="btn btn-secondary" onclick="closePrescriptionModal()">
+            <i class="fa-solid fa-xmark"></i> <span>Close</span>
+          </button>
+        </div>
       </div>
 
     </div>

@@ -1661,6 +1661,12 @@ async function generatePrescription() {
 
   // Display Modal immediately
   document.getElementById('prescription-modal').style.display = 'flex';
+  
+  // Auto-fit A4 Prescription to Mobile Viewport & Init Touch Gestures
+  setTimeout(() => {
+    resetPrescriptionZoom();
+    initPrescriptionTouchZoom();
+  }, 50);
 
   // Fetch dynamic disease-specific prescription from backend API
   try {
@@ -1770,6 +1776,87 @@ function getClientDiseaseFallbackPrescription(condition, symptoms, lang) {
     ]
   };
 }
+
+// A4 Prescription Interactive Zoom & Touch Controller
+let rxZoomScale = 1.0;
+
+function zoomPrescription(delta) {
+  rxZoomScale = Math.min(Math.max(0.4, rxZoomScale + delta), 2.5);
+  applyPrescriptionZoom();
+}
+
+function resetPrescriptionZoom() {
+  const paper = document.getElementById('prescription-paper');
+  const wrapper = document.getElementById('rx-viewport-wrapper');
+  if (!paper || !wrapper) return;
+
+  if (window.innerWidth <= 768) {
+    const wrapperWidth = wrapper.clientWidth - 12;
+    const baseWidth = 794;
+    rxZoomScale = Math.min(1.0, Math.max(0.35, wrapperWidth / baseWidth));
+  } else {
+    rxZoomScale = 1.0;
+  }
+  applyPrescriptionZoom();
+}
+
+function applyPrescriptionZoom() {
+  const paper = document.getElementById('prescription-paper');
+  const badgeTop = document.getElementById('rx-zoom-badge-top');
+  const badgeBottom = document.getElementById('rx-zoom-badge-bottom');
+  if (!paper) return;
+
+  const pct = Math.round(rxZoomScale * 100) + '%';
+  if (badgeTop) badgeTop.textContent = pct;
+  if (badgeBottom) badgeBottom.textContent = pct;
+
+  paper.style.transform = `scale(${rxZoomScale})`;
+  paper.style.transformOrigin = 'top center';
+}
+
+function initPrescriptionTouchZoom() {
+  const wrapper = document.getElementById('rx-viewport-wrapper');
+  if (!wrapper || wrapper.dataset.zoomInitialized) return;
+  wrapper.dataset.zoomInitialized = 'true';
+
+  let initialDistance = 0;
+  let initialScale = 1.0;
+
+  wrapper.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+      initialDistance = Math.hypot(
+        e.touches[0].pageX - e.touches[1].pageX,
+        e.touches[0].pageY - e.touches[1].pageY
+      );
+      initialScale = rxZoomScale;
+    }
+  }, { passive: true });
+
+  wrapper.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2 && initialDistance > 0) {
+      const currentDistance = Math.hypot(
+        e.touches[0].pageX - e.touches[1].pageX,
+        e.touches[0].pageY - e.touches[1].pageY
+      );
+      const factor = currentDistance / initialDistance;
+      rxZoomScale = Math.min(Math.max(0.35, initialScale * factor), 2.5);
+      applyPrescriptionZoom();
+    }
+  }, { passive: true });
+
+  wrapper.addEventListener('touchend', (e) => {
+    if (e.touches.length < 2) {
+      initialDistance = 0;
+    }
+  }, { passive: true });
+}
+
+window.addEventListener('resize', () => {
+  const modal = document.getElementById('prescription-modal');
+  if (modal && modal.style.display !== 'none') {
+    resetPrescriptionZoom();
+  }
+});
 
 function printPrescription() {
   window.print();
