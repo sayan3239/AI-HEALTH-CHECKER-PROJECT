@@ -697,11 +697,11 @@
     </div>
   </footer>
   <!-- MEDICAL PRESCRIPTION MODAL (Matching prescription2.png 1:1) -->
-  <div class="prescription-modal-overlay" id="prescription-modal" style="display: none;">
-    <div class="prescription-modal-container">
+  <div class="prescription-modal-overlay w-full overflow-x-hidden px-3 py-4" id="prescription-modal" style="display: none;">
+    <div class="prescription-modal-container w-full max-w-lg md:max-w-4xl mx-auto">
       
       <!-- Top Action Toolbar (No-Print) -->
-      <div class="prescription-toolbar no-print">
+      <div class="prescription-toolbar rx-toolbar-top no-print w-full flex justify-between gap-2 mb-3">
         <button class="btn btn-primary" onclick="printPrescription()">
           <i class="fa-solid fa-print"></i> <span>Print / Save PDF Prescription</span>
         </button>
@@ -711,7 +711,7 @@
       </div>
 
       <!-- Printable Prescription Document Container (Single Page Document) -->
-      <div class="prescription-paper" id="prescription-paper">
+      <div class="prescription-paper w-full max-w-full overflow-hidden" id="prescription-paper">
         
         <!-- Header Banner with Dark Teal Styling & Pulse Graph -->
         <div class="rx-header-banner">
@@ -755,21 +755,19 @@
         </div>
 
         <!-- Patient Info Bar -->
-        <div class="rx-patient-bar">
+        <div class="rx-patient-bar w-full">
           <div class="rx-patient-grid">
-            <div><strong>Patient Name :</strong> <input type="text" id="rx-p-name" placeholder="Type Patient Name..." class="rx-input-inline"></div>
-            <div><strong>Age :</strong> <input type="text" id="rx-p-age" placeholder="e.g. 25 Yrs" class="rx-input-inline-sm"></div>
-            <div><strong>Gender :</strong> <input type="text" id="rx-p-gender" placeholder="Male / Female" class="rx-input-inline-sm"></div>
-          </div>
-          <div class="rx-patient-grid" style="margin-top: 0.5rem;">
-            <div><strong>Address :</strong> <input type="text" id="rx-p-address" placeholder="Enter City, State..." class="rx-input-inline-lg"></div>
-            <div><strong>Date :</strong> <span id="rx-p-date">25/07/2026</span></div>
-            <div><strong>Contact No. :</strong> <input type="text" id="rx-p-contact" placeholder="Phone Number..." class="rx-input-inline-md"></div>
+            <div class="rx-patient-item"><strong>Patient Name :</strong> <input type="text" id="rx-p-name" placeholder="Type Patient Name..." class="rx-input-inline"></div>
+            <div class="rx-patient-item"><strong>Age :</strong> <input type="text" id="rx-p-age" placeholder="e.g. 25 Yrs" class="rx-input-inline-sm"></div>
+            <div class="rx-patient-item"><strong>Gender :</strong> <input type="text" id="rx-p-gender" placeholder="Male / Female" class="rx-input-inline-sm"></div>
+            <div class="rx-patient-item"><strong>Address :</strong> <input type="text" id="rx-p-address" placeholder="Enter City, State..." class="rx-input-inline-lg"></div>
+            <div class="rx-patient-item"><strong>Date :</strong> <span id="rx-p-date">25/07/2026</span></div>
+            <div class="rx-patient-item"><strong>Contact No. :</strong> <input type="text" id="rx-p-contact" placeholder="Phone Number..." class="rx-input-inline-md"></div>
           </div>
         </div>
 
         <!-- Main Rx Content Box with Faint Background Watermark Cross -->
-        <div class="rx-body-box">
+        <div class="rx-body-box w-full">
           
           <!-- Left Column Sidebar -->
           <div class="rx-left-sidebar">
@@ -801,19 +799,21 @@
             <!-- Rx Symbol & Prescribed Medications Table -->
             <div class="rx-symbol">Rx</div>
             
-            <table class="rx-meds-table">
-              <thead>
-                <tr>
-                  <th>Prescribed Care & OTC Medication</th>
-                  <th>Dosage (M - A - N)</th>
-                  <th>Timing</th>
-                  <th>Duration</th>
-                </tr>
-              </thead>
-              <tbody id="rx-meds-tbody">
-                <!-- Dynamically populated via app.js -->
-              </tbody>
-            </table>
+            <div class="rx-table-responsive overflow-x-auto w-full">
+              <table class="rx-meds-table w-full text-xs md:text-sm break-words whitespace-normal">
+                <thead>
+                  <tr>
+                    <th>Prescribed Care & OTC Medication</th>
+                    <th>Dosage (M - A - N)</th>
+                    <th>Timing</th>
+                    <th>Duration</th>
+                  </tr>
+                </thead>
+                <tbody id="rx-meds-tbody">
+                  <!-- Dynamically populated via app.js -->
+                </tbody>
+              </table>
+            </div>
 
             <!-- Clinical Advice Section -->
             <div class="rx-advice-container">
@@ -870,6 +870,16 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- Bottom Action Toolbar (No-Print) for easy access on mobile -->
+      <div class="prescription-toolbar rx-toolbar-bottom no-print w-full flex justify-between gap-2 mt-3 mb-4">
+        <button class="btn btn-primary" onclick="printPrescription()">
+          <i class="fa-solid fa-print"></i> <span>Print / Save PDF Prescription</span>
+        </button>
+        <button class="btn btn-secondary" onclick="closePrescriptionModal()">
+          <i class="fa-solid fa-xmark"></i> <span>Close</span>
+        </button>
       </div>
 
     </div>
